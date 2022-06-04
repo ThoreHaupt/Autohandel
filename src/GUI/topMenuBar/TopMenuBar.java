@@ -1,5 +1,6 @@
 package GUI.topMenuBar;
 
+//import flatleaf;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -37,7 +38,7 @@ public class TopMenuBar extends JPanel {
         String defaultText = c.lc.s("search database");
         panel.setMinimumSize(new DimensionUIResource(500, 500));
         JTextField textField = new JTextField(30);
-        textField.setFont(font);
+        // textField.setFont(font);
         // textField.setSize(new DimensionUIResource(500, 90));
         textField.setText(defaultText);
         textField.setEditable(true);
@@ -60,7 +61,6 @@ public class TopMenuBar extends JPanel {
         });
 
         JButton searchButton = new JButton(c.lc.s("Go"));
-        searchButton.setBackground(new Color(255, 0, 0));
         // searchButton.setBorder(BorderFactory.createEmptyBorder());
         ActionListener actionListener = new ActionListener() {
 
@@ -76,7 +76,6 @@ public class TopMenuBar extends JPanel {
         searchButton.addActionListener(actionListener);
         textField.addActionListener(actionListener);
 
-        // AutoCompleteDecorator decorator;
         panel.add(textField);
         panel.add(searchButton);
         panel.setBackground(new Color(255, 255, 255));

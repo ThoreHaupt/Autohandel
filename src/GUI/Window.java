@@ -1,7 +1,8 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
+
+import com.formdev.flatlaf.FlatLightLaf;
 
 import java.awt.*;
 
@@ -14,10 +15,12 @@ public class Window extends JFrame {
     Container ContentPane;
 
     public Window(Controller controller, UIController UIcontroller) {
+
         this.UIcontroller = UIcontroller;
         this.controller = controller;
         ContentPane = this.getContentPane();
         ContentPane.add(createWindow());
+
         setBasics("test");
     }
 
@@ -26,6 +29,8 @@ public class Window extends JFrame {
 
         TopMenuBar menu = new TopMenuBar(controller, UIcontroller);
         panel.add(menu, BorderLayout.NORTH);
+
+        panel.add(new JComboBox<String>(), BorderLayout.SOUTH);
         panel.setBackground(new Color(255, 255, 255));
         return panel;
     }
@@ -33,7 +38,7 @@ public class Window extends JFrame {
     private void setBasics(String windowTitle) {
         this.setTitle(windowTitle);
         this.setSize(1000, 500);
-        this.setBackground(new Color(1, 1, 1));
+        // this.setBackground(new Color(1, 1, 1));
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

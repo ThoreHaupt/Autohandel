@@ -1,5 +1,7 @@
 package GUI;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import Controller.Controller;
 
 public class UIController {
@@ -9,6 +11,7 @@ public class UIController {
     int windowheight;
 
     public static void main(String[] args) {
+        FlatLightLaf.setup();
         new UIController(new Controller());
     }
 
