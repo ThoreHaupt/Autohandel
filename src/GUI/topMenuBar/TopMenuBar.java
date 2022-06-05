@@ -32,7 +32,7 @@ public class TopMenuBar extends JPanel {
                 UIcontroller.setWindowContent("store");
             }
 
-        }), new Dimension(200, 40));
+        }, new Dimension(200, 40)));
         this.add(new Searchbar(c, UIcontroller));
         this.add(new ImageButton("resources/GUI_images/basket.png", new ActionListener() {
 
@@ -41,10 +41,10 @@ public class TopMenuBar extends JPanel {
                 UIcontroller.setWindowContent("cart");
             }
 
-        }));
+        }, new Dimension(50, 40)));
 
         setBackground(new Color(255, 255, 255));
-        setMinimumSize(new Dimension(0, 100));
+        // setMinimumSize(new Dimension(0, 100));
     }
 
 }

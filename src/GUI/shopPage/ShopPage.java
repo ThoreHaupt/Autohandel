@@ -10,7 +10,7 @@ public class ShopPage extends JPanel {
      * 
      */
     public ShopPage() {
-        this.setLayout(new BorderLayout());
+        this.setLayout(new GridLayout());
         // this.add();
     }
 

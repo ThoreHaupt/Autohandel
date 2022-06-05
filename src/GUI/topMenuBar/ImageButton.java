@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class ImageButton extends JButton {
     public ImageButton(String image_path, ActionListener l) {
-        createButton(image_path, l, new Dimension(50, 40));
+        createButton(image_path, l, new Dimension(200, 40));
     }
 
     public ImageButton(String image_path, ActionListener l, Dimension n) {
