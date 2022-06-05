@@ -1,4 +1,4 @@
-package GUI.topMenuBar;
+package lib.uiComponents;
 
 import javax.swing.*;
 import java.awt.event.*;

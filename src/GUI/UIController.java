@@ -17,7 +17,7 @@ public class UIController {
     /**
      * @return the backGroudnColor
      */
-    public Color getBackGroudnColor() {
+    public Color getBackGroundColor() {
         return backGroudnColor;
     }
 

@@ -26,7 +26,7 @@ public class Window extends JFrame {
 
         TopMenuBar menu = new TopMenuBar(controller, UIcontroller);
         panel.add(menu);
-        panel.setBackground(UIcontroller.getBackGroudnColor());
+        panel.setBackground(UIcontroller.getBackGroundColor());
         return panel;
     }
 

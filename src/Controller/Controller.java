@@ -17,4 +17,7 @@ public class Controller {
     public String[] searchDatabase(String string, int i) {
         return new String[] { "a", "b" };
     }
+
+    public void setLanguage(Object selectedItem) {
+    }
 }
