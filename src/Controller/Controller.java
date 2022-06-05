@@ -8,8 +8,13 @@ public class Controller {
         lc = new LocalizationController();
     }
 
-    public void searchShop(String string) {
+    public void openSearchQuerey(String string) {
+        System.out.println("searching with" + string);
     }
     // start Modell
     // init GUI
+
+    public String[] searchDatabase(String string, int i) {
+        return new String[] { "a", "b" };
+    }
 }

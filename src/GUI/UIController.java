@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.Color;
+
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Controller.Controller;
@@ -9,6 +11,15 @@ public class UIController {
     Window window;
     int windowWidth;
     int windowheight;
+
+    Color backGroudnColor = new Color(255, 255, 255);
+
+    /**
+     * @return the backGroudnColor
+     */
+    public Color getBackGroudnColor() {
+        return backGroudnColor;
+    }
 
     public static void main(String[] args) {
         FlatLightLaf.setup();
@@ -36,5 +47,9 @@ public class UIController {
             default:
                 break;
         }
+    }
+
+    public Color getBackgroundcolor() {
+        return null;
     }
 }

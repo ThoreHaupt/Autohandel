@@ -1,9 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-
-import com.formdev.flatlaf.FlatLightLaf;
-
 import java.awt.*;
 
 import Controller.Controller;
@@ -25,13 +22,11 @@ public class Window extends JFrame {
     }
 
     private JPanel createWindow() {
-        JPanel panel = new JPanel(new BorderLayout());
+        JPanel panel = new JPanel(); // new GridLayout(2, 1)
 
         TopMenuBar menu = new TopMenuBar(controller, UIcontroller);
-        panel.add(menu, BorderLayout.NORTH);
-
-        panel.add(new JComboBox<String>(), BorderLayout.SOUTH);
-        panel.setBackground(new Color(255, 255, 255));
+        panel.add(menu);
+        panel.setBackground(UIcontroller.getBackGroudnColor());
         return panel;
     }
 
