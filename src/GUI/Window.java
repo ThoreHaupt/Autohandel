@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
+
 import java.awt.*;
 
 import Controller.Controller;
@@ -23,8 +25,7 @@ public class Window extends JFrame {
 
     private JPanel createWindow() {
         JPanel panel = new JPanel(); // new GridLayout(2, 1)
-
-        TopMenuBar menu = new TopMenuBar(controller, UIcontroller);
+        TopMenuBar menu = new TopMenuBar(controller, UIcontroller, new Dimension(this.getWidth(), 60));
         panel.add(menu);
         panel.setBackground(UIcontroller.getBackGroundColor());
         return panel;

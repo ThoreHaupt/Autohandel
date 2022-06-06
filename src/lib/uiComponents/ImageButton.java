@@ -17,8 +17,8 @@ public class ImageButton extends JButton {
         ImageIcon buttonIcon = new ImageIcon(image_path);
         setIcon(buttonIcon);
         setPreferredSize(n);
-        setBorder(BorderFactory.createEmptyBorder());
-        setContentAreaFilled(false);
+        // setBorder(BorderFactory.createEmptyBorder());
+        // setContentAreaFilled(false);
         addActionListener(l);
     }
 }

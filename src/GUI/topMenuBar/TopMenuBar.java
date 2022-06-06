@@ -15,36 +15,40 @@ public class TopMenuBar extends JPanel {
     Controller c;
     UIController UIcontroller;
 
-    int min_Height = 80;
+    int min_Height = 50;
+    int width;
+    int componentWidth = 0;
 
     /**
      * 
      */
-    public TopMenuBar(Controller controller, UIController UIcontroller) {
+    public TopMenuBar(Controller controller, UIController uiController, Dimension dim) {
         super(new FlowLayout());
         this.c = controller;
-        this.UIcontroller = UIcontroller;
+        this.UIcontroller = uiController;
+        this.min_Height = dim.height;
+        this.width = dim.width;
 
         this.add(new ImageButton("resources/GUI_images/CarImage2.png", new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIcontroller.setWindowContent("store");
+                uiController.setWindowContent("store");
             }
 
-        }, new Dimension(200, min_Height)));
+        }, new Dimension(130, min_Height)));
 
-        Component fillComponent = Box.createRigidArea(new Dimension(200, min_Height));
-        fillComponent.setBackground(UIcontroller.getBackGroundColor());
-        this.add(fillComponent);
+        this.add(new rigitFreeSpace(UIcontroller, new Dimension(200, min_Height)));
 
-        this.add(new Searchbar(c, UIcontroller));
+        this.add(new Searchbar(c, uiController));
+
+        this.add(new rigitFreeSpace(UIcontroller, new Dimension(70, min_Height)));
 
         this.add(new ImageButton("resources/GUI_images/basket.png", new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIcontroller.setWindowContent("cart");
+                uiController.setWindowContent("cart");
             }
 
         }, new Dimension(50, min_Height)));
@@ -53,22 +57,29 @@ public class TopMenuBar extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIcontroller.setWindowContent("userProfile");
+                uiController.setWindowContent("userProfile");
             }
 
         }, new Dimension(50, min_Height)));
 
-        this.add(new ImageComboBox("resources/GUI_images/basket.png", new ActionListener() {
+        this.add(new ImageComboBox(uiController, new String[] { "resources/GUI_images/IconUS.png",
+                "resources/GUI_images/IconGer.png" }, new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.setLanguage(((ImageComboBox) e.getSource()).getSelectedIndex());
-            }
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        controller.setLanguage(((ImageComboBox) e.getSource()).getSelectedIndex());
+                    }
 
-        }, new Dimension(50, min_Height)));
+                }, new Dimension(60, min_Height)));
 
-        setBackground(UIcontroller.getBackGroundColor());
+        setBackground(uiController.getBackGroundColor());
         setMinimumSize(new Dimension(0, min_Height));
+    }
+
+    public Component addReal(Component c) {
+        super.add(c);
+        componentWidth += c.getWidth();
+        return c;
     }
 
 }
