@@ -73,7 +73,7 @@ public class TopMenuBar extends JPanel {
                 }, new Dimension(60, min_Height)));
 
         setBackground(uiController.getBackGroundColor());
-        setMinimumSize(new Dimension(0, min_Height));
+        setPreferredSize(new Dimension(0, min_Height));
     }
 
     public Component addReal(Component c) {
