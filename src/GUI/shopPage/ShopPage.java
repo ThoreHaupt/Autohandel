@@ -18,7 +18,10 @@ public class ShopPage extends JPanel {
     }
 
     public void createShopPage() {
-        add(new pageSideHideMenu(200));
+        pageSideHideMenu menuObject = new pageSideHideMenu(200);
+        JPanel mainPanel = menuObject.getMainPage();
+        add(menuObject);
+        mainPanel.add(new Label("hahahha"));
     }
 
 }

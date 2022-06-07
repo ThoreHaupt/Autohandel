@@ -44,19 +44,20 @@ public class pageSideHideMenu extends JPanel {
         }, new Dimension(60, 60));
 
         // menuButton.setBorder(new RoundedBorder(15));
-        menuButton.setBackground(new Color(0, 255, 255));
+        // menuButton.setBackground(new Color(0, 255, 255));
 
         // puts ImageButton in top left Corner, right next to the ede to the menu
         JPanel mask = new JPanel();
-        mask.setBackground(new Color(0, 0, 250));
-        // mask.setOpaque(true);
+        // mask.setBackground(new Color(0, 0, 250));
+        mask.setOpaque(true);
         mask.setLayout(new BorderLayout());
 
         JPanel mask2 = new JPanel();
         mask2.setLayout(new BorderLayout());
         mask2.add(menuButton, BorderLayout.NORTH);
+        mask2.setOpaque(true);
         mask2.setMaximumSize(new Dimension(60, 10000));
-        mask2.setBackground(new Color(0, 255, 0));
+        // mask2.setBackground(new Color(0, 255, 0));
 
         mask.add(mask2, BorderLayout.WEST);
 

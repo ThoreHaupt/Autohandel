@@ -26,7 +26,7 @@ public class Window extends JFrame {
 
     private JPanel createWindow() {
         JPanel panel = new JPanel(new BorderLayout());
-        TopMenuBar menu = new TopMenuBar(controller, UIcontroller, new Dimension(this.getWidth(), 80));
+        TopMenuBar menu = new TopMenuBar(controller, UIcontroller, new Dimension(this.getWidth(), 60));
         panel.add(menu, BorderLayout.NORTH);
 
         panel.add(new ShopPage(), BorderLayout.CENTER);
