@@ -2,23 +2,23 @@ package lib.uiComponents;
 
 import java.awt.*;
 
-import javax.swing.Box;
-import javax.swing.JPanel;
-
-import GUI.UIController;
+import javax.swing.*;
 
 public class rigitFreeSpace extends JPanel {
-    UIController uiController;
+    Color color;
 
-    public rigitFreeSpace(UIController c, Dimension d) {
-        uiController = c;
+    public rigitFreeSpace(Color c, Dimension d) {
+        color = c;
+        if (c == null) {
+            setOpaque(false);
+        }
         addRigitComponent(d);
     }
 
     public void addRigitComponent(Dimension d) {
         Component fillComponent = Box.createRigidArea(d);
-        fillComponent.setBackground(uiController.getBackGroundColor());
-        this.setBackground(uiController.getBackGroundColor());
+        fillComponent.setBackground(color);
+        this.setBackground(color);
         this.add(fillComponent);
     }
 

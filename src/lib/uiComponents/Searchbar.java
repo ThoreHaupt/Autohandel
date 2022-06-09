@@ -23,7 +23,7 @@ public class Searchbar extends JPanel {
         searchButton.addActionListener(WSB.getActionListener());
         searchButton.setMinimumSize(new Dimension(40, height));
         add(searchButton);
-        setBackground(uiController.getBackgroundcolor());
+        setBackground(uiController.getDefaultUIColor());
     }
 
     class WrittenSearchbar extends JComboBox<String> {
@@ -101,7 +101,7 @@ public class Searchbar extends JPanel {
                 }
             });
             this.remove(this.getComponent(0));
-            setBackground(new Color(255, 255, 255));
+            setBackground(uiController.getDefaultUIColor());
         }
 
         public void setContents(String[] suggestions) {

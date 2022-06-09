@@ -1,6 +1,9 @@
 package lib.uiComponents;
 
 import javax.swing.*;
+import javax.swing.plaf.ColorUIResource;
+
+import lib.technicalComponents.transparentPane;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,28 +15,30 @@ public class pageSideHideMenu extends JPanel {
     private JPanel hiddenMainPage;
 
     private ImageButton menuButton;
+    private int buttonSize = 30;
 
     private boolean isExtended = false;
 
-    public pageSideHideMenu(int menuHorizontalSize) {
+    public pageSideHideMenu(JPanel mainPage, JPanel sideMenu, int menuHorizontalSize) {
         this.maxMenuSize = menuHorizontalSize;
+        this.sideMenu = sideMenu;
+        this.mainPage = mainPage;
         createPanel();
 
     }
 
     public void createPanel() {
-        sideMenu = new JPanel();
-        sideMenu.setBackground(new Color(255, 0, 0));
+
+        setLayout(new BorderLayout());
+
         sideMenu.setMaximumSize(new Dimension(maxMenuSize, 50000));
         sideMenu.setPreferredSize(new Dimension(maxMenuSize, 1000));
 
         hiddenMainPage = new JPanel();
-        mainPage = new JPanel();
-        mainPage.setBackground(new Color(255, 255, 0));
-
-        setLayout(new BorderLayout());
         hiddenMainPage.setLayout(new BorderLayout());
+        hiddenMainPage.setOpaque(false);
 
+        // Button to extend the left Menu
         menuButton = new ImageButton("resources/GUI_images/menuSideButton.png", new ActionListener() {
 
             @Override
@@ -41,29 +46,36 @@ public class pageSideHideMenu extends JPanel {
                 setSideVisibility(!isExtended);
             }
 
-        }, new Dimension(60, 60));
-
-        // menuButton.setBorder(new RoundedBorder(15));
-        // menuButton.setBackground(new Color(0, 255, 255));
+        }, new Dimension(buttonSize, buttonSize));
 
         // puts ImageButton in top left Corner, right next to the ede to the menu
-        JPanel mask = new JPanel();
-        // mask.setBackground(new Color(0, 0, 250));
-        mask.setOpaque(true);
+        transparentPane mask = new transparentPane();
         mask.setLayout(new BorderLayout());
+        mask.setOpaque(false);
 
-        JPanel mask2 = new JPanel();
+        transparentPane mask2 = new transparentPane();
         mask2.setLayout(new BorderLayout());
-        mask2.add(menuButton, BorderLayout.NORTH);
-        mask2.setOpaque(true);
+        mask2.setOpaque(false);
+
+        transparentPane mask3 = new transparentPane();
+        mask3.setLayout(new GridLayout(2, 1));
+        mask3.setOpaque(false);
+
+        mask3.add(new rigitFreeSpace(null, new Dimension(buttonSize, 10)));
+        mask3.add(menuButton);
+        mask2.add(mask3, BorderLayout.NORTH);
+
         mask2.setMaximumSize(new Dimension(60, 10000));
-        // mask2.setBackground(new Color(0, 255, 0));
 
         mask.add(mask2, BorderLayout.WEST);
 
         hiddenMainPage.add(mainPage, BorderLayout.CENTER);
-        hiddenMainPage.add(mask, BorderLayout.CENTER);
-        hiddenMainPage.setBackground(new Color(100, 100, 100));
+        hiddenMainPage.add(mask, BorderLayout.WEST);
+
+        transparentPane testPane = new transparentPane();
+        testPane.setOpaque(true);
+        testPane.setBackground(new Color(255, 255, 255, 0));
+        // hiddenMainPage.add(testPane, BorderLayout.WEST);
         add(hiddenMainPage);
     }
 

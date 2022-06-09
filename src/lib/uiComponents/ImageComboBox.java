@@ -39,7 +39,7 @@ public class ImageComboBox extends JComboBox<ImageIcon> {
         this.setPreferredSize(n);
         this.setSelectedIndex(0);
         setBackground(uiController.getBackGroundColor());
-        setBorder(BorderFactory.createEmptyBorder());
+        // setBorder(BorderFactory.createEmptyBorder());
 
     }
 

@@ -2,7 +2,7 @@ package GUI;
 
 import java.awt.Color;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 
 import Controller.Controller;
 
@@ -22,7 +22,7 @@ public class UIController {
     }
 
     public static void main(String[] args) {
-        FlatLightLaf.setup();
+        FlatDarkLaf.setup();
         new UIController(new Controller());
     }
 
@@ -49,7 +49,11 @@ public class UIController {
         }
     }
 
-    public Color getBackgroundcolor() {
+    public Color getDefaultUIColor() {
+        return null;
+    }
+
+    public Color getDefaultBackgroundcolor() {
         return null;
     }
 }

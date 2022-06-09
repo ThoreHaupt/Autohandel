@@ -20,4 +20,10 @@ public class Controller {
 
     public void setLanguage(Object selectedItem) {
     }
+
+    public String[] getLanuguageImageArray() {
+        String[] s = new String[] { "resources/GUI_images/IconUS_transparent.png",
+                "resources/GUI_images/IconGer_transparent.png" };
+        return s;
+    }
 }

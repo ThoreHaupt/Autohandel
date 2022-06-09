@@ -1,7 +1,6 @@
 package GUI.shopPage;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import lib.uiComponents.pageSideHideMenu;
 
@@ -18,10 +17,16 @@ public class ShopPage extends JPanel {
     }
 
     public void createShopPage() {
-        pageSideHideMenu menuObject = new pageSideHideMenu(200);
-        JPanel mainPanel = menuObject.getMainPage();
-        add(menuObject);
-        mainPanel.add(new Label("hahahha"));
+        add(new pageSideHideMenu(createMainPage(), createSideMenu(), 200));
     }
 
+    public JPanel createMainPage() {
+        JPanel panel = new JPanel();
+        panel.add(new JTextField("hahahha"));
+        return panel;
+    }
+
+    public JPanel createSideMenu() {
+        return new JPanel();
+    }
 }

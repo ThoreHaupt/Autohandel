@@ -13,6 +13,14 @@ public class prewrittenTextField {
 
     Controller c;
 
+    /**
+     * @param c
+     */
+    public prewrittenTextField(Controller c) {
+        this.c = c;
+        createSearchBar();
+    }
+
     private JPanel createSearchBar() {
         JPanel panel = new JPanel();
         Font font = new Font("SANS_SERIF", Font.PLAIN, 18);
@@ -62,8 +70,6 @@ public class prewrittenTextField {
             }
 
         });
-
-        panel.setBackground(new Color(255, 255, 255));
         return panel;
     }
 }
