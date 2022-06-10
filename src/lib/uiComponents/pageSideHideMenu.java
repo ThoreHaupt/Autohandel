@@ -1,7 +1,6 @@
 package lib.uiComponents;
 
 import javax.swing.*;
-import javax.swing.plaf.ColorUIResource;
 
 import lib.technicalComponents.transparentPane;
 
