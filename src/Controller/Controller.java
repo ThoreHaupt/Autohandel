@@ -1,18 +1,24 @@
 package Controller;
 
+import GUI.UIController;
+import Model.Model;
+import Model.ModelComponentes.CarOption;
+
 public class Controller {
 
     public LocalizationController lc;
+    private UIController uiController;
+    private Model model;
 
     public Controller() {
+        model = new Model();
         lc = new LocalizationController();
+        uiController = new UIController(this);
     }
 
     public void openSearchQuerey(String string) {
         System.out.println("searching with" + string);
     }
-    // start Modell
-    // init GUI
 
     public String[] searchDatabase(String string, int i) {
         return new String[] { "a", "b" };
@@ -25,5 +31,12 @@ public class Controller {
         String[] s = new String[] { "resources/GUI_images/IconUS_transparent.png",
                 "resources/GUI_images/IconGer_transparent.png" };
         return s;
+    }
+
+    public UIController getUIController() {
+        return uiController;
+    }
+
+    public void addToCart(CarOption car) {
     }
 }

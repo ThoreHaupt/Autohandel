@@ -15,11 +15,15 @@ public class CarOption {
         return imagePath;
     }
 
-    public String getInformationText() {
+    public String getShortInformationText() {
         return "es git momentan noch keine Textfunktion... \n \n \n aber das ist kein Problem.";
     }
 
     public String getPriceString() {
         return "" + price;
+    }
+
+    public String getExtensiveInformationText() {
+        return null;
     }
 }
