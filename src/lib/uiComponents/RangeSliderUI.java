@@ -18,13 +18,14 @@ public class RangeSliderUI extends BasicSliderUI {
 
     @Override
     public void calculateThumbSize() {
-        super.calculateThumbSize();
         upperThumbRect.setBounds(thumbRect);
+        super.calculateThumbSize();
     }
 
     @Override
     public void calculateThumbLocation() {
         super.calculateThumbLocation();
+
         if (slider.getSnapToTicks()) {
             int sliderValue = slider.getValue();
             int snappedValue = sliderValue;
@@ -50,16 +51,33 @@ public class RangeSliderUI extends BasicSliderUI {
         }
 
         if (slider.getOrientation() == JSlider.HORIZONTAL) {
-            int valuePosition = xPositionForValue(slider.getValue());
+            int valueUpperPosition = xPositionForValue(slider.getValue());
 
-            upperThumbRect.x = valuePosition - (upperThumbRect.width / 2);
+            upperThumbRect.x = valueUpperPosition - (upperThumbRect.width / 2);
             upperThumbRect.y = trackRect.y;
         } else {
-            int valuePosition = yPositionForValue(slider.getValue());
+            int valueUpperPosition = yPositionForValue(slider.getValue());
 
             upperThumbRect.x = trackRect.x;
-            upperThumbRect.y = valuePosition - (upperThumbRect.height / 2);
+            upperThumbRect.y = valueUpperPosition - (upperThumbRect.height / 2);
         }
+    }
+
+    // FOr whatever erason the method is private, so I copied the code
+    public int getTickSpacing() {
+        int majorTickSpacing = slider.getMajorTickSpacing();
+        int minorTickSpacing = slider.getMinorTickSpacing();
+
+        int result;
+
+        if (minorTickSpacing > 0) {
+            result = minorTickSpacing;
+        } else if (majorTickSpacing > 0) {
+            result = majorTickSpacing;
+        } else {
+            result = 0;
+        }
+        return result;
     }
 
 }
