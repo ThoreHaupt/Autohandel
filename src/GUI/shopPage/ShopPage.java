@@ -36,9 +36,9 @@ public class ShopPage extends JPanel {
 
         JScrollPane thisScrollPanel = new JScrollPane(backPanel);
 
-        backPanel.add(new ShopEntry(uiController, new CarOption()));
-        backPanel.add(new ShopEntry(uiController, new CarOption()));
-        backPanel.add(new ShopEntry(uiController, new CarOption()));
+        backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
+        backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
+        backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
         backPanel.add(Box.createVerticalGlue());
 
         JPanel returnPanel = new JPanel();

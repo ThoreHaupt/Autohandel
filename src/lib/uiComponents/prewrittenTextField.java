@@ -8,6 +8,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.plaf.DimensionUIResource;
 
 import Controller.Controller;
+import GUI.UIController;
 
 public class prewrittenTextField {
 
@@ -27,7 +28,7 @@ public class prewrittenTextField {
         String defaultText = c.lc.s("search database");
         panel.setMinimumSize(new DimensionUIResource(500, 500));
         JTextField textField = new JTextField(30);
-        // textField.setFont(font);
+        textField.setFont(c.getUIController().getDefaultFont().deriveFont(Font.PLAIN, 11));
         // textField.setSize(new DimensionUIResource(500, 90));
         textField.setText(defaultText);
         textField.setEditable(true);

@@ -28,7 +28,7 @@ public class Window extends JFrame {
         panel.add(menu, BorderLayout.NORTH);
 
         panel.add(new ShopPage(uiController), BorderLayout.CENTER);
-        panel.setBackground(uiController.getBackGroundColor());
+        panel.setBackground(uiController.getDefaultBackgroundcolor());
         return panel;
     }
 

@@ -35,7 +35,7 @@ public class TopMenuBar extends JPanel {
         add(createMiddelSide(), BorderLayout.CENTER);
         add(createRightSide(), BorderLayout.EAST);
 
-        setBackground(uiController.getBackGroundColor());
+        setBackground(uiController.getDefaultBackgroundcolor());
         setPreferredSize(new Dimension(0, min_Height));
     }
 

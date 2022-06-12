@@ -25,7 +25,10 @@ public class FileLoader {
             e.printStackTrace();
         }
 
-        String[] returnlinesArray = (String[]) returnlines.toArray();
+        String[] returnlinesArray = new String[returnlines.size()];
+        for (int i = 0; i < returnlinesArray.length; i++) {
+            returnlinesArray[i] = returnlines.get(i);
+        }
         return returnlinesArray;
     }
 }

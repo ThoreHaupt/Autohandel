@@ -14,9 +14,15 @@ public class LocalizationController {
      */
     public LocalizationController() {
         languageMap = new HashMap<>();
+        loadLanguage(currentLanguage);
     }
 
-    private HashMap<String, String> loadLocalization(language l) {
+    public static void main(String[] args) {
+        new LocalizationController();
+
+    }
+
+    private HashMap<String, String> loadLanguage(language l) {
         languageMap = new HashMap<>();
         String lanuageCode = languageToString[l.getIndex()];
         String path = "localization/" + lanuageCode + ".txt";
@@ -30,14 +36,50 @@ public class LocalizationController {
             }
             char[] arr = localizationMap[i].toCharArray();
             StringBuilder key = new StringBuilder();
-            int d = 1;
-            while (arr[d] != (':')) {
+            StringBuilder value = new StringBuilder();
+
+            int d = 0;
+            // white space
+            while (arr[d] != ('"')) {
                 d++;
             }
+            d++;
+            while (arr[d] != ('"')) {
+
+                if (arr[d] == '\\') {
+                    key.append(arr[d + 1]);
+                    d += 2;
+                    continue;
+                }
+                key.append(arr[d]);
+                d++;
+            }
+            d++;
+            // mitte Überspringen
+            while (arr[d] != ('"')) {
+                d++;
+            }
+            d++;
+            while (arr[d] != ('"')) {
+                if (arr[d] == '\\') {
+                    value.append(arr[d + 1]);
+                    d += 2;
+                    continue;
+                }
+                value.append(arr[d]);
+                d++;
+            }
+            languageMap.put(key.toString(), value.toString());
         }
         return languageMap;
     }
 
+    /**
+     * returns the string in the set Lanugage
+     * 
+     * @param string_inEnglish Key
+     * @return translated Key
+     */
     public String s(String string_inEnglish) {
 
         if (languageMap.containsKey(string_inEnglish)) {
