@@ -9,7 +9,7 @@ public class Car {
     Double age = null;
 
     public String getDescribtionTitle() {
-        return null;
+        return "null";
     }
 
     public String getImagePath() {

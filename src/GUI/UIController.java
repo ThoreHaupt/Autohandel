@@ -29,6 +29,7 @@ public class UIController {
     public static final String USERPROFILE_PAGE = "userProfile";
 
     JPanel topMenuBar;
+    int topMenuBarHeight = 60;
     HashMap<String, JPanel> pages = new HashMap<>();
 
     boolean lightmode = false;
@@ -45,7 +46,7 @@ public class UIController {
         this.controller = controller;
 
         window = new Window(this);
-        topMenuBar = new TopMenuBar(this, new Dimension(window.getWidth(), 60));
+        topMenuBar = new TopMenuBar(this, new Dimension(window.getWidth(), topMenuBarHeight));
 
         initializePages();
         initializeTopMenuBar();
@@ -112,5 +113,13 @@ public class UIController {
 
         mainPanel.repaint();
         mainPanel.revalidate();
+    }
+
+    public Window getWindow() {
+        return window;
+    }
+
+    public int getTopMenubarHeight() {
+        return topMenuBarHeight;
     }
 }

@@ -4,17 +4,21 @@ import javax.swing.*;
 import javax.swing.SpringLayout.Constraints;
 
 import GUI.UIController;
-import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
-import lib.uiComponents.pageSideHideMenu;
+import lib.uiComponents.PageSideHideMenu;
 
 import java.awt.*;
+import java.awt.event.*;
 
 public class ShopPage extends JPanel {
 
     UIController uiController;
     Filter filter;
+
+    PageSideHideMenu sideMenuManager;
+    int sideMenuSize = 500;
+    JPanel mainPanel;
 
     /**
      * 
@@ -26,43 +30,73 @@ public class ShopPage extends JPanel {
     }
 
     public void createShopPage() {
-        add(new pageSideHideMenu(createMainPage(), createSideMenu(), 200));
+        this.sideMenuManager = new PageSideHideMenu(createMainPage(), createSideMenu(), sideMenuSize);
+        add(sideMenuManager);
     }
 
     public JPanel createMainPage() {
-
-        // hier ist was kaputt!
-        JPanel backPanel = new JPanel();
-        // backPanel.setPreferredSize(new Dimension(1000, 2000));
-        backPanel.setLayout(new BoxLayout(backPanel, BoxLayout.PAGE_AXIS));
-
-        JScrollPane thisScrollPanel = new JScrollPane(backPanel);
-
-        backPanel.add(new ShopGalleryEntry(uiController, new Car()));
-        backPanel.add(new ShopGalleryEntry(uiController, new Car()));
-        backPanel.add(new ShopGalleryEntry(uiController, new Car()));
-
-        loadEntriesFromModel(filter, backPanel);
-
-        JPanel returnPanel = new JPanel();
-        returnPanel.setLayout(new BorderLayout());
-        returnPanel.add(thisScrollPanel, BorderLayout.CENTER);
-
-        return returnPanel;
+        mainPanel = new JPanel();
+        mainPanel.add(loadEntriesFromModel(filter));
+        return mainPanel;
     }
 
     public JPanel createSideMenu() {
         return new JPanel();
     }
 
-    public void loadEntriesFromModel(Filter filter, JPanel panel) {
-        ShopGalleryEntry[] entries = uiController.getController().getOptions(filter);
-        panel.removeAll();
-        panel.repaint();
-        for (int i = 0; i < entries.length; i++) {
-            panel.add(entries[i]);
+    public JPanel loadEntriesFromModel(Filter filter) {
+        JPanel panel = new JPanel();
+
+        Car[] entries = uiController.getController().getOptions(filter);
+        panel.setBorder(BorderFactory.createEmptyBorder());
+
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+
+        if (entries.length == 0) {
+            JLabel l = new JLabel(uiController.getController().lc.s(
+                    "No Entry found. Either there aren't any entries in Database,\n or your filters and search parameters did not mathc to any suitable entry."));
+            panel.add(l);
+            panel.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 20));
         }
+
+        for (int i = 0; i < entries.length; i++) {
+            panel.add(new ShopGalleryEntry(uiController, entries[i]), c);
+        }
+
         panel.add(Box.createVerticalGlue());
+
+        // the scrollpane only works, if it has a set Size. Thus here is some logic,
+        // that gets the perfekt size ig
+        Window window = uiController.getWindow();
+
+        JScrollPane scrollPane = new JScrollPane(panel,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(
+                new Dimension(
+                        (int) window.getWidth() - 60,
+                        window.getHeight() - uiController.getTopMenubarHeight()));
+
+        window.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                scrollPane.setPreferredSize(
+                        new Dimension(
+                                (int) window.getWidth() - ((sideMenuManager.isExtended()) ? sideMenuSize + 60 : 60),
+                                window.getHeight() - uiController.getTopMenubarHeight()));
+
+                System.out.println("changed Window Size");
+                scrollPane.revalidate();
+            }
+        });
+
+        // I want to return a JPanel, not some JScrollBar, so I add it onto a new JPanel
+        // and return that one
+        JPanel returnJPanel = new JPanel();
+        returnJPanel.setLayout(new BorderLayout());
+        returnJPanel.add(scrollPane, BorderLayout.NORTH);
+        return returnJPanel;
     }
 
     public void setFilter(Filter filter) {

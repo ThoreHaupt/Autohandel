@@ -2,12 +2,15 @@ package lib.uiComponents;
 
 import javax.swing.*;
 
+import com.formdev.flatlaf.util.ColorFunctions;
+
+import GUI.UIController;
 import lib.technicalComponents.transparentPane;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class pageSideHideMenu extends JPanel {
+public class PageSideHideMenu extends JPanel {
 
     private JPanel sideMenu;
     private JPanel mainPage;
@@ -18,7 +21,7 @@ public class pageSideHideMenu extends JPanel {
 
     private boolean isExtended = false;
 
-    public pageSideHideMenu(JPanel mainPage, JPanel sideMenu, int menuHorizontalSize) {
+    public PageSideHideMenu(JPanel mainPage, JPanel sideMenu, int menuHorizontalSize) {
         this.maxMenuSize = menuHorizontalSize;
         this.sideMenu = sideMenu;
         this.mainPage = mainPage;
@@ -30,8 +33,8 @@ public class pageSideHideMenu extends JPanel {
 
         setLayout(new BorderLayout());
 
-        sideMenu.setMaximumSize(new Dimension(maxMenuSize, 50000));
         sideMenu.setPreferredSize(new Dimension(maxMenuSize, 1000));
+        sideMenu.setBackground(new Color(255, 0, 0));
 
         hiddenMainPage = new JPanel();
         hiddenMainPage.setLayout(new BorderLayout());
@@ -48,15 +51,15 @@ public class pageSideHideMenu extends JPanel {
         }, new Dimension(buttonSize, buttonSize));
 
         // puts ImageButton in top left Corner, right next to the ede to the menu
-        transparentPane mask = new transparentPane();
+        JPanel mask = new transparentPane();
         mask.setLayout(new BorderLayout());
-        mask.setOpaque(false);
+        mask.setBackground(new Color(0, 255, 255));
 
-        transparentPane mask2 = new transparentPane();
+        JPanel mask2 = new transparentPane();
         mask2.setLayout(new BorderLayout());
         mask2.setOpaque(false);
 
-        transparentPane mask3 = new transparentPane();
+        JPanel mask3 = new transparentPane();
         mask3.setLayout(new GridLayout(2, 1));
         mask3.setOpaque(false);
 
@@ -68,13 +71,9 @@ public class pageSideHideMenu extends JPanel {
 
         mask.add(mask2, BorderLayout.WEST);
 
-        hiddenMainPage.add(mainPage, BorderLayout.CENTER);
+        hiddenMainPage.add(mainPage, BorderLayout.EAST);
         hiddenMainPage.add(mask, BorderLayout.WEST);
 
-        transparentPane testPane = new transparentPane();
-        testPane.setOpaque(true);
-        testPane.setBackground(new Color(255, 255, 255, 0));
-        // hiddenMainPage.add(testPane, BorderLayout.WEST);
         add(hiddenMainPage);
     }
 

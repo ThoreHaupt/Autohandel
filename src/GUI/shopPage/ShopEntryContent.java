@@ -15,11 +15,15 @@ import lib.uiComponents.rigitFreeSpace;
 public class ShopEntryContent extends JPanel {
     private Car car;
     private UIController uiController;
+    private Window window;
     private boolean isGallery;
+
+    private JLabel priceLabel;
 
     public ShopEntryContent(UIController uiController, Car model, boolean isGalary) {
         this.car = model;
         this.uiController = uiController;
+        window = uiController.getWindow();
         this.isGallery = isGalary;
         // this.setBackground(uiController.getDefaultBackgroundcolor());
         this.setOpaque(false);
@@ -28,6 +32,13 @@ public class ShopEntryContent extends JPanel {
 
         if (!isGalary)
             this.add(buildCarPage());
+
+        uiController.getWindow().addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+
+                revalidate();
+            }
+        });
     }
 
     private Component buildCarPage() {
@@ -56,8 +67,9 @@ public class ShopEntryContent extends JPanel {
 
     private JPanel buildImageArea(Dimension dimension) {
         JPanel imagePanelSection = new JPanel();
-
+        imagePanelSection.setPreferredSize(dimension);
         ImageIcon imageIcon = new ImageIcon(car.getImagePath());
+
         Image rawImage = imageIcon.getImage();
         Image scaledImage = rawImage.getScaledInstance((int) dimension.getWidth(), (int) dimension.getHeight(),
                 Image.SCALE_FAST);
@@ -82,14 +94,16 @@ public class ShopEntryContent extends JPanel {
         String textString = b ? car.getShortInformationText() : car.getExtensiveInformationText();
         JLabel text = new JLabel(textString);
         textPanel.add(text);
+
         return textPanel;
     }
 
     public JPanel buildPriceArea(boolean withButton) {
         JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(150, 200));
         panel.setLayout(new BorderLayout());
-        JLabel price = new JLabel(car.getPriceString() + " €");
-        price.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
+        priceLabel = new JLabel(car.getPriceString() + " €");
+        priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
         panel.add(new rigitFreeSpace(null, new Dimension(150, withButton ? 50 : 20)), BorderLayout.NORTH);
         JLabel otherText = new JLabel(uiController.getController().lc.s("incl MwStr."));
 
@@ -115,10 +129,19 @@ public class ShopEntryContent extends JPanel {
             subsubPanel.add(addToCart, BorderLayout.SOUTH);
         }
 
-        subsubPanel.add(price, BorderLayout.NORTH);
+        subsubPanel.add(priceLabel, BorderLayout.NORTH);
         subsubPanel.add(otherText, BorderLayout.CENTER);
         subPanel.add(subsubPanel, BorderLayout.NORTH);
         panel.add(subPanel);
         return panel;
     }
+
+    public void setCanAffort(boolean affortable) {
+        if (affortable) {
+            priceLabel.setForeground(new Color(30, 245, 38));
+        } else {
+            priceLabel.setForeground(new Color(245, 45, 30));
+        }
+    }
+
 }

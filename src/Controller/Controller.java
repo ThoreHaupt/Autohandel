@@ -16,7 +16,7 @@ public class Controller {
     public Controller() {
         model = new Model();
         lc = new LocalizationController();
-        uiController = new UIController(this);
+        this.uiController = new UIController(this);
     }
 
     public void openSearchQuerey(String string) {
@@ -43,8 +43,9 @@ public class Controller {
     public void addToCart(Car car) {
     }
 
-    public ShopGalleryEntry[] getOptions(Filter filter) {
-        return null;
+    public Car[] getOptions(Filter filter) {
+        return new Car[] { new Car(), new Car(), new Car(), new Car(), new Car(), new Car() };
+
     }
 
     public User getUser() {

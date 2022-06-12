@@ -11,9 +11,11 @@ import java.awt.event.*;
 
 public class ShopGalleryEntry extends JPanel {
     CarOptionPage carPage;
+    UIController uiController;
 
     public ShopGalleryEntry(UIController uiController, Car car) {
         this.setLayout(new BorderLayout());
+        this.uiController = uiController;
         JButton entry = new JButton();
         entry.add(new ShopEntryContent(uiController, car, true));
         entry.addActionListener(new ActionListener() {
