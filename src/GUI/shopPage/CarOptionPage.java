@@ -5,13 +5,13 @@ import javax.swing.*;
 import java.awt.*;
 
 import GUI.UIController;
-import Model.ModelComponentes.CarOption;
+import Model.ModelComponentes.Car;
 
 public class CarOptionPage extends JPanel {
-    CarOption car;
+    Car car;
     UIController uiController;
 
-    public CarOptionPage(UIController uiController, CarOption car) {
+    public CarOptionPage(UIController uiController, Car car) {
         this.uiController = uiController;
         this.car = car;
         buildCarOptionPage();

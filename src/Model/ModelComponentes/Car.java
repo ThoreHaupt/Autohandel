@@ -2,10 +2,11 @@ package Model.ModelComponentes;
 
 import java.util.HashMap;
 
-public class CarOption {
+public class Car {
     HashMap<String, CarComponentes> carComponentes = new HashMap<>();
     String imagePath = "resources/GUI_images/no_ImageImage.png";
     double price = 696969.430D;
+    Double age = null;
 
     public String getDescribtionTitle() {
         return null;

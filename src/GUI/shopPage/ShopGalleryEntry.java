@@ -3,7 +3,7 @@ package GUI.shopPage;
 import javax.swing.*;
 
 import GUI.UIController;
-import Model.ModelComponentes.CarOption;
+import Model.ModelComponentes.Car;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.awt.event.*;
 public class ShopGalleryEntry extends JPanel {
     CarOptionPage carPage;
 
-    public ShopGalleryEntry(UIController uiController, CarOption car) {
+    public ShopGalleryEntry(UIController uiController, Car car) {
         this.setLayout(new BorderLayout());
         JButton entry = new JButton();
         entry.add(new ShopEntryContent(uiController, car, true));

@@ -9,15 +9,15 @@ import GUI.UIController;
 import java.awt.*;
 import java.awt.event.*;
 
-import Model.ModelComponentes.CarOption;
+import Model.ModelComponentes.Car;
 import lib.uiComponents.rigitFreeSpace;
 
 public class ShopEntryContent extends JPanel {
-    private CarOption car;
+    private Car car;
     private UIController uiController;
     private boolean isGallery;
 
-    public ShopEntryContent(UIController uiController, CarOption model, boolean isGalary) {
+    public ShopEntryContent(UIController uiController, Car model, boolean isGalary) {
         this.car = model;
         this.uiController = uiController;
         this.isGallery = isGalary;

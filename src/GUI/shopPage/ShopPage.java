@@ -5,7 +5,7 @@ import javax.swing.SpringLayout.Constraints;
 
 import GUI.UIController;
 import Model.Model;
-import Model.ModelComponentes.CarOption;
+import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
 import lib.uiComponents.pageSideHideMenu;
 
@@ -38,9 +38,9 @@ public class ShopPage extends JPanel {
 
         JScrollPane thisScrollPanel = new JScrollPane(backPanel);
 
-        backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
-        backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
-        backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
+        backPanel.add(new ShopGalleryEntry(uiController, new Car()));
+        backPanel.add(new ShopGalleryEntry(uiController, new Car()));
+        backPanel.add(new ShopGalleryEntry(uiController, new Car()));
 
         loadEntriesFromModel(filter, backPanel);
 

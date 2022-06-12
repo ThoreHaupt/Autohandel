@@ -3,7 +3,7 @@ package Controller;
 import GUI.UIController;
 import GUI.shopPage.ShopGalleryEntry;
 import Model.Model;
-import Model.ModelComponentes.CarOption;
+import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.User;
 
@@ -40,7 +40,7 @@ public class Controller {
         return uiController;
     }
 
-    public void addToCart(CarOption car) {
+    public void addToCart(Car car) {
     }
 
     public ShopGalleryEntry[] getOptions(Filter filter) {

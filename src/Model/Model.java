@@ -2,10 +2,10 @@ package Model;
 
 import java.util.ArrayList;
 
-import Model.ModelComponentes.CarOption;
+import Model.ModelComponentes.Car;
 
 public class Model {
-    CarOption[] currentOptions;
-    ArrayList<CarOption> allAvaliableObjects;
+    Car[] currentOptions;
+    ArrayList<Car> allAvaliableObjects;
 
 }
