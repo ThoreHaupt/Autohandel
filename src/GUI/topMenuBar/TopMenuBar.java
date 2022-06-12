@@ -22,9 +22,9 @@ public class TopMenuBar extends JPanel {
     /**
      * 
      */
-    public TopMenuBar(Controller controller, UIController uiController, Dimension dim) {
+    public TopMenuBar(UIController uiController, Dimension dim) {
         super(new FlowLayout());
-        this.controller = controller;
+        this.controller = uiController.getController();
         this.uiController = uiController;
         this.min_Height = dim.height;
         this.width = dim.width;

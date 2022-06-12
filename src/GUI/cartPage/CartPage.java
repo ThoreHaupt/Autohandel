@@ -1,5 +1,12 @@
 package GUI.cartPage;
 
-public class CartPage {
+import javax.swing.JPanel;
+
+import GUI.UIController;
+
+public class CartPage extends JPanel {
+
+    public CartPage(UIController uiController) {
+    }
 
 }

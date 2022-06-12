@@ -1,5 +1,12 @@
 package GUI.payProcessPage;
 
-public class PayProcess {
+import javax.swing.JPanel;
+
+import GUI.UIController;
+
+public class PayProcess extends JPanel {
+
+    public PayProcess(UIController uiController) {
+    }
 
 }

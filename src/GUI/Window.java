@@ -1,6 +1,8 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument.Content;
+
 import java.awt.*;
 
 import Controller.Controller;
@@ -11,20 +13,22 @@ public class Window extends JFrame {
     UIController uiController;
     Controller controller;
     Container ContentPane;
+    JPanel mainPanel;
 
-    public Window(Controller controller, UIController UIcontroller) {
+    public Window(UIController UIcontroller) {
 
         this.uiController = UIcontroller;
-        this.controller = controller;
+        this.controller = UIcontroller.getController();
         ContentPane = this.getContentPane();
-        ContentPane.add(createWindow());
-
-        setBasics("test");
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        ContentPane.add(mainPanel, BorderLayout.CENTER);
+        setBasics("CarShop");
     }
 
     private JPanel createWindow() {
         JPanel panel = new JPanel(new BorderLayout());
-        TopMenuBar menu = new TopMenuBar(controller, uiController, new Dimension(this.getWidth(), 60));
+        TopMenuBar menu = new TopMenuBar(uiController, new Dimension(this.getWidth(), 60));
         panel.add(menu, BorderLayout.NORTH);
 
         panel.add(new ShopPage(uiController), BorderLayout.CENTER);
@@ -38,5 +42,9 @@ public class Window extends JFrame {
         // this.setBackground(new Color(1, 1, 1));
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public JPanel getMainPane() {
+        return mainPanel;
     }
 }

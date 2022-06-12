@@ -17,11 +17,6 @@ public class LocalizationController {
         loadLanguage(currentLanguage);
     }
 
-    public static void main(String[] args) {
-        new LocalizationController();
-
-    }
-
     private HashMap<String, String> loadLanguage(language l) {
         languageMap = new HashMap<>();
         String lanuageCode = languageToString[l.getIndex()];

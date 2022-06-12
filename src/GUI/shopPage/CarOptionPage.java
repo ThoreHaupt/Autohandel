@@ -10,5 +10,6 @@ public class CarOptionPage extends JPanel {
 
     public CarOptionPage(UIController uiController, CarOption car) {
 
+        this.add(new ShopEntryContent(uiController, car, false));
     }
 }
