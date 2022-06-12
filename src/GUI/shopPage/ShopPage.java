@@ -6,6 +6,7 @@ import javax.swing.SpringLayout.Constraints;
 import GUI.UIController;
 import Model.Model;
 import Model.ModelComponentes.CarOption;
+import Model.UserComponentes.Filter;
 import lib.uiComponents.pageSideHideMenu;
 
 import java.awt.*;
@@ -13,13 +14,14 @@ import java.awt.*;
 public class ShopPage extends JPanel {
 
     UIController uiController;
+    Filter filter;
 
     /**
      * 
      */
     public ShopPage(UIController uiController) {
         this.uiController = uiController;
-        this.setLayout(new GridLayout());
+        this.filter = uiController.getController().getUser().getFilter();
         createShopPage();
     }
 
@@ -39,7 +41,8 @@ public class ShopPage extends JPanel {
         backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
         backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
         backPanel.add(new ShopGalleryEntry(uiController, new CarOption()));
-        backPanel.add(Box.createVerticalGlue());
+
+        loadEntriesFromModel(filter, backPanel);
 
         JPanel returnPanel = new JPanel();
         returnPanel.setLayout(new BorderLayout());
@@ -51,4 +54,21 @@ public class ShopPage extends JPanel {
     public JPanel createSideMenu() {
         return new JPanel();
     }
+
+    public void loadEntriesFromModel(Filter filter, JPanel panel) {
+        ShopGalleryEntry[] entries = uiController.getController().getOptions(filter);
+        panel.removeAll();
+        panel.repaint();
+        for (int i = 0; i < entries.length; i++) {
+            panel.add(entries[i]);
+        }
+        panel.add(Box.createVerticalGlue());
+    }
+
+    public void setFilter(Filter filter) {
+        if (this.filter.getUser().getUserName().equals("Guest")) {
+
+        }
+    }
+
 }

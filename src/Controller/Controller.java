@@ -1,8 +1,11 @@
 package Controller;
 
 import GUI.UIController;
+import GUI.shopPage.ShopGalleryEntry;
 import Model.Model;
 import Model.ModelComponentes.CarOption;
+import Model.UserComponentes.Filter;
+import Model.UserComponentes.User;
 
 public class Controller {
 
@@ -38,5 +41,13 @@ public class Controller {
     }
 
     public void addToCart(CarOption car) {
+    }
+
+    public ShopGalleryEntry[] getOptions(Filter filter) {
+        return null;
+    }
+
+    public User getUser() {
+        return new User();
     }
 }
