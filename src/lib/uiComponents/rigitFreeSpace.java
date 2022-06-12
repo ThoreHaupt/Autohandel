@@ -17,6 +17,7 @@ public class rigitFreeSpace extends JPanel {
 
     public void addRigitComponent(Dimension d) {
         Component fillComponent = Box.createRigidArea(d);
+        this.setPreferredSize(d);
         fillComponent.setBackground(color);
         this.setBackground(color);
         this.add(fillComponent);
@@ -25,5 +26,6 @@ public class rigitFreeSpace extends JPanel {
     public void changeSize(Dimension d) {
         this.removeAll();
         addRigitComponent(d);
+        this.setPreferredSize(d);
     }
 }

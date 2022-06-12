@@ -70,7 +70,7 @@ public class TopMenuBar extends JPanel {
                 uiController.setWindowContent("cart");
             }
 
-        }, new Dimension(50, min_Height)));
+        }, new Dimension(60, min_Height)));
 
         panel.add(new ImageButton("resources/GUI_images/Sample_User_Icon.png", new ActionListener() {
 
@@ -79,7 +79,7 @@ public class TopMenuBar extends JPanel {
                 uiController.setWindowContent("userProfile");
             }
 
-        }, new Dimension(50, min_Height)));
+        }, new Dimension(60, min_Height)));
 
         panel.add(new ImageComboBox(uiController, controller.getLanuguageImageArray(), new ActionListener() {
 

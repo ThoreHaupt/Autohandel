@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
@@ -11,6 +12,8 @@ public class UIController {
     Window window;
     int windowWidth;
     int windowheight;
+
+    private Controller controller;
 
     Color backGroudnColor = new Color(255, 255, 255);
 
@@ -27,6 +30,7 @@ public class UIController {
     }
 
     public UIController(Controller controller) {
+        this.controller = controller;
         window = new Window(controller, this);
     }
 
@@ -36,13 +40,10 @@ public class UIController {
                 System.out.println("going to Store");
                 break;
             case "cart":
-
                 break;
-
             case "payment":
                 break;
             case "userProfile":
-
                 break;
             default:
                 break;
@@ -55,5 +56,13 @@ public class UIController {
 
     public Color getDefaultBackgroundcolor() {
         return null;
+    }
+
+    public Controller getController() {
+        return controller;
+    }
+
+    public Font getDefaultFont() {
+        return new Font("Segoe", Font.PLAIN, 20);
     }
 }

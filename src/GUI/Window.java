@@ -1,8 +1,6 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.plaf.DimensionUIResource;
-
 import java.awt.*;
 
 import Controller.Controller;
@@ -10,13 +8,13 @@ import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
 
 public class Window extends JFrame {
-    UIController UIcontroller;
+    UIController uiController;
     Controller controller;
     Container ContentPane;
 
     public Window(Controller controller, UIController UIcontroller) {
 
-        this.UIcontroller = UIcontroller;
+        this.uiController = UIcontroller;
         this.controller = controller;
         ContentPane = this.getContentPane();
         ContentPane.add(createWindow());
@@ -26,11 +24,11 @@ public class Window extends JFrame {
 
     private JPanel createWindow() {
         JPanel panel = new JPanel(new BorderLayout());
-        TopMenuBar menu = new TopMenuBar(controller, UIcontroller, new Dimension(this.getWidth(), 60));
+        TopMenuBar menu = new TopMenuBar(controller, uiController, new Dimension(this.getWidth(), 60));
         panel.add(menu, BorderLayout.NORTH);
 
-        panel.add(new ShopPage(), BorderLayout.CENTER);
-        panel.setBackground(UIcontroller.getBackGroundColor());
+        panel.add(new ShopPage(uiController), BorderLayout.CENTER);
+        panel.setBackground(uiController.getBackGroundColor());
         return panel;
     }
 
