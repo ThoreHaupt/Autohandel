@@ -32,10 +32,11 @@ public class UIController {
     HashMap<String, JPanel> pages = new HashMap<>();
 
     boolean lightmode = false;
+    private Font defaultFont = new Font("Segoe", Font.PLAIN, 20);
+    private Color defaultAccentColor = new Color(75, 150, 255);
+    private Color defaultBackgroundColor = null;
 
     private Controller controller;
-
-    Color backGroudnColor = new Color(255, 255, 255);
 
     public UIController(Controller controller) {
         loadStartUpInfoFile();
@@ -64,7 +65,8 @@ public class UIController {
     }
 
     /**
-     * reads a startup file containing setting information for example
+     * reads startupproperties from controller, which got it from a file storing /
+     * serializable object which is saved
      * 
      */
     private void loadStartUpInfoFile() {
@@ -79,6 +81,7 @@ public class UIController {
     }
 
     public void setWindowContent(String mode) {
+        System.out.println("setting to: " + mode);
         setMainWindowContent(pages.get(mode));
     }
 
@@ -87,7 +90,7 @@ public class UIController {
     }
 
     public Color getDefaultBackgroundcolor() {
-        return null;
+        return defaultBackgroundColor;
     }
 
     public Controller getController() {
@@ -95,17 +98,19 @@ public class UIController {
     }
 
     public Font getDefaultFont() {
-        return new Font("Segoe", Font.PLAIN, 20);
+        return defaultFont;
     }
 
     public Color getDefaultAccentColor() {
-        return new Color(75, 150, 255);
+        return defaultAccentColor;
     }
 
     public void setMainWindowContent(JPanel page) {
         JPanel mainPanel = window.getMainPane();
         mainPanel.removeAll();
         mainPanel.add(page, BorderLayout.CENTER);
+
+        mainPanel.repaint();
         mainPanel.revalidate();
     }
 }

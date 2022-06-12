@@ -24,6 +24,6 @@ public class CarOption {
     }
 
     public String getExtensiveInformationText() {
-        return null;
+        return "es git momentan noch keine Textfunktion... \n \n \n aber das ist kein Problem.";
     }
 }

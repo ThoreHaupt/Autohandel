@@ -21,7 +21,8 @@ public class ShopEntryContent extends JPanel {
         this.car = model;
         this.uiController = uiController;
         this.isGallery = isGalary;
-        this.setBackground(uiController.getDefaultBackgroundcolor());
+        // this.setBackground(uiController.getDefaultBackgroundcolor());
+        this.setOpaque(false);
         if (isGalary)
             this.add(buildShopGalleryEntry());
 
@@ -38,7 +39,7 @@ public class ShopEntryContent extends JPanel {
 
         JPanel westInformationPanel = new JPanel();
         westInformationPanel.setLayout(new BorderLayout());
-        westInformationPanel.add(buildImageArea(new Dimension(500, 400)), BorderLayout.NORTH);
+        westInformationPanel.add(buildImageArea(new Dimension(450, 300)), BorderLayout.NORTH);
         informationPanel.add(westInformationPanel, BorderLayout.WEST);
         return informationPanel;
     }
@@ -98,7 +99,7 @@ public class ShopEntryContent extends JPanel {
         subsubPanel.setLayout(new BorderLayout());
 
         if (withButton) {
-            JButton addToCart = new JButton();
+            JButton addToCart = new JButton(uiController.getController().lc.s("add to Cart"));
             addToCart.addActionListener(new ActionListener() {
 
                 @Override
@@ -110,7 +111,7 @@ public class ShopEntryContent extends JPanel {
 
             addToCart.setBackground(uiController.getDefaultAccentColor());
             addToCart.setForeground(new Color(255, 255, 255));
-            addToCart.setPreferredSize(new Dimension(40, 20));
+            addToCart.setPreferredSize(new Dimension(50, 30));
             subsubPanel.add(addToCart, BorderLayout.SOUTH);
         }
 
