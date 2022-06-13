@@ -3,6 +3,7 @@ package GUI.shopPage;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.DimensionUIResource;
 
 import GUI.UIController;
 
@@ -16,37 +17,38 @@ public class ShopEntryContent extends JPanel {
     private Car car;
     private UIController uiController;
     private Window window;
+    private int optimalWidth;
+    private int usedWidth = 0;
+
     private boolean isGallery;
 
     private JLabel priceLabel;
+    private JPanel buffer;
 
     public ShopEntryContent(UIController uiController, Car model, boolean isGalary) {
         this.car = model;
         this.uiController = uiController;
         window = uiController.getWindow();
         this.isGallery = isGalary;
-        // this.setBackground(uiController.getDefaultBackgroundcolor());
+        this.setBackground(new Color(255, 255, 255));
+        this.setLayout(new BorderLayout());
         this.setOpaque(false);
-        if (isGalary)
-            this.add(buildShopGalleryEntry());
+        if (isGalary) {
+            optimalWidth = uiController.getStandartPanel(UIController.MAINSTORE_PAGE).getWidth() - 60;
+            this.add(buildShopGalleryEntry(), BorderLayout.WEST);
+        }
 
         if (!isGalary)
             this.add(buildCarPage());
 
-        uiController.getWindow().addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent componentEvent) {
-
-                revalidate();
-            }
-        });
     }
 
     private Component buildCarPage() {
         JPanel informationPanel = new JPanel();
         informationPanel.setLayout(new BorderLayout());
         informationPanel.add(buildTitle(45), BorderLayout.NORTH);
-        informationPanel.add(buildInformationText(false), BorderLayout.CENTER);
         informationPanel.add(buildPriceArea(true), BorderLayout.EAST);
+        informationPanel.add(buildInformationText(false), BorderLayout.CENTER);
 
         JPanel westInformationPanel = new JPanel();
         westInformationPanel.setLayout(new BorderLayout());
@@ -59,15 +61,16 @@ public class ShopEntryContent extends JPanel {
         JPanel informationPanel = new JPanel();
         informationPanel.setLayout(new BorderLayout());
         informationPanel.add(buildTitle(30), BorderLayout.NORTH);
-        informationPanel.add(buildInformationText(true), BorderLayout.CENTER);
         informationPanel.add(buildPriceArea(false), BorderLayout.EAST);
         informationPanel.add(buildImageArea(new Dimension(240, 160)), BorderLayout.WEST);
+        informationPanel.add(buildInformationText(true), BorderLayout.CENTER);
         return informationPanel;
     }
 
     private JPanel buildImageArea(Dimension dimension) {
         JPanel imagePanelSection = new JPanel();
-        imagePanelSection.setPreferredSize(dimension);
+        imagePanelSection.setMinimumSize(dimension);
+        usedWidth += dimension.getWidth();
         ImageIcon imageIcon = new ImageIcon(car.getImagePath());
 
         Image rawImage = imageIcon.getImage();
@@ -92,15 +95,24 @@ public class ShopEntryContent extends JPanel {
     public JPanel buildInformationText(boolean b) {
         JPanel textPanel = new JPanel();
         String textString = b ? car.getShortInformationText() : car.getExtensiveInformationText();
+
         JLabel text = new JLabel(textString);
+        usedWidth += text.getMinimumSize().getWidth();
         textPanel.add(text);
 
-        return textPanel;
+        JPanel back = new JPanel();
+        this.buffer = new JPanel();
+        //buffer.setPreferredSize(new DimensionUIResource(optimalWidth - usedWidth, 100));
+        back.setLayout(new BorderLayout());
+        back.add(textPanel, BorderLayout.WEST);
+        back.add(buffer, BorderLayout.EAST);
+        return back;
     }
 
     public JPanel buildPriceArea(boolean withButton) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(150, 200));
+        usedWidth += 150;
         panel.setLayout(new BorderLayout());
         priceLabel = new JLabel(car.getPriceString() + " €");
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
@@ -142,6 +154,16 @@ public class ShopEntryContent extends JPanel {
         } else {
             priceLabel.setForeground(new Color(245, 45, 30));
         }
+    }
+
+    /**
+     * dont need that no
+     * @param newOptimalSize
+     */
+    public void revalidateBufferSize(int newOptimalSize) {
+        //buffer.setPreferredSize(new DimensionUIResource(optimalWidth - usedWidth, 100));
+        //revalidate();
+        //System.out.println("hi");
     }
 
 }

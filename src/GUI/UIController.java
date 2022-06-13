@@ -19,7 +19,7 @@ import GUI.userPage.UserPage;
 
 public class UIController {
 
-    Window window;
+    MainWindow window;
     int windowWidth;
     int windowheight;
 
@@ -45,12 +45,13 @@ public class UIController {
 
         this.controller = controller;
 
-        window = new Window(this);
+        window = new MainWindow(this);
         topMenuBar = new TopMenuBar(this, new Dimension(window.getWidth(), topMenuBarHeight));
 
         initializePages();
         initializeTopMenuBar();
         setMainWindowContent(pages.get(MAINSTORE_PAGE));
+        ((ShopPage) pages.get(MAINSTORE_PAGE)).setEntriesWithCurrentFilter();
     }
 
     private void initializeTopMenuBar() {
@@ -115,11 +116,15 @@ public class UIController {
         mainPanel.revalidate();
     }
 
-    public Window getWindow() {
+    public MainWindow getWindow() {
         return window;
     }
 
     public int getTopMenubarHeight() {
         return topMenuBarHeight;
+    }
+
+    public JPanel getStandartPanel(String page) {
+        return pages.get(page);
     }
 }

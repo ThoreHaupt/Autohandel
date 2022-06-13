@@ -12,12 +12,16 @@ import java.awt.event.*;
 public class ShopGalleryEntry extends JPanel {
     CarOptionPage carPage;
     UIController uiController;
+    ShopEntryContent contents;
 
     public ShopGalleryEntry(UIController uiController, Car car) {
         this.setLayout(new BorderLayout());
         this.uiController = uiController;
         JButton entry = new JButton();
-        entry.add(new ShopEntryContent(uiController, car, true));
+        entry.setBackground(UIManager.getColor("default"));
+        entry.setLayout(new BorderLayout());
+        contents = new ShopEntryContent(uiController, car, true);
+        entry.add(contents, BorderLayout.WEST);
         entry.addActionListener(new ActionListener() {
 
             @Override
@@ -34,6 +38,11 @@ public class ShopGalleryEntry extends JPanel {
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.SOUTH);
         carPage = new CarOptionPage(uiController, car);
 
+    }
+
+    public void revalidateBufferSize(int newOptimalSize) {
+        contents.revalidateBufferSize(newOptimalSize);
+        revalidate();
     }
 
 }

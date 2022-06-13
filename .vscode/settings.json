@@ -7,5 +7,6 @@
         "C:/Program Files/Eclipse Adoptium/other/junit-platform-console-standalone-1.7.0-M1.jar",
         "C:/Program Files/Eclipse Foundation/other/junit-platform-console-standalone-1.7.0-M1.jar",
         "resources/externalDependencies/LookAndFeels/flatlaf-2.3.jar"
-    ]
+    ],
+    "java.format.comments.enabled": false
 }

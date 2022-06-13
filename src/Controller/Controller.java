@@ -44,7 +44,8 @@ public class Controller {
     }
 
     public Car[] getOptions(Filter filter) {
-        return new Car[] { new Car(), new Car(), new Car(), new Car(), new Car(), new Car() };
+        return new Car[] { new Car("a"), new Car("asdada"), new Car("asdawdawd"), new Car("asd"), new Car(""),
+                new Car("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
 
     }
 

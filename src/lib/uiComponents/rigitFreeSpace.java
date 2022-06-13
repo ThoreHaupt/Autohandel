@@ -9,6 +9,7 @@ public class rigitFreeSpace extends JPanel {
 
     public rigitFreeSpace(Color c, Dimension d) {
         color = c;
+        color = new Color(255, 255, 255);
         if (c == null) {
             setOpaque(false);
         }

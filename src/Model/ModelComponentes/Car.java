@@ -7,6 +7,11 @@ public class Car {
     String imagePath = "resources/GUI_images/no_ImageImage.png";
     double price = 696969.430D;
     Double age = null;
+    String describtion;
+
+    public Car(String describtionText) {
+        describtion = describtionText;
+    }
 
     public String getDescribtionTitle() {
         return "null";
@@ -17,7 +22,7 @@ public class Car {
     }
 
     public String getShortInformationText() {
-        return "es git momentan noch keine Textfunktion... \n \n \n aber das ist kein Problem.";
+        return describtion;
     }
 
     public String getPriceString() {
