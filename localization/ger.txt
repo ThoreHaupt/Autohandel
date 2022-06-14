@@ -5,4 +5,5 @@
     "incl MwStr.":"incl MwStr",
     "search database":"durchsuche Datenbasis",
     "Go":"Suche",
+    "Configurator":"",
 }

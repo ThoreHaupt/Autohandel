@@ -8,6 +8,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import Controller.Controller;
 import GUI.UIController;
 import GUI.topMenuBar.CapableComboBoxEditor;
+import Model.Model;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -19,7 +20,7 @@ public class Searchbar extends JPanel {
     public Searchbar(Controller c, UIController uiController) {
         WrittenSearchbar WSB = new WrittenSearchbar(c, uiController);
         add(WSB);
-        JButton searchButton = new JButton(c.lc.s("Go"));
+        MultiLanguageButton searchButton = new MultiLanguageButton(uiController, "Go");
         searchButton.addActionListener(WSB.getActionListener());
         searchButton.setMinimumSize(new Dimension(40, height));
         add(searchButton);
@@ -32,7 +33,7 @@ public class Searchbar extends JPanel {
         UIController uiController;
 
         CapableComboBoxEditor cBoxEditor;
-        JTextField textField;
+        MultiLanguageTextField textField;
 
         String defaultText;
         ComboBoxModel<String> defaultModel;
@@ -68,12 +69,20 @@ public class Searchbar extends JPanel {
 
         public void createSearchbar() {
 
-            Font font = new JLabel().getFont();
-            font.deriveFont(30);
+            Font font = uiController.getDefaultFont();
+            font.deriveFont(Font.PLAIN, 20);
+
             defaultText = controller.lc.s("search database");
 
-            textField = new JTextField(defaultText);
+            textField = new MultiLanguageTextField(uiController, "search database");
             cBoxEditor = new CapableComboBoxEditor(textField.getText());
+            controller.lc.addLanguageChangeListener(e -> {
+                defaultText = controller.lc.s("search database");
+                if (this.getCurrentQuery().equals(defaultText)) {
+                    setModel(new DefaultComboBoxModel<String>(new String[] { defaultText }));
+                    setPopupVisible(false);
+                }
+            });
             setEditor(cBoxEditor);
 
             setEditable(true);
@@ -129,6 +138,7 @@ public class Searchbar extends JPanel {
 
         public void setEditorText(String text) {
             cBoxEditor.setText(text);
+
         }
 
         public FocusListener getFocusListener(ComboBoxModel<String> defaultModel) {
@@ -150,9 +160,9 @@ public class Searchbar extends JPanel {
                     isInFocus = false;
                     System.out.println(getCurrentQuery());
                     if (getCurrentQuery().equals("")) {
-                        // setEditorText(defaultText);
-                        // setModel(defaultModel);
-                        // setPopupVisible(false);
+                        /* setEditorText(defaultText);
+                        setModel(defaultModel);
+                        setPopupVisible(false); */
                     }
                 }
 
@@ -168,6 +178,7 @@ public class Searchbar extends JPanel {
                     controller.openSearchQuerey((String) getSelectedItem());
                     uiController.setWindowContent("store");
                     setPopupVisible(false);
+
                 }
 
             };

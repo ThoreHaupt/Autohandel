@@ -8,12 +8,12 @@ import LocalizationLogic.LocalizationController;
 
 import java.awt.*;
 
-public class MultiLanguageLabel extends JLabel {
+public class MultiLanguageTextField extends JTextField {
     UIController uiController;
     LocalizationController lc;
     String text;
 
-    public MultiLanguageLabel(UIController uiController, String text) {
+    public MultiLanguageTextField(UIController uiController, String text) {
         super();
         this.uiController = uiController;
         Controller controller = uiController.getController();

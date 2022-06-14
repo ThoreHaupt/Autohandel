@@ -7,4 +7,5 @@
     "incl MwStr.":"incl vat",
     "search database":"searchDatabase",
     "Go":"Go",
+    "Configurator":"",
 }

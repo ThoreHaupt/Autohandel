@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import Controller.Controller;
 import GUI.UIController;
+import LocalizationLogic.language;
 import lib.uiComponents.*;
 
 public class TopMenuBar extends JPanel {
@@ -47,7 +48,7 @@ public class TopMenuBar extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                uiController.setWindowContent("store");
+                uiController.setWindowContent(UIController.MAINSTORE_PAGE);
             }
 
         }, new Dimension(130, min_Height)));

@@ -3,6 +3,7 @@ package Controller;
 import GUI.UIController;
 import GUI.shopPage.ShopGalleryEntry;
 import LocalizationLogic.LocalizationController;
+import LocalizationLogic.language;
 import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
@@ -15,7 +16,7 @@ public class Controller {
     private Model model;
 
     public Controller() {
-        lc = new LocalizationController();
+        this.lc = new LocalizationController();
         model = new Model();
         this.uiController = new UIController(this);
     }
@@ -28,7 +29,8 @@ public class Controller {
         return new String[] { "a", "b" };
     }
 
-    public void setLanguage(Object selectedItem) {
+    public void setLanguage(int selectedItem) {
+        lc.setLanguage(language.values()[selectedItem]);
     }
 
     public String[] getLanuguageImageArray() {
@@ -54,7 +56,7 @@ public class Controller {
         return new User();
     }
 
-    public LocalizationController getLanguageController() {
+    public LocalizationController getLocalizationController() {
         return lc;
     }
 }

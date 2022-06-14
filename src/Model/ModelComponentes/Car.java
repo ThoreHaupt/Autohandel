@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Car {
     HashMap<String, CarComponentes> carComponentes = new HashMap<>();
     String imagePath = "resources/GUI_images/no_ImageImage.png";
-    double price = 696969.430D;
+    double price = 25000;
     Double age = null;
     String describtion;
 
@@ -14,7 +14,7 @@ public class Car {
     }
 
     public String getDescribtionTitle() {
-        return "null";
+        return "AutoTitel";
     }
 
     public String getImagePath() {

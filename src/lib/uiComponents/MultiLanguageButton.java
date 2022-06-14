@@ -8,12 +8,12 @@ import LocalizationLogic.LocalizationController;
 
 import java.awt.*;
 
-public class MultiLanguageLabel extends JLabel {
+public class MultiLanguageButton extends JButton {
     UIController uiController;
     LocalizationController lc;
     String text;
 
-    public MultiLanguageLabel(UIController uiController, String text) {
+    public MultiLanguageButton(UIController uiController, String text) {
         super();
         this.uiController = uiController;
         Controller controller = uiController.getController();
@@ -34,6 +34,7 @@ public class MultiLanguageLabel extends JLabel {
     }
 
     public void updateText() {
+        System.out.println("apparently there is some language Change");
         this.setText(text);
         revalidate();
     }

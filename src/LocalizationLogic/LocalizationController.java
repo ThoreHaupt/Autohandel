@@ -127,4 +127,11 @@ public class LocalizationController {
         listenerList.remove(LanguageChangeListener.class, listener);
     }
 
+    public void setLanguage(language language) {
+        currentLanguage = language;
+        languageMap = new HashMap<>();
+        loadLanguage(currentLanguage);
+        fireLanguageChangeEvent(new languageChangeEvent(this));
+    }
+
 }
