@@ -6,8 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.awt.event.MouseEvent;
+import java.awt.Shape;
+import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
 
 import javax.swing.JComponent;
@@ -18,13 +19,30 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSliderUI;
 
-import lib.uiComponents.RangeSelectorSlider;
+import lib.uiComponents.RangeSlider;
 
-//Folgt dem Tutorial ziemlich genau: https://ernienotes.wordpress.com/2010/12/27/creating-a-java-swing-range-slider/
+//Folgt dem Tutorial ziemlich genau, ist aber verändert, um vernünftig auszusehen und so: https://ernienotes.wordpress.com/2010/12/27/creating-a-java-swing-range-slider/
 
-public class RangeSelectorSliderUI extends BasicSliderUI {
+public class RangeSliderUI extends BasicSliderUI {
 
-    private Color rangeColor = (Color) UIManager.get("JComponent.Outline");
+    //the displayed area between the 2 thumbs
+    private Color rangeColor = (Color) UIManager.get("Slider.trackValueColor");
+
+    // for the frame of the thumb
+    private Color frameColor = (Color) UIManager.get("Slider.trackColor");
+
+    // for the frame of the thumb
+    private Color trackColor = (Color) UIManager.get("Slider.trackColor");
+
+    //Disabled thumb 
+
+    //active Thumb
+
+    private int trackWidth = 2 + (int) UIManager.get("Slider.trackWidth");
+
+    // We dont like shadow, so this gets to be null
+    private Color shadowColor = null;
+
     /** Location and size of thumb for upper value. */
     private Rectangle upperThumbRect;
     /** Indicator that determines whether upper thumb is selected. */
@@ -38,7 +56,21 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
     @Override
     public void installUI(JComponent c) {
         upperThumbRect = new Rectangle();
+        checkIfLookAndFeelsetColor();
         super.installUI(c);
+    }
+
+    private void checkIfLookAndFeelsetColor() {
+        if (rangeColor == null) {
+            rangeColor = Color.ORANGE;
+        }
+        if (frameColor == null) {
+            frameColor = Color.GRAY;
+        }
+        if (trackColor == null) {
+            trackColor = Color.LIGHT_GRAY;
+        }
+
     }
 
     /**
@@ -64,6 +96,9 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
         upperThumbRect.setSize(thumbRect.width, thumbRect.height);
     }
 
+    /**
+     * snaps the location of the thump to the nearest Value, if the feature is turned on
+     */
     @Override
     public void calculateThumbLocation() {
         super.calculateThumbLocation();
@@ -93,19 +128,19 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
         }
 
         if (slider.getOrientation() == JSlider.HORIZONTAL) {
-            int valueUpperPosition = xPositionForValue(slider.getValue());
+            int valueUpperPosition = xPositionForValue(slider.getValue() + slider.getExtent());
 
             upperThumbRect.x = valueUpperPosition - (upperThumbRect.width / 2);
             upperThumbRect.y = trackRect.y;
         } else {
-            int valueUpperPosition = yPositionForValue(slider.getValue());
+            int valueUpperPosition = yPositionForValue(slider.getValue() + slider.getExtent());
 
             upperThumbRect.x = trackRect.x;
             upperThumbRect.y = valueUpperPosition - (upperThumbRect.height / 2);
         }
     }
 
-    // For whatever erason the method is private, so I copied the code
+    // For whatever reason the method is private, so I copied the code
     public int getTickSpacing() {
         int majorTickSpacing = slider.getMajorTickSpacing();
         int minorTickSpacing = slider.getMinorTickSpacing();
@@ -127,7 +162,7 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
      */
     @Override
     protected Dimension getThumbSize() {
-        return new Dimension(12, 12);
+        return new Dimension(17, 17);
     }
 
     /**
@@ -164,10 +199,47 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
      */
     @Override
     public void paintTrack(Graphics g) {
-        // Draw track.
-        super.paintTrack(g);
 
         Rectangle trackBounds = trackRect;
+
+        if (slider.getOrientation() == JSlider.HORIZONTAL) {
+            int cy = (trackBounds.height / 2) - 2;
+            int cw = trackBounds.width;
+
+            g.translate(trackBounds.x, trackBounds.y + cy);
+
+            g.setColor(shadowColor);
+            g.drawLine(0, 0, cw - 1, 0);
+            g.drawLine(0, 1, 0, 2);
+            /* g.setColor(highlightColor);
+            g.drawLine(0, 3, cw, 3);
+            g.drawLine(cw, 0, cw, 3); */
+            g.setColor(trackColor);
+
+            g.drawLine(1, 1, cw, 1);
+            for (int y = 0; y <= trackWidth; y++) {
+                g.drawLine(1, y, cw, y);
+            }
+
+            g.translate(-trackBounds.x, -(trackBounds.y + cy));
+
+        } else {
+            int cx = (trackBounds.width / 2) - 2;
+            int ch = trackBounds.height;
+
+            g.translate(trackBounds.x + cx, trackBounds.y);
+
+            g.setColor(getShadowColor());
+            g.drawLine(0, 0, 0, ch - 1);
+            g.drawLine(1, 0, 2, 0);
+            g.setColor(getHighlightColor());
+            g.drawLine(3, 0, 3, ch);
+            g.drawLine(0, ch, 3, ch);
+            g.setColor(Color.black);
+            g.drawLine(1, 1, 1, ch - 2);
+
+            g.translate(-(trackBounds.x + cx), -trackBounds.y);
+        }
 
         if (slider.getOrientation() == JSlider.HORIZONTAL) {
             // Determine position of selected range by moving from the middle
@@ -184,7 +256,7 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
 
             // Draw selected range.
             g.setColor(rangeColor);
-            for (int y = 0; y <= 3; y++) {
+            for (int y = 0; y <= trackWidth; y++) {
                 g.drawLine(lowerX - trackBounds.x, y, upperX - trackBounds.x, y);
             }
 
@@ -230,67 +302,71 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
      * Paints the thumb for the lower value using the specified graphics object.
      */
     private void paintLowerThumb(Graphics g) {
-        Rectangle knobBounds = thumbRect;
-        int w = knobBounds.width;
-        int h = knobBounds.height;
-
-        // Create graphics copy.
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        // Create default thumb shape.
-        Shape thumbShape = createThumbShape(w - 1, h - 1);
-
-        // Draw thumb.
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.translate(knobBounds.x, knobBounds.y);
-
-        g2d.setColor(Color.CYAN);
-        g2d.fill(thumbShape);
-
-        g2d.setColor(Color.BLUE);
-        g2d.draw(thumbShape);
-
-        // Dispose graphics.
-        g2d.dispose();
+        paintThumb(g, thumbRect);
     }
 
     /**
      * Paints the thumb for the upper value using the specified graphics object.
      */
     private void paintUpperThumb(Graphics g) {
-        Rectangle knobBounds = upperThumbRect;
-        int w = knobBounds.width;
-        int h = knobBounds.height;
-
-        // Create graphics copy.
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        // Create default thumb shape.
-        Shape thumbShape = createThumbShape(w - 1, h - 1);
-
-        // Draw thumb.
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.translate(knobBounds.x, knobBounds.y);
-
-        g2d.setColor(Color.PINK);
-        g2d.fill(thumbShape);
-
-        g2d.setColor(Color.RED);
-        g2d.draw(thumbShape);
-
-        // Dispose graphics.
-        g2d.dispose();
+        paintThumb(g, upperThumbRect);
     }
 
     /**
-     * Returns a Shape representing a thumb.
+     * Paints focus.
+     * @param g the graphics
      */
-    private Shape createThumbShape(int width, int height) {
-        // Use circular shape.
-        Ellipse2D shape = new Ellipse2D.Double(0, 0, width, height);
-        return shape;
+    public void paintFocus(Graphics g) {
+        g.setColor(getFocusColor());
+
+    }
+
+    /**
+     * Returns a Thumb based on the thumbs base Rectangle.
+     */
+    private Graphics paintThumb(Graphics g, Rectangle thumb) {
+
+        Rectangle knobBounds = thumb;
+        int w = knobBounds.width;
+        int h = knobBounds.height;
+
+        g.translate(knobBounds.x, knobBounds.y);
+        Rectangle clip = g.getClipBounds();
+        g.clipRect(0, 0, w, h);
+
+        if (slider.isEnabled()) {
+            g.setColor(slider.getBackground());
+        } else {
+            g.setColor(slider.getBackground().darker());
+        }
+
+        int cw = w / 2;
+        g.fillRect(1, 1, w - 3, h - 1 - cw);
+
+        Polygon p = new Polygon();
+        p.addPoint(1, h - cw);
+        p.addPoint(cw - 1, h - 1);
+        p.addPoint(w - 2, h - 1 - cw);
+        g.fillPolygon(p);
+
+        g.setColor(frameColor);
+        g.drawLine(0, 0, w - 2, 0);
+        g.drawLine(0, 1, 0, h - 1 - cw);
+        g.drawLine(0, h - cw, cw - 1, h - 1);
+
+        g.setColor(frameColor);
+        g.drawLine(w - 1, 0, w - 1, h - 2 - cw);
+        g.drawLine(w - 1, h - 1 - cw, w - 1 - cw, h - 1);
+
+        // this is null, because shadow color is null, so we will not have a shadow, which is good
+        g.setColor(shadowColor);
+        g.drawLine(w - 2, 1, w - 2, h - 2 - cw);
+        g.drawLine(w - 2, h - 1 - cw, w - 1 - cw, h - 2);
+
+        g.setClip(clip);
+        g.translate(-knobBounds.x, -knobBounds.y);
+
+        return g;
     }
 
     /** 
@@ -323,8 +399,8 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
             int delta = blockIncrement * ((direction > 0) ? POSITIVE_SCROLL : NEGATIVE_SCROLL);
 
             if (upperThumbSelected) {
-                int oldValue = ((RangeSelectorSlider) slider).getUpperValue();
-                ((RangeSelectorSlider) slider).setUpperValue(oldValue + delta);
+                int oldValue = ((RangeSlider) slider).getUpperValue();
+                ((RangeSlider) slider).setUpperValue(oldValue + delta);
             } else {
                 int oldValue = slider.getValue();
                 slider.setValue(oldValue + delta);
@@ -341,8 +417,8 @@ public class RangeSelectorSliderUI extends BasicSliderUI {
             int delta = 1 * ((direction > 0) ? POSITIVE_SCROLL : NEGATIVE_SCROLL);
 
             if (upperThumbSelected) {
-                int oldValue = ((RangeSelectorSlider) slider).getUpperValue();
-                ((RangeSelectorSlider) slider).setUpperValue(oldValue + delta);
+                int oldValue = ((RangeSlider) slider).getUpperValue();
+                ((RangeSlider) slider).setUpperValue(oldValue + delta);
             } else {
                 int oldValue = slider.getValue();
                 slider.setValue(oldValue + delta);

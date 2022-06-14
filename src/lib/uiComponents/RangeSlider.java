@@ -2,17 +2,17 @@ package lib.uiComponents;
 
 import javax.swing.JSlider;
 
-import lib.technicalComponents.RangeSelectorSliderUI;
+import lib.technicalComponents.RangeSliderUI;
 
 //Folgt dem Tutorial ziemlich genau: https://ernienotes.wordpress.com/2010/12/27/creating-a-java-swing-range-slider/
 
-public class RangeSelectorSlider extends JSlider {
+public class RangeSlider extends JSlider {
 
     /**
      * Constructs a RangeSlider with default minimum and maximum values of 0
      * and 100.
      */
-    public RangeSelectorSlider() {
+    public RangeSlider() {
         initSlider();
     }
 
@@ -20,7 +20,7 @@ public class RangeSelectorSlider extends JSlider {
      * Constructs a RangeSlider with the specified default minimum and maximum 
      * values.
      */
-    public RangeSelectorSlider(int min, int max) {
+    public RangeSlider(int min, int max) {
         super(min, max);
         initSlider();
     }
@@ -38,7 +38,7 @@ public class RangeSelectorSlider extends JSlider {
      */
     @Override
     public void updateUI() {
-        setUI(new RangeSelectorSliderUI());
+        setUI(new RangeSliderUI());
         // Update UI for slider labels.  This must be called after updating the
         // UI of the slider.  Refer to JSlider.updateUI().
         updateLabelUIs();

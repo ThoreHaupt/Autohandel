@@ -20,7 +20,7 @@ public class Searchbar extends JPanel {
     public Searchbar(Controller c, UIController uiController) {
         WrittenSearchbar WSB = new WrittenSearchbar(c, uiController);
         add(WSB);
-        MultiLanguageButton searchButton = new MultiLanguageButton(uiController, "Go");
+        MLButton searchButton = new MLButton(uiController, "Go");
         searchButton.addActionListener(WSB.getActionListener());
         searchButton.setMinimumSize(new Dimension(40, height));
         add(searchButton);
@@ -33,7 +33,7 @@ public class Searchbar extends JPanel {
         UIController uiController;
 
         CapableComboBoxEditor cBoxEditor;
-        MultiLanguageTextField textField;
+        MLTextField textField;
 
         String defaultText;
         ComboBoxModel<String> defaultModel;
@@ -74,7 +74,7 @@ public class Searchbar extends JPanel {
 
             defaultText = controller.lc.s("search database");
 
-            textField = new MultiLanguageTextField(uiController, "search database");
+            textField = new MLTextField(uiController, "search database");
             cBoxEditor = new CapableComboBoxEditor(textField.getText());
             controller.lc.addLanguageChangeListener(e -> {
                 if (this.getCurrentQuery().equals("")) {

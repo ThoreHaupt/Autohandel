@@ -3,15 +3,11 @@ package lib.uiComponents;
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
 
-import com.formdev.flatlaf.util.ColorFunctions;
-
-import GUI.UIController;
 import lib.Event.SideHideExtentionStateChangeEvent;
 import lib.Event.SideHideExtentionStateChangeListener;
 import lib.technicalComponents.transparentPane;
 
 import java.awt.*;
-import java.awt.event.*;
 
 public class PageSideHideMenu extends JPanel {
 
@@ -39,26 +35,18 @@ public class PageSideHideMenu extends JPanel {
         setLayout(new BorderLayout());
 
         sideMenu.setPreferredSize(new Dimension(maxMenuSize, 1000));
-        sideMenu.setBackground(new Color(255, 0, 0));
 
         hiddenMainPage = new JPanel();
         hiddenMainPage.setLayout(new BorderLayout());
         hiddenMainPage.setOpaque(false);
 
         // Button to extend the left Menu
-        menuButton = new ImageButton("resources/GUI_images/menuSideButton.png", new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setSideVisibility(!isExtended);
-            }
-
-        }, new Dimension(buttonSize, buttonSize));
+        menuButton = new ImageButton("resources/GUI_images/menuSideButton.png", e -> setSideVisibility(!isExtended),
+                new Dimension(buttonSize, buttonSize));
 
         // puts ImageButton in top left Corner, right next to the ede to the menu
         JPanel mask = new transparentPane();
         mask.setLayout(new BorderLayout());
-        mask.setBackground(new Color(0, 255, 255));
 
         JPanel mask2 = new transparentPane();
         mask2.setLayout(new BorderLayout());

@@ -95,7 +95,7 @@ public class LocalizationController {
     }
 
     private void addKeyToLocalizationFile(String key) {
-        String storedString = "    \"" + key + "\":\"\",";
+        String storedString = "    \"" + key + "\":\"" + key + "\",";
         String[] newArray = new String[localizationMap.length + 1];
         for (int i = 0; i < localizationMap.length - 1; i++) {
             newArray[i] = localizationMap[i];

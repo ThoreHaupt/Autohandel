@@ -6,14 +6,15 @@ import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
 
-import java.awt.*;
-
-public class MultiLanguageButton extends JButton {
+/**
+ * MultiLanguageLabel
+ */
+public class MLLabel extends JLabel {
     UIController uiController;
     LocalizationController lc;
     String text;
 
-    public MultiLanguageButton(UIController uiController, String text) {
+    public MLLabel(UIController uiController, String text) {
         super();
         this.uiController = uiController;
         Controller controller = uiController.getController();
@@ -34,7 +35,6 @@ public class MultiLanguageButton extends JButton {
     }
 
     public void updateText() {
-        System.out.println("apparently there is some language Change");
         this.setText(text);
         revalidate();
     }

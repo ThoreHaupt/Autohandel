@@ -1,19 +1,24 @@
 package lib.uiComponents;
 
 import javax.swing.*;
+import javax.swing.text.Document;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
 
-import java.awt.*;
-
-public class MultiLanguageTextField extends JTextField {
+/**
+ * MultiLanguageTextFiled
+ */
+public class MLTextField extends JTextField {
     UIController uiController;
     LocalizationController lc;
     String text;
+    boolean update;
 
-    public MultiLanguageTextField(UIController uiController, String text) {
+    public MLTextField(UIController uiController, String text) {
         super();
         this.uiController = uiController;
         Controller controller = uiController.getController();
@@ -34,8 +39,18 @@ public class MultiLanguageTextField extends JTextField {
     }
 
     public void updateText() {
+        if (!update)
+            return;
         this.setText(text);
         revalidate();
+    }
+
+    public void setAutoLanguageAdaption(boolean b) {
+        update = b;
+    }
+
+    public void setDocumentFilter(DocumentFilter filter) {
+        ((PlainDocument) getDocument()).setDocumentFilter(filter);
     }
 
 }

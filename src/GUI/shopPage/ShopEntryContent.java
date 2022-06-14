@@ -8,8 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 import Model.ModelComponentes.Car;
-import lib.uiComponents.MultiLanguageButton;
-import lib.uiComponents.MultiLanguageLabel;
+import lib.uiComponents.MLButton;
+import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
 public class ShopEntryContent extends JPanel {
@@ -116,7 +116,7 @@ public class ShopEntryContent extends JPanel {
         priceLabel = new JLabel(car.getPriceString() + " €");
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
         panel.add(new rigitFreeSpace(null, new Dimension(150, withButton ? 50 : 20)), BorderLayout.NORTH);
-        MultiLanguageLabel otherText = new MultiLanguageLabel(this.uiController, "incl MwStr.");
+        MLLabel otherText = new MLLabel(this.uiController, "incl MwStr.");
 
         JPanel subPanel = new JPanel();
         subPanel.setLayout(new BorderLayout());
@@ -124,7 +124,7 @@ public class ShopEntryContent extends JPanel {
         subsubPanel.setLayout(new BorderLayout());
 
         if (withButton) {
-            MultiLanguageButton addToCart = new MultiLanguageButton(uiController, "Configurator");
+            MLButton addToCart = new MLButton(uiController, "Configurator");
             addToCart.addActionListener(new ActionListener() {
 
                 @Override

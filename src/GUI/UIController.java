@@ -127,4 +127,8 @@ public class UIController {
     public JPanel getStandartPanel(String page) {
         return pages.get(page);
     }
+
+    public String getTransatedString(String string) {
+        return controller.getLocalizationController().s(string);
+    }
 }
