@@ -12,7 +12,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 import Controller.Controller;
 import GUI.cartPage.CartPage;
-import GUI.payProcessPage.PayProcess;
+import GUI.configurator.Configurator;
 import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
 import GUI.userPage.UserPage;
@@ -61,7 +61,7 @@ public class UIController {
     private void initializePages() {
         pages.put(MAINSTORE_PAGE, new ShopPage(this));
         pages.put(CART_PAGE, new CartPage(this));
-        pages.put(PAYMENT_PAGE, new PayProcess(this));
+        pages.put(PAYMENT_PAGE, new Configurator(this));
         pages.put(USERPROFILE_PAGE, new UserPage(this));
 
     }

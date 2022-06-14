@@ -77,10 +77,12 @@ public class Searchbar extends JPanel {
             textField = new MultiLanguageTextField(uiController, "search database");
             cBoxEditor = new CapableComboBoxEditor(textField.getText());
             controller.lc.addLanguageChangeListener(e -> {
-                defaultText = controller.lc.s("search database");
-                if (this.getCurrentQuery().equals(defaultText)) {
+                if (this.getCurrentQuery().equals("")) {
+                    defaultText = controller.lc.s("search database");
                     setModel(new DefaultComboBoxModel<String>(new String[] { defaultText }));
                     setPopupVisible(false);
+                } else {
+                    defaultText = controller.lc.s("search database");
                 }
             });
             setEditor(cBoxEditor);
