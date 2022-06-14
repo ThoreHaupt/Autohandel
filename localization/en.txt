@@ -2,5 +2,7 @@
     "a": "a",
     "b": "a",
     "hallo":"hello",
-    "\"TAG\"":"\"DAY\""
+    "\"TAG\"":"\"DAY\"",
+    "add to Cart":"add to Cart",
+    "incl MwStr.":"incl vat",
 }

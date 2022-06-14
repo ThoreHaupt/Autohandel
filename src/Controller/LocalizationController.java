@@ -3,11 +3,13 @@ package Controller;
 import java.util.HashMap;
 
 import lib.fileHandling.FileLoader;
+import lib.fileHandling.FileSaver;
 
 public class LocalizationController {
-    private language currentLanguage = language.ENGLISH;
+    private language currentLanguage = language.GERMAN;
     HashMap<String, String> languageMap;
     String[] languageToString = new String[] { "en", "ger" };
+    String[] localizationMap;
 
     /**
      * 
@@ -21,7 +23,7 @@ public class LocalizationController {
         languageMap = new HashMap<>();
         String lanuageCode = languageToString[l.getIndex()];
         String path = "localization/" + lanuageCode + ".txt";
-        String[] localizationMap = FileLoader.getallLinesFromFile(path);
+        localizationMap = FileLoader.getallLinesFromFile(path);
         for (int i = 0; i < localizationMap.length; i++) {
             if (localizationMap[i].equals("{")) {
                 continue;
@@ -87,10 +89,21 @@ public class LocalizationController {
     }
 
     private void addKeyToLocalizationFile(String key) {
+        String storedString = "    \"" + key + "\":\"\",";
+        String[] newArray = new String[localizationMap.length + 1];
+        for (int i = 0; i < localizationMap.length - 1; i++) {
+            newArray[i] = localizationMap[i];
+        }
+        newArray[newArray.length - 2] = storedString;
+        newArray[newArray.length - 1] = "}";
 
+        String lanuageCode = languageToString[currentLanguage.getIndex()];
+        FileSaver.saveFile("localization/" + lanuageCode + ".txt", newArray);
+
+        languageMap.put(key, key);
     }
 
-    public void onLanguageChange() {
+    public void onLanguageChange(language newl) {
 
     }
 
