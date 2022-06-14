@@ -1,4 +1,4 @@
-package Controller;
+package LocalizationLogic;
 
 import java.util.HashMap;
 
@@ -6,7 +6,7 @@ import lib.fileHandling.FileLoader;
 import lib.fileHandling.FileSaver;
 
 public class LocalizationController {
-    private language currentLanguage = language.GERMAN;
+    private language currentLanguage = language.ENGLISH;
     HashMap<String, String> languageMap;
     String[] languageToString = new String[] { "en", "ger" };
     String[] localizationMap;
@@ -101,6 +101,7 @@ public class LocalizationController {
         FileSaver.saveFile("localization/" + lanuageCode + ".txt", newArray);
 
         languageMap.put(key, key);
+        localizationMap = newArray;
     }
 
     public void onLanguageChange(language newl) {

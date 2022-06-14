@@ -1,4 +1,8 @@
 {
     "a": "a",
     "b": "a"
+    "add to Cart":"Zum Warenkorb Hinzufügen",
+    "incl MwStr.":"incl MwStr",
+    "search database":"durchsuche Datenbasis",
+    "Go":"Suche",
 }

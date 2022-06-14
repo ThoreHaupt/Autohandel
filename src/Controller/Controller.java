@@ -2,6 +2,7 @@ package Controller;
 
 import GUI.UIController;
 import GUI.shopPage.ShopGalleryEntry;
+import LocalizationLogic.LocalizationController;
 import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
@@ -14,8 +15,8 @@ public class Controller {
     private Model model;
 
     public Controller() {
-        model = new Model();
         lc = new LocalizationController();
+        model = new Model();
         this.uiController = new UIController(this);
     }
 

@@ -1,8 +1,8 @@
-package Controller;
+package LocalizationLogic;
 
 public enum language {
     ENGLISH(0),
-    GERMAN(0);
+    GERMAN(1);
 
     private int index;
 

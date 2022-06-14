@@ -1,4 +1,4 @@
-package Controller;
+package LocalizationLogic;
 
 public class LocalizationUtils {
 
