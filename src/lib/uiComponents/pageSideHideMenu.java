@@ -1,10 +1,13 @@
 package lib.uiComponents;
 
 import javax.swing.*;
+import javax.swing.event.EventListenerList;
 
 import com.formdev.flatlaf.util.ColorFunctions;
 
 import GUI.UIController;
+import lib.Event.SideHideExtentionStateChangeEvent;
+import lib.Event.SideHideExtentionStateChangeListener;
 import lib.technicalComponents.transparentPane;
 
 import java.awt.*;
@@ -20,6 +23,8 @@ public class PageSideHideMenu extends JPanel {
     private int buttonSize = 30;
 
     private boolean isExtended = false;
+
+    protected EventListenerList listenerList = new EventListenerList();
 
     public PageSideHideMenu(JPanel mainPage, JPanel sideMenu, int menuHorizontalSize) {
         this.maxMenuSize = menuHorizontalSize;
@@ -94,6 +99,7 @@ public class PageSideHideMenu extends JPanel {
         this.add(sideMenu, BorderLayout.WEST);
         this.add(hiddenMainPage, BorderLayout.CENTER);
         this.revalidate();
+        fireExtentionStateChange(new SideHideExtentionStateChangeEvent(this));
     }
 
     private void hideSide() {
@@ -102,6 +108,7 @@ public class PageSideHideMenu extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(hiddenMainPage, BorderLayout.CENTER);
         this.revalidate();
+        fireExtentionStateChange(new SideHideExtentionStateChangeEvent(this));
 
     }
 
@@ -133,5 +140,22 @@ public class PageSideHideMenu extends JPanel {
      */
     public boolean isExtended() {
         return isExtended;
+    }
+
+    void fireExtentionStateChange(SideHideExtentionStateChangeEvent event) {
+        Object[] listeners = listenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i = i + 2) {
+            if (listeners[i] == SideHideExtentionStateChangeListener.class) {
+                ((SideHideExtentionStateChangeListener) listeners[i + 1]).extentionStateChanged(event);
+            }
+        }
+    }
+
+    public void addSideHideExtentionStateChangeListener(SideHideExtentionStateChangeListener listener) {
+        listenerList.add(SideHideExtentionStateChangeListener.class, listener);
+    }
+
+    public void removeSideHideExtentionStateChangeListener(SideHideExtentionStateChangeListener listener) {
+        listenerList.remove(SideHideExtentionStateChangeListener.class, listener);
     }
 }

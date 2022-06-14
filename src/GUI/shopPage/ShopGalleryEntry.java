@@ -21,7 +21,7 @@ public class ShopGalleryEntry extends JPanel {
         entry.setBackground(UIManager.getColor("default"));
         entry.setLayout(new BorderLayout());
         contents = new ShopEntryContent(uiController, car, true);
-        entry.add(contents, BorderLayout.WEST);
+        entry.add(contents, BorderLayout.CENTER);
         entry.addActionListener(new ActionListener() {
 
             @Override

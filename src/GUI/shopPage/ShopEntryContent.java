@@ -1,9 +1,6 @@
 package GUI.shopPage;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.DimensionUIResource;
 
 import GUI.UIController;
 
@@ -35,7 +32,7 @@ public class ShopEntryContent extends JPanel {
         this.setOpaque(false);
         if (isGalary) {
             optimalWidth = uiController.getStandartPanel(UIController.MAINSTORE_PAGE).getWidth() - 60;
-            this.add(buildShopGalleryEntry(), BorderLayout.WEST);
+            this.add(buildShopGalleryEntry());
         }
 
         if (!isGalary)

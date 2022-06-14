@@ -1,18 +1,14 @@
 package GUI.shopPage;
 
 import javax.swing.*;
-import javax.swing.SpringLayout.Constraints;
 
 import GUI.UIController;
 import GUI.MainWindow;
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
-import lib.Event.WindowSizeChangeEvent;
-import lib.Event.WindowSizeChangeListener;
 import lib.uiComponents.PageSideHideMenu;
 
 import java.awt.*;
-import java.awt.event.*;
 
 public class ShopPage extends JPanel {
 
@@ -20,7 +16,7 @@ public class ShopPage extends JPanel {
     Filter filter;
 
     PageSideHideMenu sideMenuManager;
-    int sideMenuSize = 500;
+    int sideMenuSize = 100;
     JPanel mainPanel;
 
     ShopGalleryEntry[] entries;
@@ -143,15 +139,14 @@ public class ShopPage extends JPanel {
         
         }); */
 
-        /* window.addWindowSizeChangeListener(new WindowSizeChangeListener() {
-        
-            @Override
-            public void windowSizeChanged(WindowSizeChangeEvent event) {
-                scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
-                scrollPane.revalidate();
-            }
-        
-        }); */
+        sideMenuManager.addSideHideExtentionStateChangeListener(e -> {
+            scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
+            scrollPane.revalidate();
+        });
+        window.addWindowSizeChangeListener(e -> {
+            scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
+            scrollPane.revalidate();
+        });
 
         // I want to return a JPanel, not some JScrollBar, so I add it onto a new JPanel
         // and return that one
@@ -164,7 +159,7 @@ public class ShopPage extends JPanel {
     public Dimension calculateOptimalShopMainPageSize() {
         MainWindow window = uiController.getWindow();
         return new Dimension(
-                (int) window.getWidth() - ((sideMenuManager.isExtended()) ? sideMenuSize + 60 : 60),
+                (int) window.getWidth() - ((sideMenuManager.isExtended()) ? sideMenuSize : 0) - 60,
                 window.getHeight() - uiController.getTopMenubarHeight());
 
     }

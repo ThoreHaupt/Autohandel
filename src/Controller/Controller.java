@@ -53,4 +53,8 @@ public class Controller {
     public User getUser() {
         return new User();
     }
+
+    public LocalizationController getLanguageController() {
+        return lc;
+    }
 }

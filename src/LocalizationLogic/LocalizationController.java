@@ -2,6 +2,10 @@ package LocalizationLogic;
 
 import java.util.HashMap;
 
+import javax.swing.event.EventListenerList;
+
+import lib.Event.LanguageChangeListener;
+import lib.Event.languageChangeEvent;
 import lib.fileHandling.FileLoader;
 import lib.fileHandling.FileSaver;
 
@@ -10,6 +14,8 @@ public class LocalizationController {
     HashMap<String, String> languageMap;
     String[] languageToString = new String[] { "en", "ger" };
     String[] localizationMap;
+
+    protected EventListenerList listenerList = new EventListenerList();
 
     /**
      * 
@@ -104,8 +110,21 @@ public class LocalizationController {
         localizationMap = newArray;
     }
 
-    public void onLanguageChange(language newl) {
+    public void fireLanguageChangeEvent(languageChangeEvent event) {
+        Object[] listeners = listenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i = i + 2) {
+            if (listeners[i] == LanguageChangeListener.class) {
+                ((LanguageChangeListener) listeners[i + 1]).languageChanged(event);
+            }
+        }
+    }
 
+    public void addLanguageChangeListener(LanguageChangeListener listener) {
+        listenerList.add(LanguageChangeListener.class, listener);
+    }
+
+    public void removeLanguageChangeListener(LanguageChangeListener listener) {
+        listenerList.remove(LanguageChangeListener.class, listener);
     }
 
 }
