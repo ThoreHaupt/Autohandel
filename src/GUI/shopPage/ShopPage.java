@@ -16,7 +16,7 @@ public class ShopPage extends JPanel {
     Filter filter;
 
     PageSideHideMenu sideMenuManager;
-    int sideMenuSize = 100;
+    int sideMenuSize = 300;
     JPanel mainPanel;
 
     ShopGalleryEntry[] entries;
@@ -77,7 +77,7 @@ public class ShopPage extends JPanel {
     }
 
     public JPanel createSideMenu() {
-        return new JPanel();
+        return new FilterPage(uiController);
     }
 
     public JPanel loadEntriesFromModel(Filter filter) {

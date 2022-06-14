@@ -70,7 +70,7 @@ public class Searchbar extends JPanel {
         public void createSearchbar() {
 
             Font font = uiController.getDefaultFont();
-            font.deriveFont(Font.PLAIN, 20);
+            font = font.deriveFont(Font.PLAIN, 15);
 
             defaultText = controller.lc.s("search database");
 
