@@ -38,7 +38,7 @@ public class RangeSliderUI extends BasicSliderUI {
 
     //active Thumb
 
-    private int trackWidth = 2 + (int) UIManager.get("Slider.trackWidth");
+    private int trackThickness = 2 + (int) UIManager.get("Slider.trackWidth");
 
     // We dont like shadow, so this gets to be null
     private Color shadowColor = null;
@@ -208,18 +208,8 @@ public class RangeSliderUI extends BasicSliderUI {
 
             g.translate(trackBounds.x, trackBounds.y + cy);
 
-            g.setColor(shadowColor);
-            g.drawLine(0, 0, cw - 1, 0);
-            g.drawLine(0, 1, 0, 2);
-            /* g.setColor(highlightColor);
-            g.drawLine(0, 3, cw, 3);
-            g.drawLine(cw, 0, cw, 3); */
             g.setColor(trackColor);
-
-            g.drawLine(1, 1, cw, 1);
-            for (int y = 0; y <= trackWidth; y++) {
-                g.drawLine(1, y, cw, y);
-            }
+            g.fillRect(1, 1, 1 + cw, trackThickness);
 
             g.translate(-trackBounds.x, -(trackBounds.y + cy));
 
@@ -244,8 +234,8 @@ public class RangeSliderUI extends BasicSliderUI {
         if (slider.getOrientation() == JSlider.HORIZONTAL) {
             // Determine position of selected range by moving from the middle
             // of one thumb to the other.
-            int lowerX = thumbRect.x + (thumbRect.width / 2);
-            int upperX = upperThumbRect.x + (upperThumbRect.width / 2);
+            int lowerX = thumbRect.x;
+            int upperX = upperThumbRect.x;
 
             // Determine track position.
             int cy = (trackBounds.height / 2) - 2;
@@ -256,9 +246,7 @@ public class RangeSliderUI extends BasicSliderUI {
 
             // Draw selected range.
             g.setColor(rangeColor);
-            for (int y = 0; y <= trackWidth; y++) {
-                g.drawLine(lowerX - trackBounds.x, y, upperX - trackBounds.x, y);
-            }
+            g.fillRect(lowerX, 1, upperX - lowerX, trackThickness);
 
             // Restore position and color.
             g.translate(-trackBounds.x, -(trackBounds.y + cy));

@@ -72,7 +72,7 @@ public class FilterPage extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
-        c.weightx = 0.0;
+        c.weightx = 0.9;
         c.gridwidth = 2;
         panel.add(checkBox, c);
 
@@ -85,7 +85,7 @@ public class FilterPage extends JPanel {
         // Spending Range
         c.gridx = 0;
         c.gridy = 2;
-        c.weightx = 0.6;
+        c.weightx = 0.9;
         c.gridwidth = 2;
         panel.add(buildSpendingRangeSelector(), c);
         // Electric

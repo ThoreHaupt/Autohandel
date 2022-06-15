@@ -12,3 +12,8 @@ Der Range Slider ist von dem folgenden Link/ Tutorial, das habe ich nicht komple
 deutlich außerhalb der Anforderungen würde ich einfach mal sagen: (der RangeSlider hat auch keine in der AufgabenStellung geforderte Funktionalitäten)
 https://ernienotes.wordpress.com/2010/12/27/creating-a-java-swing-range-slider/
 Jedoch habe ich eine Reihe an Änderungen gemacht, um das an mein LaF anzupassen/ die Form vom Silder zu verändern usw...
+
+//TODO:
+
+- Slider use settable values
+- Slider display max Range, when value = limit

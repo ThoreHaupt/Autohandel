@@ -42,4 +42,6 @@
     "Filter out non-affortable Offers":"Filter out non-affortable Offers",
     "Filter non-affortable Offers":"Filter non-affortable Offers",
     "5000":"5000",
+    "Price Range":"Price Range",
+    "Price Range:":"Price Range:",
 }
