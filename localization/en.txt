@@ -10,12 +10,6 @@
     "Configurator":"Configurator",
     "Filter":"Filter",
     "maximum Budget":"maximum Budget",
-    "":"",
-    "12":"12",
-    "1232":"1232",
-    "123212":"123212",
-    "1":"1",
-    "132":"132",
     "Maximum Budget:":"Maximum Budget:",
     "Maximum Budget":"Maximum Budget",
     "Filter out non-affortable Offers":"Filter out non-affortable Offers",
@@ -26,6 +20,7 @@
     "no Limit":"no Limit",
     "Engine":"Engine",
     "Electric":"Electric",
-    "Internal Combustion":"Internal Combustion",
+    "Internal Combustion":"Internal Combustion"
     "unbeschränkt":"unbeschränkt",
+    "":"",
 }

@@ -18,6 +18,7 @@ public class SmartMLTextField extends JTextField {
 
     int maxValue;
     int minValue;
+    int value;
     boolean changeOnMax;
     LocalizedString maxText;
 
@@ -32,6 +33,7 @@ public class SmartMLTextField extends JTextField {
         defaultFilter = new DocumentFilter();
         this.maxValue = maxValue;
         this.minValue = minValue;
+        this.value = minValue;
         this.maxText = new LocalizedString(uiController, maxText);
         this.uiController = uiController;
         this.changeOnMax = changeOnMax;
@@ -60,7 +62,7 @@ public class SmartMLTextField extends JTextField {
 
             @Override
             public void focusGained(FocusEvent e) {
-                if (getText().equals(maxText.toString())) {
+                if (isAtMaxPoint) {
                     setTextBypassed((changeOnMax ? maxValue : minValue) + "");
                 }
             }
@@ -68,7 +70,7 @@ public class SmartMLTextField extends JTextField {
             @Override
             public void focusLost(FocusEvent e) {
                 setCorrectRange();
-                if (getValue() == (changeOnMax ? maxValue : minValue)) {
+                if (isAtMaxPoint) {
                     setTextBypassed(maxText.toString());
                 }
                 SwingUtilities.invokeLater(performAction);
@@ -110,36 +112,32 @@ public class SmartMLTextField extends JTextField {
         setDocumentFilter(filter);
     }
 
-    @Override
-    public void setText(String s) {
-        super.setText(s);
+    public void setValue(int newVal) {
+        value = newVal;
         setCorrectRange();
+        setText(String.valueOf(newVal));
         handleAtMax();
+        SwingUtilities.invokeLater(performAction);
     }
 
     public void setCorrectRange() {
-        int current = getValue();
-        if (current < minValue) {
-            setText(minValue + "");
-            SwingUtilities.invokeLater(performAction);
-        } else if (current > maxValue) {
-            setText(maxValue + "");
-            SwingUtilities.invokeLater(performAction);
+        if (value <= minValue) {
+            value = minValue;
+            isAtMaxPoint = true;
+        } else if (value >= maxValue) {
+            value = maxValue;
+            isAtMaxPoint = false;
         }
+        isAtMaxPoint = false;
     }
 
     public int getValue() {
-        if (getText().equals(""))
-            return 0;
-        if (getText().equals(maxText.toString()))
-            return changeOnMax ? maxValue : minValue;
-        return Integer.parseInt(getText());
+        return value;
     }
 
-    void handleAtMax() {
-        if (getValue() == (changeOnMax ? maxValue : minValue)) {
+    private void handleAtMax() {
+        if (isAtMaxPoint) {
             setTextBypassed(maxText.toString());
-            isAtMaxPoint = true;
         } else {
             isAtMaxPoint = false;
         }
@@ -154,6 +152,8 @@ public class SmartMLTextField extends JTextField {
 
     void updateLangugage() {
         maxText.updateValue();
-        handleAtMax();
+        if (isAtMaxPoint) {
+            setText(maxText.toString());
+        }
     }
 }

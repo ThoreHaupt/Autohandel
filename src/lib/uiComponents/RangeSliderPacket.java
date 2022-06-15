@@ -88,8 +88,8 @@ public class RangeSliderPacket extends JPanel {
         rangeSlider.setPaintLabels(true);
 
         rangeSlider.addChangeListener(e -> {
-            lowerLabelSliderValue.setText(String.valueOf(rangeSlider.getValue()));
-            upperLabelSliderValue.setText(String.valueOf(rangeSlider.getUpperValue()));
+            lowerLabelSliderValue.setValue(rangeSlider.getValue());
+            upperLabelSliderValue.setValue(rangeSlider.getUpperValue());
         });
 
         // addButtons and ActionListeners
