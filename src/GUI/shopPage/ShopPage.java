@@ -16,7 +16,7 @@ public class ShopPage extends JPanel {
     Filter filter;
 
     PageSideHideMenu sideMenuManager;
-    int sideMenuSize = 300;
+    int sideMenuSize = 400;
     JPanel mainPanel;
 
     ShopGalleryEntry[] entries;

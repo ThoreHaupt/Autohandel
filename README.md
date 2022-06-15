@@ -15,5 +15,5 @@ Jedoch habe ich eine Reihe an Änderungen gemacht, um das an mein LaF anzupassen
 
 //TODO:
 
-- Slider use settable values
+- Slider use settable Extrem points
 - Slider display max Range, when value = limit

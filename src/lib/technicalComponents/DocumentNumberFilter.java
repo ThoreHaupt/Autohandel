@@ -6,7 +6,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
-public class MyDocumentNumberFilter extends DocumentFilter {
+public class DocumentNumberFilter extends DocumentFilter {
 
         @Override
         public void insertString(FilterBypass fb, int offset, String string,

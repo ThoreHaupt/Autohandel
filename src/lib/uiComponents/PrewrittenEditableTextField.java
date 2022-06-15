@@ -7,7 +7,7 @@ import javax.swing.plaf.DimensionUIResource;
 import javax.swing.text.DocumentFilter;
 
 import GUI.UIController;
-import lib.technicalComponents.MyDocumentNumberFilter;
+import lib.technicalComponents.DocumentNumberFilter;
 
 public class PrewrittenEditableTextField extends JPanel {
 
@@ -18,6 +18,8 @@ public class PrewrittenEditableTextField extends JPanel {
 
     String defaultString;
     String currentString = "";
+
+    String fokusEditText = "";
 
     boolean autoMaticChange = false;
 
@@ -52,13 +54,14 @@ public class PrewrittenEditableTextField extends JPanel {
         textField.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 11));
         textField.setEditable(true);
         textField.setDocumentFilter(filter);
+
         textField.addFocusListener(new FocusListener() {
 
             @Override
             public void focusGained(FocusEvent e) {
 
                 if (textField.getText().equals(uiController.getTransatedString(defaultString))) {
-                    textField.setText("");
+                    textField.setText(fokusEditText);
                 }
             }
 
@@ -78,5 +81,20 @@ public class PrewrittenEditableTextField extends JPanel {
 
     public void setColumns(int i) {
         textField.setColumns(i);
+    }
+
+    protected void setTextDefault() {
+        textField.setDocumentFilter(defaultFilter);
+        textField.setText(defaultString);
+        textField.setDocumentFilter(filter);
+    }
+
+    protected void setFokusEditText(String s) {
+        this.fokusEditText = s;
+    }
+
+    public void changeFilter(DocumentFilter filter) {
+        this.filter = filter;
+        this.textField.setDocumentFilter(filter);
     }
 }

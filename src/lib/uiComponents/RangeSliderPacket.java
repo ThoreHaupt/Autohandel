@@ -13,7 +13,7 @@ import java.awt.event.*;
 import java.util.Hashtable;
 
 import GUI.UIController;
-import lib.technicalComponents.MyDocumentNumberFilter;
+import lib.technicalComponents.DocumentNumberFilter;
 import lib.technicalComponents.*;
 
 public class RangeSliderPacket extends JPanel {
@@ -49,23 +49,18 @@ public class RangeSliderPacket extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         // left Label which displays the lower Value of the slider
-        c.weightx = 0.2;
 
-        c.gridx = 0;
-        c.gridy = 0;
-        JLabel lowerLabelSliderValue = new JLabel(start + "");
-        lowerLabelSliderValue.setBackground(Color.LIGHT_GRAY);
-        lowerLabelSliderValue.setPreferredSize(new Dimension(35, 10));
-        panel.add(lowerLabelSliderValue, c);
+        SmartMLTextField lowerLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, false);
+        lowerLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
+        lowerLabelSliderValue.setPreferredSize(new Dimension(50, 20));
+        lowerLabelSliderValue.setBorder(BorderFactory.createEmptyBorder());
 
         // right Label which displays the upper Value of the slider
-        c.weightx = 0.2;
 
-        c.gridx = 2;
-        JLabel upperLabelSliderValue = new JLabel(end + "");
-        upperLabelSliderValue.setBackground(Color.LIGHT_GRAY);
-        upperLabelSliderValue.setPreferredSize(new Dimension(35, 10));
-        panel.add(upperLabelSliderValue, c);
+        SmartMLTextField upperLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, true);
+        upperLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
+        upperLabelSliderValue.setPreferredSize(new Dimension(50, 20));
+        upperLabelSliderValue.setBorder(BorderFactory.createEmptyBorder());
 
         //Slider: 
         c.weightx = 0.6;
@@ -97,9 +92,34 @@ public class RangeSliderPacket extends JPanel {
             upperLabelSliderValue.setText(String.valueOf(rangeSlider.getUpperValue()));
         });
 
+        // addButtons and ActionListeners
+        c.weightx = 0.2;
+
+        //LeftLabel
+        c.gridx = 0;
+        c.gridy = 0;
+
+        lowerLabelSliderValue.addActionListener(e -> {
+            rangeSlider.setValue(lowerLabelSliderValue.getValue());
+            rangeSlider.revalidate();
+        });
+        panel.add(lowerLabelSliderValue, c);
+
+        // right Label
+        c.gridx = 2;
+        upperLabelSliderValue.addActionListener(e -> {
+            rangeSlider.setUpperValue(upperLabelSliderValue.getValue());
+            rangeSlider.revalidate();
+        });
+        panel.add(upperLabelSliderValue, c);
+
         // init label Values;
         lowerLabelSliderValue.setText(String.valueOf(rangeSlider.getValue()));
         upperLabelSliderValue.setText(String.valueOf(rangeSlider.getUpperValue()));
+
+        c.weightx = 0.6;
+        c.gridx = 1;
+        c.gridy = 0;
 
         panel.add(rangeSlider, c);
 
@@ -108,7 +128,6 @@ public class RangeSliderPacket extends JPanel {
     }
 
     private Hashtable<Integer, JLabel> populateLabelTabel(Hashtable<Integer, JLabel> labelTable) {
-        System.out.println("jala");
         int labelDistance = (labelSpacing * majorTickSpacing);
         int reguilarLabelAmount = (end - start) / labelDistance + 1;
 
@@ -138,14 +157,13 @@ public class RangeSliderPacket extends JPanel {
         l2.add(bf2);
 
         labelTable.put(Integer.valueOf(reguilarLabelAmount), l1);
-        System.out.println(labelTable.size());
         return labelTable;
     }
 
     private class blackField extends PrewrittenEditableTextField {
 
         public blackField(UIController uiController, double num) {
-            super(uiController, "" + start, new MyDocumentNumberFilter());
+            super(uiController, "" + start, new DocumentNumberFilter());
             textField.setEditable(true);
             this.textField.setAutoLanguageAdaption(false);
             textField.setBorder(BorderFactory.createEmptyBorder());

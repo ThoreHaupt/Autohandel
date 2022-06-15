@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import GUI.UIController;
 import lib.Event.ChangeToCartListener;
-import lib.technicalComponents.MyDocumentNumberFilter;
+import lib.technicalComponents.DocumentNumberFilter;
 import lib.uiComponents.DisplayListeningField;
 import lib.uiComponents.MLCheckBox;
 import lib.uiComponents.MLLabel;
@@ -61,7 +61,7 @@ public class FilterPage extends JPanel {
 
         c.gridx = 1;
         PrewrittenEditableTextField mltfMaxSpending = new PrewrittenEditableTextField(uiController, "Maximum Budget",
-                new MyDocumentNumberFilter());
+                new DocumentNumberFilter());
         mltfMaxSpending.setColumns(15);
         //mltfMaxSpending.addActionListener(e -> );
         panel.add(mltfMaxSpending, c);
@@ -88,7 +88,27 @@ public class FilterPage extends JPanel {
         c.weightx = 0.9;
         c.gridwidth = 2;
         panel.add(buildSpendingRangeSelector(), c);
-        // Electric
+        // Engine Style
+
+        c.gridx = 0;
+        c.gridy = 3;
+        c.weightx = 0.9;
+        c.gridwidth = 2;
+
+        MLLabel engineSectionTitle = new MLLabel(uiController, "Engine");
+
+        panel.add(engineSectionTitle, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        c.weightx = 0.9;
+        c.gridwidth = 2;
+
+        JPanel checkBoxPanel = new JPanel();
+        checkBoxPanel.setLayout(new GridLayout(1, 2));
+        checkBoxPanel.add(new MLCheckBox(uiController, "Electric"), 0);
+        checkBoxPanel.add(new MLCheckBox(uiController, "Internal Combustion"), 1);
+        panel.add(checkBoxPanel, c);
         // Brands
 
         return panel;
