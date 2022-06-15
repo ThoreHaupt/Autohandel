@@ -59,4 +59,13 @@ public class Controller {
     public LocalizationController getLocalizationController() {
         return lc;
     }
+
+    public double getCurrentFreeBudget() {
+        return getCurrentUser().getCart().getTotalPrice();
+    }
+
+    public User getCurrentUser() {
+        return model.getLoggedUser();
+    }
+
 }

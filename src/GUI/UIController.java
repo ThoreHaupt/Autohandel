@@ -131,4 +131,12 @@ public class UIController {
     public String getTransatedString(String string) {
         return controller.getLocalizationController().s(string);
     }
+
+    public Color getAffortableColor() {
+        return new Color(30, 245, 38);
+    }
+
+    public Color getNotAffortableColor() {
+        return new Color(245, 45, 30);
+    }
 }

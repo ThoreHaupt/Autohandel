@@ -3,22 +3,13 @@ package lib.uiComponents;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.NumberFormat;
-import java.util.Arrays;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.plaf.DimensionUIResource;
 import javax.swing.text.DocumentFilter;
 
-import Controller.Controller;
 import GUI.UIController;
 import lib.technicalComponents.MyDocumentNumberFilter;
 
-public class PrewrittenTextField extends JPanel {
+public class PrewrittenEditableTextField extends JPanel {
 
     UIController uiController;
     MLTextField textField;
@@ -33,16 +24,27 @@ public class PrewrittenTextField extends JPanel {
     /**
      * @param c
      */
-    public PrewrittenTextField(UIController c, String defaultString) {
+    public PrewrittenEditableTextField(UIController c, String defaultString, DocumentFilter filter) {
         this.uiController = c;
         this.defaultString = defaultString;
+        this.defaultFilter = new DocumentFilter();
+        this.filter = filter;
+        this.add(createTextField());
+    }
+
+    /**
+     * @param c
+     */
+    public PrewrittenEditableTextField(UIController c, String defaultString) {
+        this.uiController = c;
+        this.defaultString = defaultString;
+        this.defaultFilter = new DocumentFilter();
+        this.filter = defaultFilter;
         this.add(createTextField());
     }
 
     private JPanel createTextField() {
         JPanel panel = new JPanel();
-        filter = new MyDocumentNumberFilter();
-        defaultFilter = new DocumentFilter();
 
         panel.setMinimumSize(new DimensionUIResource(500, 500));
         textField = new MLTextField(uiController, defaultString);

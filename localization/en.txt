@@ -37,4 +37,9 @@
     "123212":"123212",
     "1":"1",
     "132":"132",
+    "Maximum Budget:":"Maximum Budget:",
+    "Maximum Budget":"Maximum Budget",
+    "Filter out non-affortable Offers":"Filter out non-affortable Offers",
+    "Filter non-affortable Offers":"Filter non-affortable Offers",
+    "5000":"5000",
 }

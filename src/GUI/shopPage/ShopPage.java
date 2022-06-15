@@ -165,7 +165,7 @@ public class ShopPage extends JPanel {
     }
 
     public void setFilter(Filter filter) {
-        if (this.filter.getUser().getUserName().equals("Guest")) {
+        if (this.filter.getUser().getUserFirstName().equals("Guest")) {
 
         }
     }

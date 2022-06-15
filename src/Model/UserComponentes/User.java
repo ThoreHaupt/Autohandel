@@ -5,21 +5,30 @@ import java.util.ArrayList;
 import Model.ModelComponentes.Car;
 
 public class User {
-    private String email;
-    private String username;
-    private String password;
-    private int id;
-    private ArrayList<Car> cart;
-    private ArrayList<Car> history;
-    private String first_name;
-    private String last_name;
-    private Filter filter;
+    private String email = "";
+    private String username = "GUEST";
+    private String password = "";
+    private int id = 0;
+    private ArrayList<Order> history;
+    private String first_name = "";
+    private String last_name = "";
+    private Filter filter = new Filter();
+
+    private Cart cart = new Cart();
 
     public Filter getFilter() {
-        return null;
+        return filter;
     }
 
-    public String getUserName() {
-        return null;
+    public String getUserFirstName() {
+        return first_name;
+    }
+
+    public String getUserLastName() {
+        return last_name;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 }

@@ -6,4 +6,7 @@
     "search database":"durchsuche Datenbasis",
     "Go":"Suche",
     "Configurator":"",
+    "Filter":"Filter",
+    "Maximum Budget:":"Maximum Budget:",
+    "Filter non-affortable Offers":"Filter non-affortable Offers",
 }

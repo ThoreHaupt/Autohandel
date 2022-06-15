@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import Controller.Controller;
 import GUI.UIController;
-import LocalizationLogic.language;
 import lib.uiComponents.*;
 
 public class TopMenuBar extends JPanel {

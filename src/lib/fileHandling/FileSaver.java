@@ -18,4 +18,16 @@ public class FileSaver {
             e.printStackTrace();
         }
     }
+
+    public static void addToFile(String path, String input, boolean newline) {
+        try {
+            FileWriter myWriter = new FileWriter(path, true);
+            input += newline ? "\n" : "";
+            myWriter.write(input);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 }

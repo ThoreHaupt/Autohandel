@@ -149,9 +149,9 @@ public class ShopEntryContent extends JPanel {
 
     public void setCanAffort(boolean affortable) {
         if (affortable) {
-            priceLabel.setForeground(new Color(30, 245, 38));
+            priceLabel.setForeground(uiController.getAffortableColor());
         } else {
-            priceLabel.setForeground(new Color(245, 45, 30));
+            priceLabel.setForeground(uiController.getNotAffortableColor());
         }
     }
 
