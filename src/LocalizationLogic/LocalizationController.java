@@ -10,7 +10,7 @@ import lib.fileHandling.FileLoader;
 import lib.fileHandling.FileSaver;
 
 public class LocalizationController {
-    private language currentLanguage = language.ENGLISH;
+    private Language currentLanguage = Language.ENGLISH;
     HashMap<String, String> languageMap;
     String[] languageToString = new String[] { "en", "ger" };
     String[] localizationMap;
@@ -25,7 +25,7 @@ public class LocalizationController {
         loadLanguage(currentLanguage);
     }
 
-    private HashMap<String, String> loadLanguage(language l) {
+    private HashMap<String, String> loadLanguage(Language l) {
         languageMap = new HashMap<>();
         String lanuageCode = languageToString[l.getIndex()];
         String path = "localization/" + lanuageCode + ".txt";
@@ -127,7 +127,7 @@ public class LocalizationController {
         listenerList.remove(LanguageChangeListener.class, listener);
     }
 
-    public void setLanguage(language language) {
+    public void setLanguage(Language language) {
         currentLanguage = language;
         languageMap = new HashMap<>();
         loadLanguage(currentLanguage);

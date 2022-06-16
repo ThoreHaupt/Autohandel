@@ -14,7 +14,7 @@ public class Cart {
     protected EventListenerList listenerList = new EventListenerList();
 
     public Cart() {
-
+        contents = new THashMap<>();
     }
 
     public void addToCart(Order p) {

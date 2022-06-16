@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import Model.ModelComponentes.Car;
+import Model.UserComponentes.Order;
 import lib.uiComponents.MLButton;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
@@ -129,7 +130,7 @@ public class ShopEntryContent extends JPanel {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    uiController.getController().addToCart(car);
+                    uiController.getController().addToOrder(car, 1);
                 }
 
             });

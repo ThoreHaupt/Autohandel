@@ -1,8 +1,11 @@
 package Model.UserComponentes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+import LocalizationLogic.Language;
+
+public class User implements Serializable {
     private String email = "";
     private String username = "GUEST";
     private String password = "";
@@ -11,6 +14,9 @@ public class User {
     private String first_name = "";
     private String last_name = "";
     private Filter filter = new Filter();
+
+    private Language preferredLanguage;
+    private boolean preferrsDarkTheme;
 
     private Cart cart = new Cart();
 

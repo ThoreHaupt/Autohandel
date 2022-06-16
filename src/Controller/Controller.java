@@ -1,13 +1,17 @@
 package Controller;
 
+import java.util.Currency;
+
 import GUI.UIController;
 import GUI.shopPage.ShopGalleryEntry;
 import LocalizationLogic.LocalizationController;
-import LocalizationLogic.language;
+import LocalizationLogic.Language;
 import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
+import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
+import lib.technicalComponents.Product;
 
 public class Controller {
 
@@ -30,7 +34,7 @@ public class Controller {
     }
 
     public void setLanguage(int selectedItem) {
-        lc.setLanguage(language.values()[selectedItem]);
+        lc.setLanguage(Language.values()[selectedItem]);
     }
 
     public String[] getLanuguageImageArray() {
@@ -43,7 +47,7 @@ public class Controller {
         return uiController;
     }
 
-    public void addToCart(Car car) {
+    public void addToCart(Order oder) {
     }
 
     public Car[] getOptions(Filter filter) {
@@ -53,7 +57,7 @@ public class Controller {
     }
 
     public User getUser() {
-        return new User();
+        return model.getLoggedUser();
     }
 
     public LocalizationController getLocalizationController() {
@@ -66,6 +70,27 @@ public class Controller {
 
     public User getCurrentUser() {
         return model.getLoggedUser();
+    }
+
+    public boolean isCurrentUserGuest() {
+        return model.isCurrentUserGuest();
+    }
+
+    public void addToOrder(Product car, int amount) {
+
+    }
+
+    public void UserProfileButtonRequest() {
+        if (isCurrentUserGuest()) {
+            uiController.setWindowContent(UIController.LOGIN_PAGE);
+        } else {
+            uiController.setWindowContent(UIController.USERPROFILE_PAGE);
+        }
+
+    }
+
+    public Object attemptLogin(String text, String text2) {
+        return null;
     }
 
 }

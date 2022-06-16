@@ -2,31 +2,24 @@ package GUI.shopPage;
 
 import java.awt.Font;
 import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.plaf.PopupMenuUI;
 
+import Controller.Controller;
 import GUI.UIController;
-import lib.Event.ChangeToCartListener;
-import lib.uiComponents.DisplayListeningField;
 import lib.uiComponents.MLCheckBox;
 import lib.uiComponents.MLLabel;
-import lib.uiComponents.MLTextField;
-import lib.uiComponents.RangeSlider;
 import lib.uiComponents.RangeSliderPacket;
 import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
 import lib.uiComponents.PrewrittenEditableTextField;
 
 public class FilterPage extends JPanel {
     UIController uiController;
+    Controller controller;
 
     public FilterPage(UIController uiController) {
         this.uiController = uiController;
+        this.controller = uiController.getController();
         this.add(buildFilterPage());
     }
 

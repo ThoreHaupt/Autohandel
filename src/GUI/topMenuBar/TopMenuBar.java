@@ -76,7 +76,7 @@ public class TopMenuBar extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                uiController.setWindowContent("userProfile");
+                uiController.getController().UserProfileButtonRequest();
             }
 
         }, new Dimension(60, min_Height)));

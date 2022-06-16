@@ -15,7 +15,9 @@ import GUI.cartPage.CartPage;
 import GUI.configurator.Configurator;
 import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
+import GUI.userPage.UserLoginPage;
 import GUI.userPage.UserPage;
+import GUI.userPage.UserSignUpPage;
 
 public class UIController {
 
@@ -26,6 +28,8 @@ public class UIController {
     public static final String MAINSTORE_PAGE = "store";
     public static final String CART_PAGE = "cart";
     public static final String PAYMENT_PAGE = "payment";
+    public static final String LOGIN_PAGE = "login";
+    public static final String SIGNUP_PAGE = "signup";
     public static final String USERPROFILE_PAGE = "userProfile";
 
     JPanel topMenuBar;
@@ -62,8 +66,10 @@ public class UIController {
         pages.put(MAINSTORE_PAGE, new ShopPage(this));
         pages.put(CART_PAGE, new CartPage(this));
         pages.put(PAYMENT_PAGE, new Configurator(this));
-        pages.put(USERPROFILE_PAGE, new UserPage(this));
 
+        pages.put(USERPROFILE_PAGE, new UserPage(this));
+        pages.put(SIGNUP_PAGE, new UserSignUpPage(this));
+        pages.put(LOGIN_PAGE, new UserLoginPage(this));
     }
 
     /**

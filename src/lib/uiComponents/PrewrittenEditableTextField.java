@@ -97,4 +97,22 @@ public class PrewrittenEditableTextField extends JPanel {
         this.filter = filter;
         this.textField.setDocumentFilter(filter);
     }
+
+    public void setForeGround(Color c) {
+        textField.setForeground(c);
+    }
+
+    public String getText() {
+        if (textField.getText().equals(uiController.getTransatedString(defaultString))) {
+            return "";
+        } else {
+            return textField.getText();
+        }
+    }
+
+    @Override
+    public void setPreferredSize(Dimension d) {
+        super.setPreferredSize(d);
+        textField.setPreferredSize(d);
+    }
 }

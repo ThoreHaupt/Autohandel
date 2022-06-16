@@ -17,4 +17,10 @@
     "Engine":"Engine",
     "Electric":"Electric",
     "Internal Combustion":"Internal Combustion",
+    "UserName: ":"UserName: ",
+    "username":"username",
+    "Password: ":"Password: ",
+    "login":"login",
+    "SignUp!":"SignUp!",
+    "":"",
 }

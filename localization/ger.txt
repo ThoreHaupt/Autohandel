@@ -12,4 +12,8 @@
     "Engine":"Motor",
     "Electric":"Elektrisch",
     "Internal Combustion":"Verbrenner",
+    "UserName: ":"UserName: ",
+    "Password: ":"Password: ",
+    "login":"login",
+    "SignUp!":"SignUp!",
 }

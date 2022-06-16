@@ -16,7 +16,7 @@ public class MainWindow extends JFrame {
     Container ContentPane;
     JPanel mainPanel;
 
-    protected EventListenerList listenerList = new EventListenerList();
+    protected EventListenerList windowChangeListenerList = new EventListenerList();
 
     public MainWindow(UIController UIcontroller) {
 
@@ -51,15 +51,15 @@ public class MainWindow extends JFrame {
     }
 
     public void addWindowSizeChangeListener(WindowSizeChangeListener listener) {
-        listenerList.add(WindowSizeChangeListener.class, listener);
+        windowChangeListenerList.add(WindowSizeChangeListener.class, listener);
     }
 
     public void removeWindowSizeChangeListener(WindowSizeChangeListener listener) {
-        listenerList.remove(WindowSizeChangeListener.class, listener);
+        windowChangeListenerList.remove(WindowSizeChangeListener.class, listener);
     }
 
     void fire_onWindowSizeChange(WindowSizeChangeEvent event) {
-        Object[] listeners = listenerList.getListenerList();
+        Object[] listeners = windowChangeListenerList.getListenerList();
         for (int i = 0; i < listeners.length; i = i + 2) {
             if (listeners[i] == WindowSizeChangeListener.class) {
                 ((WindowSizeChangeListener) listeners[i + 1]).windowSizeChanged(event);

@@ -1,12 +1,12 @@
 package LocalizationLogic;
 
-public enum language {
+public enum Language {
     ENGLISH(0),
     GERMAN(1);
 
     private int index;
 
-    private language(int index) {
+    private Language(int index) {
         this.index = index;
     }
 
