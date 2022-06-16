@@ -64,7 +64,7 @@ public class Searchbar extends JPanel {
                 // comps[i].addKeyListener(getKeyListener());
             }
             cBoxEditor.addDocumentListener(getDocumentListener());
-            addActionListener(getActionListener());
+            //addActionListener(getActionListener());
         }
 
         public void createSearchbar() {
@@ -152,8 +152,6 @@ public class Searchbar extends JPanel {
                     isInFocus = true;
                     if (textField.getText().equals(defaultText)) {
                         setEditorText("");
-                    } else {
-
                     }
                 }
 
@@ -162,9 +160,9 @@ public class Searchbar extends JPanel {
                     isInFocus = false;
                     System.out.println(getCurrentQuery());
                     if (getCurrentQuery().equals("")) {
-                        /* setEditorText(defaultText);
+                        setEditorText(defaultText);
                         setModel(defaultModel);
-                        setPopupVisible(false); */
+                        setPopupVisible(false);
                     }
                 }
 
@@ -178,7 +176,7 @@ public class Searchbar extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     System.out.println("actionListener");
                     controller.openSearchQuerey((String) getSelectedItem());
-                    uiController.setWindowContent("store");
+                    uiController.setWindowContent(UIController.MAINSTORE_PAGE);
                     setPopupVisible(false);
 
                 }

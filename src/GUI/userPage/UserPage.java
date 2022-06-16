@@ -7,6 +7,7 @@ import GUI.UIController;
 public class UserPage extends JPanel {
 
     public UserPage(UIController uiController) {
+
     }
 
 }

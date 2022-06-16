@@ -1,4 +1,4 @@
-package lib;
+package lib.technicalComponents;
 
 public class StringTools {
     public static boolean isNumber(String s) {

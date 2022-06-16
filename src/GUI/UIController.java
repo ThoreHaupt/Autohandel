@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.HashMap;
 
 import javax.swing.*;
+import javax.swing.plaf.synth.SynthScrollBarUI;
 
 import java.awt.*;
 
@@ -18,6 +19,7 @@ import GUI.topMenuBar.TopMenuBar;
 import GUI.userPage.UserLoginPage;
 import GUI.userPage.UserPage;
 import GUI.userPage.UserSignUpPage;
+import lib.DataStructures.HashMapImplementation.THashMap;
 
 public class UIController {
 
@@ -34,7 +36,8 @@ public class UIController {
 
     JPanel topMenuBar;
     int topMenuBarHeight = 60;
-    HashMap<String, JPanel> pages = new HashMap<>();
+    THashMap<String, JPanel> pages = new THashMap<>();
+    String currentPage = MAINSTORE_PAGE;
 
     boolean lightmode = false;
     private Font defaultFont = new Font("Segoe", Font.PLAIN, 20);
@@ -50,12 +53,12 @@ public class UIController {
         this.controller = controller;
 
         window = new MainWindow(this);
-        topMenuBar = new TopMenuBar(this, new Dimension(window.getWidth(), topMenuBarHeight));
-
         initializePages();
+
+        topMenuBar = new TopMenuBar(this, new Dimension(window.getWidth(), topMenuBarHeight));
         initializeTopMenuBar();
+
         setMainWindowContent(pages.get(MAINSTORE_PAGE));
-        ((ShopPage) pages.get(MAINSTORE_PAGE)).setEntriesWithCurrentFilter();
     }
 
     private void initializeTopMenuBar() {
@@ -70,6 +73,8 @@ public class UIController {
         pages.put(USERPROFILE_PAGE, new UserPage(this));
         pages.put(SIGNUP_PAGE, new UserSignUpPage(this));
         pages.put(LOGIN_PAGE, new UserLoginPage(this));
+
+        ((ShopPage) pages.get(MAINSTORE_PAGE)).setEntriesWithCurrentFilter();
     }
 
     /**
@@ -81,15 +86,47 @@ public class UIController {
     }
 
     private void setTheme() {
-        if (!lightmode) {
+        if (lightmode) {
             FlatLightLaf.setup();
         } else {
             FlatDarkLaf.setup();
         }
     }
 
+    public void switchTheme() {
+        System.out.println("changig Theme ? idk");
+        lightmode = !lightmode;
+        setTheme();
+        /* topMenuBar.repaint();
+        topMenuBar.revalidate();
+        topMenuBar.updateUI();
+        
+        window.getMainPane().updateUI();
+        window.getMainPane().revalidate();
+        window.getMainPane().repaint();
+        
+        pages.forEach(e -> e.updateUI());
+        pages.forEach(e -> e.revalidate());
+        pages.forEach(e -> e.repaint()); */
+
+        pages = new THashMap<>();
+        initializePages();
+
+        topMenuBar = new TopMenuBar(this, new Dimension(window.getWidth(), topMenuBarHeight));
+        window.getContentPane().removeAll();
+        window.initMainPane();
+        initializeTopMenuBar();
+
+        window.repaint();
+        window.revalidate();
+
+        setWindowContent(currentPage);
+
+    }
+
     public void setWindowContent(String mode) {
         System.out.println("setting to: " + mode);
+        currentPage = mode;
         setMainWindowContent(pages.get(mode));
     }
 
@@ -113,7 +150,7 @@ public class UIController {
         return defaultAccentColor;
     }
 
-    public void setMainWindowContent(JPanel page) {
+    private void setMainWindowContent(JPanel page) {
         JPanel mainPanel = window.getMainPane();
         mainPanel.removeAll();
         mainPanel.add(page, BorderLayout.CENTER);

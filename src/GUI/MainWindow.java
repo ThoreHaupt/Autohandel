@@ -22,14 +22,18 @@ public class MainWindow extends JFrame {
 
         this.uiController = UIcontroller;
         this.controller = UIcontroller.getController();
+        initMainPane();
+        setEvents();
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        setBasics("CarShop");
+    }
+
+    public void initMainPane() {
         ContentPane = this.getContentPane();
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(uiController.getDefaultBackgroundcolor());
         ContentPane.add(mainPanel, BorderLayout.CENTER);
-        setEvents();
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        setBasics("CarShop");
     }
 
     private void setEvents() {
@@ -47,6 +51,13 @@ public class MainWindow extends JFrame {
                 fire_onWindowSizeChange(new WindowSizeChangeEvent(this));
             }
 
+        });
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent windowEvent) {
+                controller.intiShutDownSequence();
+            }
         });
     }
 

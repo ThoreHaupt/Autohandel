@@ -31,8 +31,8 @@ public class TopMenuBar extends JPanel {
 
         setLayout(new BorderLayout());
 
-        add(createLeftSide(), BorderLayout.WEST);
         add(createMiddelSide(), BorderLayout.CENTER);
+        add(createLeftSide(), BorderLayout.WEST);
         add(createRightSide(), BorderLayout.EAST);
 
         setBackground(uiController.getDefaultBackgroundcolor());
@@ -63,6 +63,11 @@ public class TopMenuBar extends JPanel {
 
     public JPanel createRightSide() {
         JPanel panel = new JPanel();
+
+        MLButton b = new MLButton(uiController, "switch Theme");
+        b.addActionListener(e -> uiController.switchTheme());
+        panel.add(b);
+
         panel.add(new ImageButton("resources/GUI_images/basket.png", new ActionListener() {
 
             @Override

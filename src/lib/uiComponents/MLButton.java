@@ -2,6 +2,8 @@ package lib.uiComponents;
 
 import javax.swing.*;
 
+import java.awt.event.*;
+
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
@@ -13,6 +15,10 @@ public class MLButton extends JButton {
     UIController uiController;
     LocalizationController lc;
     String text;
+
+    public MLButton(UIController uiController, String text, ActionListener l) {
+        this(uiController, text);
+    }
 
     public MLButton(UIController uiController, String text) {
         super();

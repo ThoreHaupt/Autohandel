@@ -1,9 +1,6 @@
 package Controller;
 
-import java.util.Currency;
-
 import GUI.UIController;
-import GUI.shopPage.ShopGalleryEntry;
 import LocalizationLogic.LocalizationController;
 import LocalizationLogic.Language;
 import Model.Model;
@@ -116,6 +113,18 @@ public class Controller {
             return;
         }
         model.logInUser(key, password);
+    }
+
+    public void intiShutDownSequence() {
+        System.out.println("shutdown Shit");
+    }
+
+    public void signUp() {
+
+    }
+
+    public String[] getLanguageStringArray() {
+        return LocalizationController.getLanguageStringArray();
     }
 
 }

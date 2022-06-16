@@ -41,14 +41,14 @@ public class THashMap<K, V> implements Iterable<V> {
         return addNodeToBucket(bucketArray, bucket, hash, key, value);
     }
 
-    public V get(K key) throws KeyNotFoundException {
+    public V get(K key) {
         int hash = calculateHash(key);
         int bucketIndex = calculateBucketIndex(hash, buckets.length);
         if ((buckets[bucketIndex]) == null)
-            throw new KeyNotFoundException();
+            return null;
         V value = buckets[bucketIndex].get(hash, key);
         if (value == null) {
-            throw new KeyNotFoundException();
+            return null;
         }
         return value;
     }
@@ -104,7 +104,7 @@ public class THashMap<K, V> implements Iterable<V> {
 
         // return System.identityHashCode(key);
 
-        return key.hashCode();
+        return Math.abs(key.hashCode());
 
     }
 

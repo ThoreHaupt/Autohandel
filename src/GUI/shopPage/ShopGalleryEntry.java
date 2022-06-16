@@ -26,7 +26,7 @@ public class ShopGalleryEntry extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                uiController.setMainWindowContent(carPage);
+                uiController.setWindowContent(UIController.MAINSTORE_PAGE);
             }
 
         });

@@ -8,7 +8,7 @@ import java.util.Date;
 public class StartupProperties implements Serializable {
 
     private boolean isLightTheme = false;
-    private String username = "Guest";
+    private String username = "";
     private Date shutdowntime;
 
     public StartupProperties() {

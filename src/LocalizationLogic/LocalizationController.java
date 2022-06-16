@@ -1,6 +1,8 @@
 package LocalizationLogic;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import javax.swing.event.EventListenerList;
 
@@ -150,6 +152,11 @@ public class LocalizationController {
         languageMap = new HashMap<>();
         loadLanguage(currentLanguage);
         fireLanguageChangeEvent(new languageChangeEvent(this));
+    }
+
+    public static String[] getLanguageStringArray() {
+        return (String[]) Arrays.asList(Language.values()).stream().map(e -> e.toString())
+                .collect(Collectors.toList()).toArray(new String[Language.values().length]);
     }
 
 }
