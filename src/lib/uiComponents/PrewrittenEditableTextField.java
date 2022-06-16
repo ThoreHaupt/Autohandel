@@ -3,21 +3,22 @@ package lib.uiComponents;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.plaf.DimensionUIResource;
 import javax.swing.text.DocumentFilter;
 
+import Controller.Controller;
 import GUI.UIController;
-import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
-public class PrewrittenEditableTextField extends JPanel {
+public class PrewrittenEditableTextField extends JPanel implements CustomTextComponent {
 
     UIController uiController;
+    Controller controller;
     MLTextField textField;
     DocumentFilter filter;
     DocumentFilter defaultFilter;
 
     String defaultString;
-    String currentString = "";
+    String currentDefaultString = "";
 
     String fokusEditText = "";
 
@@ -28,11 +29,14 @@ public class PrewrittenEditableTextField extends JPanel {
      */
     public PrewrittenEditableTextField(UIController c, String defaultString, DocumentFilter filter) {
         this.uiController = c;
+        controller = uiController.getController();
         this.defaultString = defaultString;
         this.defaultFilter = new DocumentFilter();
+        this.currentDefaultString = uiController.getTransatedString(defaultString);
         this.filter = filter;
         setLayout(new BorderLayout());
         this.add(createTextField(), BorderLayout.CENTER);
+        textField.setAutoLanguageAdaption(false);
         uiController.getController().lc.addLanguageChangeListener(e -> updateLanguage());
     }
 
@@ -59,7 +63,7 @@ public class PrewrittenEditableTextField extends JPanel {
             @Override
             public void focusGained(FocusEvent e) {
 
-                if (textField.getText().equals(uiController.getTransatedString(defaultString))) {
+                if (textField.getText().equals(currentDefaultString)) {
                     textField.setText(fokusEditText);
                 }
             }
@@ -94,8 +98,9 @@ public class PrewrittenEditableTextField extends JPanel {
 
     private void updateLanguage() {
         if (getText().equals("")) {
-            setTextDefault();
-            textField.updateText();
+            System.out.println("updateing language");
+            currentDefaultString = uiController.getTransatedString(defaultString);
+            textField.setText(defaultString);
         }
     }
 
@@ -109,7 +114,8 @@ public class PrewrittenEditableTextField extends JPanel {
     }
 
     public String getText() {
-        if (textField.getText().equals(uiController.getTransatedString(defaultString))) {
+        if (textField.getText().equals(currentDefaultString)) {
+            System.out.println("sucewss ig");
             return "";
         } else {
             return textField.getText();

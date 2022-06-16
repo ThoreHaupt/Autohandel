@@ -7,11 +7,12 @@ import java.awt.event.*;
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
 /**
  * MultiLanguageButton
  */
-public class MLButton extends JButton {
+public class MLButton extends JButton implements CustomTextComponent {
     UIController uiController;
     LocalizationController lc;
     String text;

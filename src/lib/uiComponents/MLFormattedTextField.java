@@ -9,11 +9,12 @@ import javax.swing.*;
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
 /**
  * MultiLanguageFormattedTextFiled Numbers only
  */
-public class MLFormattedTextField extends JFormattedTextField {
+public class MLFormattedTextField extends JFormattedTextField implements CustomTextComponent {
     UIController uiController;
     LocalizationController lc;
     String text;

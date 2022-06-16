@@ -8,11 +8,12 @@ import javax.swing.text.PlainDocument;
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
 /**
  * MultiLanguageTextFiled
  */
-public class MLTextField extends JTextField {
+public class MLTextField extends JTextField implements CustomTextComponent {
     UIController uiController;
     LocalizationController lc;
     String text;

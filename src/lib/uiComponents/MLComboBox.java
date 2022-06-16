@@ -8,11 +8,12 @@ import javax.swing.text.PlainDocument;
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
 /**
  * MultiLanguageTextFiled
  */
-public class MLComboBox extends JComboBox<String> {
+public class MLComboBox extends JComboBox<String> implements CustomTextComponent {
     UIController uiController;
     LocalizationController lc;
     boolean update;
@@ -46,6 +47,10 @@ public class MLComboBox extends JComboBox<String> {
 
     public void setAutoLanguageAdaption(boolean b) {
         update = b;
+    }
+
+    public String getText() {
+        return getItemAt(getSelectedIndex());
     }
 
 }

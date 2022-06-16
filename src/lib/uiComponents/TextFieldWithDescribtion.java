@@ -3,9 +3,11 @@ package lib.uiComponents;
 import javax.swing.JPanel;
 
 import GUI.UIController;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
+
 import java.awt.*;
 
-public class TextFieldWithDescribtion extends JPanel {
+public class TextFieldWithDescribtion extends JPanel implements CustomTextComponent {
     MLLabel label;
     PrewrittenEditableTextField textField;
 

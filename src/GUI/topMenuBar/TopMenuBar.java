@@ -31,7 +31,7 @@ public class TopMenuBar extends JPanel {
 
         setLayout(new BorderLayout());
 
-        add(createMiddelSide(), BorderLayout.CENTER);
+        //add(createMiddelSide(), BorderLayout.CENTER);
         add(createLeftSide(), BorderLayout.WEST);
         add(createRightSide(), BorderLayout.EAST);
 

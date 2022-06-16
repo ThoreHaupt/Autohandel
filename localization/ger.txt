@@ -34,4 +34,5 @@
     "switch Theme":"wechsle das Aussehen",
     "Preferred Language: ":"Bevorzugte Sprache: ",
     "":"",
+    "Done!":"Done!",
 }

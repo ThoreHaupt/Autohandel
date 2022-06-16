@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import GUI.UIController;
 import LocalizationLogic.Language;
+import lib.uiComponents.MLButton;
 import lib.uiComponents.MLComboBox;
 import lib.uiComponents.MLComboBoxWithDescribtion;
 import lib.uiComponents.PasswordFieldWithDescribtion;
@@ -42,6 +43,8 @@ public class UserSignUpPage extends JPanel {
         add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), fieldQuestionSizeDistance), c);
         c.gridy++;
         add(buildOtherUserInputQuestions(), c);
+        c.gridy++;
+        add(buildSignUpButton(), c);
     }
 
     private JPanel buildSimpleUserInputQuestions() {
@@ -107,6 +110,25 @@ public class UserSignUpPage extends JPanel {
                 "password", fieldQuestionSize);
         newPasswordField2.setPreferredSize(fieldBlockSizes);
         panel.add(newPasswordField2, c);
+        return panel;
+    }
+
+    private JPanel buildSignUpButton() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridwidth = 2;
+        panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), fieldQuestionSizeDistance), c);
+        c.gridy++;
+        panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), fieldQuestionSizeDistance), c);
+        c.gridy++;
+        MLButton button = new MLButton(uiController, "Done!");
+        button.setBackground(uiController.getDefaultBackgroundcolor());
+        panel.add(button);
         return panel;
     }
 
