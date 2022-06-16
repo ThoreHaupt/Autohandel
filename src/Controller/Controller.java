@@ -11,6 +11,8 @@ import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
+import Model.UserComponentes.UserAuthKey;
+import lib.Event.NewUserLoginListener;
 import lib.technicalComponents.Product;
 
 public class Controller {
@@ -86,11 +88,34 @@ public class Controller {
         } else {
             uiController.setWindowContent(UIController.USERPROFILE_PAGE);
         }
-
     }
 
-    public Object attemptLogin(String text, String text2) {
-        return null;
+    public void addNewUserLoginListener(NewUserLoginListener EventListener) {
+        model.addNewUserLoginListener(EventListener);
+    }
+
+    /**
+     * takes the username and password and passes it to the modell, which returns the key to the userdata if the user exists.
+     * if the user doesn't exist, there will be a hint that this user doesnt exist.
+     * if the password is wrong the "password is wrong" message will appear.
+     * @param username username
+     * @param password password
+     */
+    public void attemptLogin(String username, String password) {
+        if (username == null || username.equals("")) {
+            uiController.displayDeniedLoginMessage("");
+            return;
+        }
+        UserAuthKey key = model.authenticateLogin(username, password);
+        if (key == null) {
+            uiController.displayDeniedLoginMessage("This user does not exist!");
+            return;
+        }
+        if (!key.checkPassword(password)) {
+            uiController.displayDeniedLoginMessage("Wrong Password. Try again!");
+            return;
+        }
+        model.logInUser(key, password);
     }
 
 }

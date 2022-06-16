@@ -34,8 +34,12 @@ public class UserLoginPage extends JPanel {
         c.gridy = 0;
         c.weightx = 1.0;
 
-        this.add(buildLoginField(), c);
+        this.add(currentlyLogedinLabel(), c);
+        c.gridy = 1;
+        this.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(200, 4)), c);
         c.gridy = 2;
+        this.add(buildLoginField(), c);
+        c.gridy = 3;
         this.add(buildSignUpButton(), c);
         setPreferredSize(LoginPageActiveFieldSize);
     }
@@ -48,7 +52,7 @@ public class UserLoginPage extends JPanel {
         GridBagConstraints userNameConstraints = new GridBagConstraints();
         userNameConstraints.gridx = 0;
         userNameConstraints.gridy = 0;
-        userNameConstraints.gridwidth = 2;
+        userNameConstraints.gridwidth = 1;
 
         // UserNameField
         TextFieldWithDescribtion userNameField = new TextFieldWithDescribtion(uiController, "UserName: ", "username",
@@ -62,8 +66,8 @@ public class UserLoginPage extends JPanel {
         GridBagConstraints r1 = new GridBagConstraints();
         r1.gridx = 0;
         r1.gridy = 1;
-        r1.gridwidth = 2;
-        add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(100, 10)), r1);
+        r1.gridwidth = 1;
+        panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(100, 1)), r1);
 
         //PasswordField
         GridBagConstraints userPasswordConstraints = new GridBagConstraints();
@@ -81,8 +85,8 @@ public class UserLoginPage extends JPanel {
         GridBagConstraints r2 = new GridBagConstraints();
         r2.gridx = 0;
         r2.gridy = 3;
-        r2.gridwidth = 2;
-        add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(100, 10)), r2);
+        r2.gridwidth = 1;
+        panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(200, 10)), r2);
 
         // Button to Login
         MLButton loginAttemptButton = new MLButton(uiController, "login");
@@ -110,7 +114,7 @@ public class UserLoginPage extends JPanel {
         MLButton signUpButton = new MLButton(uiController, "SignUp!");
         signUpButton.setBorder(BorderFactory.createEmptyBorder());
         signUpButton.setBackground(uiController.getDefaultBackgroundcolor());
-
+        signUpButton.setForeground(uiController.getDefaultAccentColor());
         // when pressed, go to SignUpPage
         signUpButton.addActionListener(e -> uiController.setWindowContent(UIController.SIGNUP_PAGE));
 
@@ -122,12 +126,18 @@ public class UserLoginPage extends JPanel {
     public void displayErrorMessage(String message) {
         MLLabel errorMessage = new MLLabel(uiController, message);
         GridBagConstraints c = new GridBagConstraints();
-        c.gridy = 5;
-        c.gridwidth = 2;
+        c.gridy = 3;
+        c.gridwidth = 1;
         c.weightx = 1.0;
         this.add(errorMessage, c);
         revalidate();
         repaint();
+    }
+
+    public MLLabel currentlyLogedinLabel() {
+        MLLabel label = new MLLabel(uiController, "You are currently logged in as \"Guest\"");
+
+        return label;
     }
 
 }

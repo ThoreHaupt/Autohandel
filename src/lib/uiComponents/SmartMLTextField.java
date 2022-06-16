@@ -122,7 +122,7 @@ public class SmartMLTextField extends JTextField {
                     return;
                 if (e.getKeyCode() != 10)
                     return;
-                if (getText().equals(maxText))
+                if (getText().equals(maxText.toString()))
                     return;
                 value = Integer.parseInt(getText());
                 setCorrectRange();

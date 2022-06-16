@@ -96,14 +96,14 @@ public class RangeSliderDemo extends JPanel {
      * Main application method.
      * @param args String[]
      */
-    public static void main(String[] args) {
-
+    /* public static void main(String[] args) {
+    
         FlatDarkLaf.setup();
-
+    
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new RangeSliderDemo().display();
             }
         });
-    }
+    } */
 }

@@ -21,7 +21,7 @@ public class PrewrittenEditableTextField extends JPanel {
 
     String fokusEditText = "";
 
-    boolean autoMaticChange = false;
+    boolean automaticChange = false;
 
     /**
      * @param c
@@ -31,27 +31,26 @@ public class PrewrittenEditableTextField extends JPanel {
         this.defaultString = defaultString;
         this.defaultFilter = new DocumentFilter();
         this.filter = filter;
-        this.add(createTextField());
+        setLayout(new BorderLayout());
+        this.add(createTextField(), BorderLayout.CENTER);
+        uiController.getController().lc.addLanguageChangeListener(e -> updateLanguage());
     }
 
     /**
      * @param c
      */
     public PrewrittenEditableTextField(UIController c, String defaultString) {
-        this.uiController = c;
-        this.defaultString = defaultString;
-        this.defaultFilter = new DocumentFilter();
-        this.filter = defaultFilter;
-        this.add(createTextField());
+        this(c, defaultString, new DocumentFilter());
     }
 
     private JPanel createTextField() {
         JPanel panel = new JPanel();
-
-        panel.setMinimumSize(new DimensionUIResource(500, 500));
+        panel.setLayout(new BorderLayout());
+        //panel.setMinimumSize(new DimensionUIResource(500, 500));
         textField = new MLTextField(uiController, defaultString);
 
-        textField.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 11));
+        panel.setBackground(new Color(0, 255, 0));
+        //textField.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 11));
         textField.setEditable(true);
         textField.setDocumentFilter(filter);
 
@@ -75,7 +74,7 @@ public class PrewrittenEditableTextField extends JPanel {
 
         });
 
-        panel.add(textField);
+        panel.add(textField, BorderLayout.CENTER);
         return panel;
     }
 
@@ -91,6 +90,13 @@ public class PrewrittenEditableTextField extends JPanel {
 
     protected void setFokusEditText(String s) {
         this.fokusEditText = s;
+    }
+
+    private void updateLanguage() {
+        if (getText().equals("")) {
+            setTextDefault();
+            textField.updateText();
+        }
     }
 
     public void changeFilter(DocumentFilter filter) {

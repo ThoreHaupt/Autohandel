@@ -14,7 +14,6 @@ public class TextFieldWithDescribtion extends JPanel {
 
         label = new MLLabel(uiController, describtionText);
         textField = new PrewrittenEditableTextField(uiController, textfieldText);
-        textField.setBackground(new Color(255, 0, 0));
         textField.setPreferredSize(textFieldSize);
 
         this.setLayout(new BorderLayout());

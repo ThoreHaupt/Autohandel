@@ -1,7 +1,11 @@
 package lib.fileHandling;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,5 +34,19 @@ public class FileLoader {
             returnlinesArray[i] = returnlines.get(i);
         }
         return returnlinesArray;
+    }
+
+    public static Object loadSerializedObject(File file) throws ClassNotFoundException {
+
+        try {
+            FileInputStream datIn = new FileInputStream(file);
+            ObjectInputStream oi = new ObjectInputStream(datIn);
+            Object object = oi.readObject();
+            oi.close();
+            return object;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

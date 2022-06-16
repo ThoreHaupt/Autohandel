@@ -12,8 +12,11 @@
     "Engine":"Motor",
     "Electric":"Elektrisch",
     "Internal Combustion":"Verbrenner",
-    "UserName: ":"UserName: ",
-    "Password: ":"Password: ",
+    "UserName: ":"Benutzername: ",
+    "Password: ":"Passwort: ",
     "login":"login",
     "SignUp!":"SignUp!",
+    "username":"Nutzer Name",
+    "Maximum Budget":"Maximales Budget",
+    "You are currently logged in as \"Guest\"":"Sie momentan sind als \"Gast\" eingeloggt",
 }

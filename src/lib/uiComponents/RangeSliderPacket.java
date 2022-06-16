@@ -80,16 +80,17 @@ public class RangeSliderPacket extends JPanel {
         rangeSlider.setValue(10000);
         rangeSlider.setUpperValue(40000);
 
-        // create Labels
-        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        // create Labels not working rn, so I commentet it out. 
+        // could later be used to change the maximum FilterRange to a custom value
+        /* Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
         labelTable = populateLabelTabel(labelTable);
-        rangeSlider.setLabelTable(labelTable);
+        rangeSlider.setLabelTable(labelTable); 
+        rangeSlider.setPaintLabels(true);*/
 
         rangeSlider.setMinorTickSpacing(minorTickSpacing);
         rangeSlider.setMajorTickSpacing(majorTickSpacing);
 
         rangeSlider.setPaintTicks(true);
-        rangeSlider.setPaintLabels(true);
 
         // add Listner for RangeSlider
 

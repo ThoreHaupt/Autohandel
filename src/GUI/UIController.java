@@ -27,7 +27,7 @@ public class UIController {
 
     public static final String MAINSTORE_PAGE = "store";
     public static final String CART_PAGE = "cart";
-    public static final String PAYMENT_PAGE = "payment";
+    public static final String CONFIGURATOR_PAGE = "payment";
     public static final String LOGIN_PAGE = "login";
     public static final String SIGNUP_PAGE = "signup";
     public static final String USERPROFILE_PAGE = "userProfile";
@@ -65,7 +65,7 @@ public class UIController {
     private void initializePages() {
         pages.put(MAINSTORE_PAGE, new ShopPage(this));
         pages.put(CART_PAGE, new CartPage(this));
-        pages.put(PAYMENT_PAGE, new Configurator(this));
+        pages.put(CONFIGURATOR_PAGE, new Configurator(this));
 
         pages.put(USERPROFILE_PAGE, new UserPage(this));
         pages.put(SIGNUP_PAGE, new UserSignUpPage(this));
@@ -81,7 +81,7 @@ public class UIController {
     }
 
     private void setTheme() {
-        if (lightmode) {
+        if (!lightmode) {
             FlatLightLaf.setup();
         } else {
             FlatDarkLaf.setup();
@@ -144,5 +144,8 @@ public class UIController {
 
     public Color getNotAffortableColor() {
         return new Color(245, 45, 30);
+    }
+
+    public void displayDeniedLoginMessage(String string) {
     }
 }

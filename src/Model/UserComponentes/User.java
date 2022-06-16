@@ -18,6 +18,8 @@ public class User implements Serializable {
     private Language preferredLanguage;
     private boolean preferrsDarkTheme;
 
+    private boolean isGuest = false;
+
     private Cart cart = new Cart();
 
     public User() {
@@ -38,5 +40,9 @@ public class User implements Serializable {
 
     public Cart getCart() {
         return cart;
+    }
+
+    public boolean isGuest() {
+        return isGuest;
     }
 }

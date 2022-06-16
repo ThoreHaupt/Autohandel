@@ -16,7 +16,6 @@ public class LocalizedString {
 
     public void updateValue() {
         translatedValue = uiController.getTransatedString(value);
-        System.out.println(translatedValue);
     }
 
     public String toString() {

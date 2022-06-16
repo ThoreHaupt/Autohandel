@@ -84,7 +84,9 @@ public class LocalizationController {
      * @return translated Key
      */
     public String s(String string_inEnglish) {
-
+        if (string_inEnglish.equals("5000")) {
+            System.out.println("huch");
+        }
         if (languageMap.containsKey(string_inEnglish)) {
             return languageMap.get(string_inEnglish);
         } else {
@@ -110,6 +112,10 @@ public class LocalizationController {
         localizationMap = newArray;
     }
 
+    /**
+     * Fires when the language changes, causing all texts in the programm to reload
+     * @param event the event instance
+     */
     public void fireLanguageChangeEvent(languageChangeEvent event) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i < listeners.length; i = i + 2) {
@@ -119,14 +125,26 @@ public class LocalizationController {
         }
     }
 
+    /**
+     * Add LanguageChangeListener
+     * @param listener the Listener
+     */
     public void addLanguageChangeListener(LanguageChangeListener listener) {
         listenerList.add(LanguageChangeListener.class, listener);
     }
 
+    /**
+     * remove LanguageChangeListener
+     * @param listener the Listener
+     */
     public void removeLanguageChangeListener(LanguageChangeListener listener) {
         listenerList.remove(LanguageChangeListener.class, listener);
     }
 
+    /**
+     * Changes the language to input and then calls the Event thus notifying all Labels/TextFields... to reset their text
+     * @param language Language to be changed to
+     */
     public void setLanguage(Language language) {
         currentLanguage = language;
         languageMap = new HashMap<>();

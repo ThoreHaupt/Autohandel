@@ -23,4 +23,11 @@
     "login":"login",
     "SignUp!":"SignUp!",
     "":"",
+    "You are currently loged in as "Guest"":"You are currently loged in as "Guest"",
+    "You are currently loged in as "Guest"":"You are currently loged in as "Guest"",
+    "You are currently loged in as "Guest"":"You are currently loged in as "Guest"",
+    "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
+    "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
+    "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
+    "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
 }
