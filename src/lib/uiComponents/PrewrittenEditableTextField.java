@@ -7,7 +7,7 @@ import javax.swing.plaf.DimensionUIResource;
 import javax.swing.text.DocumentFilter;
 
 import GUI.UIController;
-import lib.technicalComponents.DocumentNumberFilter;
+import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
 
 public class PrewrittenEditableTextField extends JPanel {
 

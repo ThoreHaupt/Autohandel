@@ -1,8 +1,4 @@
 {
-    "a": "a",
-    "b": "a",
-    "hallo":"hello",
-    "\"TAG\"":"\"DAY\"",
     "add to Cart":"add to Cart",
     "incl MwStr.":"incl vat",
     "search database":"searchDatabase",
@@ -20,7 +16,5 @@
     "no Limit":"no Limit",
     "Engine":"Engine",
     "Electric":"Electric",
-    "Internal Combustion":"Internal Combustion"
-    "unbeschränkt":"unbeschränkt",
-    "":"",
+    "Internal Combustion":"Internal Combustion",
 }

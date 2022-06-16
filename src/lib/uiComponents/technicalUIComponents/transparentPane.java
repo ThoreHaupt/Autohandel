@@ -1,4 +1,4 @@
-package lib.technicalComponents;
+package lib.uiComponents.technicalUIComponents;
 
 import java.awt.*;
 import javax.swing.*;

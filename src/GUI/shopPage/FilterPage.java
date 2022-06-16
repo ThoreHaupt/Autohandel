@@ -4,19 +4,22 @@ import java.awt.Font;
 import java.awt.*;
 import java.awt.event.*;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.plaf.PopupMenuUI;
 
 import GUI.UIController;
 import lib.Event.ChangeToCartListener;
-import lib.technicalComponents.DocumentNumberFilter;
 import lib.uiComponents.DisplayListeningField;
 import lib.uiComponents.MLCheckBox;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.MLTextField;
 import lib.uiComponents.RangeSlider;
 import lib.uiComponents.RangeSliderPacket;
+import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
 import lib.uiComponents.PrewrittenEditableTextField;
 
 public class FilterPage extends JPanel {
@@ -109,6 +112,7 @@ public class FilterPage extends JPanel {
         checkBoxPanel.add(new MLCheckBox(uiController, "Electric"), 0);
         checkBoxPanel.add(new MLCheckBox(uiController, "Internal Combustion"), 1);
         panel.add(checkBoxPanel, c);
+
         // Brands
 
         return panel;

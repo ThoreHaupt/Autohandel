@@ -28,6 +28,7 @@ public class MainWindow extends JFrame {
         mainPanel.setBackground(uiController.getDefaultBackgroundcolor());
         ContentPane.add(mainPanel, BorderLayout.CENTER);
         setEvents();
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setBasics("CarShop");
     }
 

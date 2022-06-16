@@ -3,18 +3,15 @@ package lib.uiComponents;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingWorker.StateValue;
-import javax.swing.plaf.DimensionUIResource;
-import javax.swing.text.DocumentFilter;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Hashtable;
 
 import GUI.UIController;
-import lib.technicalComponents.DocumentNumberFilter;
 import lib.technicalComponents.*;
+import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
+import lib.uiComponents.technicalUIComponents.RoundedBorder;
 
 public class RangeSliderPacket extends JPanel {
 
@@ -30,7 +27,7 @@ public class RangeSliderPacket extends JPanel {
     int labelSize;
     MLLabel titleLabel;
     String titleLabelString = "Price Range:";
-    int titleSize = 12;
+    int titleSize = 13;
 
     int outerLableSize;
 
@@ -48,25 +45,32 @@ public class RangeSliderPacket extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
 
+        rigitFreeSpace space = new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(10, 5));
+
+        c.gridwidth = 3;
+        c.weightx = 1.0;
+        c.gridx = 0;
+        c.gridy = 0;
+
+        panel.add(space, c);
+
         // left Label which displays the lower Value of the slider
 
         SmartMLTextField lowerLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, false);
         lowerLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
-        lowerLabelSliderValue.setPreferredSize(new Dimension(50, 20));
+        lowerLabelSliderValue.setPreferredSize(new Dimension(70, 20));
+        lowerLabelSliderValue.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 12));
         lowerLabelSliderValue.setBorder(BorderFactory.createEmptyBorder());
 
         // right Label which displays the upper Value of the slider
 
         SmartMLTextField upperLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, true);
         upperLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
-        upperLabelSliderValue.setPreferredSize(new Dimension(50, 20));
+        upperLabelSliderValue.setPreferredSize(new Dimension(70, 20));
+        upperLabelSliderValue.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 12));
         upperLabelSliderValue.setBorder(BorderFactory.createEmptyBorder());
 
         //Slider: 
-        c.weightx = 0.6;
-        //c.fill(GridBagConstraints.HORIZONTAL);
-
-        c.gridx = 1;
 
         rangeSlider = new RangeSlider();
 
@@ -87,22 +91,25 @@ public class RangeSliderPacket extends JPanel {
         rangeSlider.setPaintTicks(true);
         rangeSlider.setPaintLabels(true);
 
+        // add Listner for RangeSlider
+
         rangeSlider.addChangeListener(e -> {
             lowerLabelSliderValue.setValue(rangeSlider.getValue());
             upperLabelSliderValue.setValue(rangeSlider.getUpperValue());
         });
 
-        // addButtons and ActionListeners
-        c.weightx = 0.2;
-
-        //LeftLabel
-        c.gridx = 0;
-        c.gridy = 0;
+        // addButtons and their ActionListeners
 
         lowerLabelSliderValue.addActionListener(e -> {
             rangeSlider.setValue(lowerLabelSliderValue.getValue());
             rangeSlider.revalidate();
         });
+
+        //LeftLabel
+        c.weightx = 0.2;
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
         panel.add(lowerLabelSliderValue, c);
 
         // right Label
@@ -114,12 +121,12 @@ public class RangeSliderPacket extends JPanel {
         panel.add(upperLabelSliderValue, c);
 
         // init label Values;
-        lowerLabelSliderValue.setText(String.valueOf(rangeSlider.getValue()));
-        upperLabelSliderValue.setText(String.valueOf(rangeSlider.getUpperValue()));
+        lowerLabelSliderValue.setValue(rangeSlider.getValue());
+        upperLabelSliderValue.setValue(rangeSlider.getUpperValue());
 
         c.weightx = 0.6;
         c.gridx = 1;
-        c.gridy = 0;
+        c.gridy = 1;
 
         panel.add(rangeSlider, c);
 

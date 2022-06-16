@@ -2,7 +2,7 @@ package lib.uiComponents;
 
 import javax.swing.JSlider;
 
-import lib.technicalComponents.RangeSliderUI;
+import lib.uiComponents.technicalUIComponents.RangeSliderUI;
 
 //Folgt dem Tutorial ziemlich genau: https://ernienotes.wordpress.com/2010/12/27/creating-a-java-swing-range-slider/
 

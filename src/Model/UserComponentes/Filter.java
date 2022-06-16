@@ -10,8 +10,18 @@ public class Filter {
     boolean electric;
     boolean ice;
 
+    UserBrandSettings[] brands;
+
     public User getUser() {
         return owner;
+    }
+
+    public UserBrandSettings[] getBrands() {
+        return brands;
+    }
+
+    public void getBrandsFromModel() {
+
     }
 
 }

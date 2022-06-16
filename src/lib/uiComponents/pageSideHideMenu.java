@@ -5,7 +5,7 @@ import javax.swing.event.EventListenerList;
 
 import lib.Event.SideHideExtentionStateChangeEvent;
 import lib.Event.SideHideExtentionStateChangeListener;
-import lib.technicalComponents.transparentPane;
+import lib.uiComponents.technicalUIComponents.transparentPane;
 
 import java.awt.*;
 

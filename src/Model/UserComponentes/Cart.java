@@ -1,16 +1,15 @@
 package Model.UserComponentes;
 
-import java.util.ArrayList;
-
 import javax.swing.event.EventListenerList;
 
+import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartEvent;
 import lib.Event.ChangeToCartListener;
 import lib.Other.SupportingCalculations;
 
 public class Cart {
-    ArrayList<Order> contents;
-    double priceSum = 0;
+    THashMap<Integer, Order> contents;
+    User user;
 
     protected EventListenerList listenerList = new EventListenerList();
 
@@ -19,6 +18,7 @@ public class Cart {
     }
 
     public void addToCart(Order p) {
+        contents.put(p.getID(), p);
         fireAddToCartEvent(new ChangeToCartEvent(this));
     }
 
@@ -44,7 +44,19 @@ public class Cart {
     }
 
     public double getTotalPrice() {
-        return SupportingCalculations.round(priceSum, 2);
+        return SupportingCalculations.round(calculatePrice(), 2);
+    }
+
+    /**
+     * Sums up the Values of all Orders in the Basket
+     * @return the Total value, not rounded
+     */
+    private double calculatePrice() {
+        double sum = 0;
+        for (Order order : contents) {
+            sum += order.getOrderValue();
+        }
+        return sum;
     }
 
 }

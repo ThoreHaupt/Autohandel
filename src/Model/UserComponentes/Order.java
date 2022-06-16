@@ -1,14 +1,13 @@
 package Model.UserComponentes;
 
-import org.junit.internal.requests.OrderingRequest;
-
 import lib.Event.ChangeToCartEvent;
 import lib.technicalComponents.Product;
 
 public class Order {
     private Cart cart;
-    private double amount;
+    private int amount;
     Product product;
+    private int ID;
 
     public Order(Cart cart, Product product, int amount) {
         this.cart = cart;
@@ -22,5 +21,9 @@ public class Order {
 
     public void changeOrder() {
         cart.fireAddToCartEvent(new ChangeToCartEvent(cart));
+    }
+
+    public int getID() {
+        return ID;
     }
 }

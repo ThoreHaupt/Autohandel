@@ -118,6 +118,8 @@ public class ShopPage extends JPanel {
                 new Dimension(
                         (int) window.getWidth() - 60,
                         window.getHeight() - uiController.getTopMenubarHeight()));
+        //making scrolling faster:
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         /* // When the fullWindow Button gets clicked/ minimize usw
         window.addWindowStateListener(new WindowStateListener() {
