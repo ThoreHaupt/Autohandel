@@ -2,8 +2,6 @@ package Model.UserComponentes;
 
 import java.util.ArrayList;
 
-import Model.ModelComponentes.Car;
-
 public class User {
     private String email = "";
     private String username = "GUEST";
@@ -15,6 +13,10 @@ public class User {
     private Filter filter = new Filter();
 
     private Cart cart = new Cart();
+
+    public User() {
+
+    }
 
     public Filter getFilter() {
         return filter;

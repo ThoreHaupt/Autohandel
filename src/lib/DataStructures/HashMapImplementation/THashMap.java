@@ -45,8 +45,12 @@ public class THashMap<K, V> implements Iterable<V> {
         int hash = calculateHash(key);
         int bucketIndex = calculateBucketIndex(hash, buckets.length);
         if ((buckets[bucketIndex]) == null)
-            return null;
-        return buckets[bucketIndex].get(hash);
+            throw new KeyNotFoundException();
+        V value = buckets[bucketIndex].get(hash, key);
+        if (value == null) {
+            throw new KeyNotFoundException();
+        }
+        return value;
     }
 
     public void remove(K key) {
@@ -238,6 +242,15 @@ public class THashMap<K, V> implements Iterable<V> {
             z = 0;
         }
         System.out.println("gemessene Anzahl der Elemente in dieser HashMap: " + c);
+    }
+
+    public boolean containsKey(K key) {
+        try {
+            get(key);
+        } catch (KeyNotFoundException keyEx) {
+            return false;
+        }
+        return true;
     }
 
 }

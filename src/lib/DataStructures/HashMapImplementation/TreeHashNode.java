@@ -11,6 +11,27 @@ public class TreeHashNode<K, V> extends HashNode<K, V> {
         super(bucket, hash, key, value);
     }
 
+    public V get(int hash, K key) throws KeyNotFoundException {
+        if (hash == this.hash) {
+            if (this.key != key) {
+                return null;
+            }
+            return this.value;
+        }
+        if (hash < this.hash) {
+            if (left == null)
+                return null;
+            return left.get(hash, key);
+        }
+        if (hash > this.hash) {
+            if (right == null)
+                return null;
+
+            return right.get(hash, key);
+        }
+        return null;
+    }
+
     public boolean add(TreeHashNode<K, V> node) {
         if (node.hash < this.hash) {
             if (left == null) {

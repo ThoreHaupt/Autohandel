@@ -17,11 +17,12 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
         this.map = map;
     }
 
-    public V get(int hash) {
-        if (head == null)
+    public V get(int hash, K key) {
+        if (head == null) {
             return null;
+        }
         if (tree) {
-
+            return root.get(hash, key);
         }
         LinkedHashNode<K, V> currentNode = (LinkedHashNode<K, V>) head;
         while (currentNode.hash != hash) {
