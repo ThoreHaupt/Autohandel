@@ -6,6 +6,7 @@ import GUI.UIController;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.Format.*;
 
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Order;
@@ -139,6 +140,11 @@ public class ShopEntryContent extends JPanel {
             addToCart.setForeground(new Color(255, 255, 255));
             addToCart.setPreferredSize(new Dimension(50, 30));
             subsubPanel.add(addToCart, BorderLayout.SOUTH);
+
+            JSpinner spinner = new JSpinner();
+            spinner.setValue(1);
+            JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
+            ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
         }
 
         subsubPanel.add(priceLabel, BorderLayout.NORTH);
