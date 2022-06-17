@@ -25,6 +25,10 @@ public class MLComboBoxWithDescribtion extends JPanel implements CustomTextCompo
 
     }
 
+    public int getSelectedIndex() {
+        return comboBox.getSelectedIndex();
+    }
+
     public MLComboBox getCombobox() {
         return comboBox;
     }
@@ -32,5 +36,11 @@ public class MLComboBoxWithDescribtion extends JPanel implements CustomTextCompo
     @Override
     public String getText() {
         return comboBox.getText();
+    }
+
+    @Override
+    public void resetValue() {
+        comboBox.setSelectedIndex(0);
+
     }
 }

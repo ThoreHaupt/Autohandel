@@ -4,9 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import GUI.UIController;
+import lib.uiComponents.technicalUIComponents.CustomTextComponent;
+
 import java.awt.*;
 
-public class PasswordFieldWithDescribtion extends JPanel {
+public class PasswordFieldWithDescribtion extends JPanel implements CustomTextComponent {
     MLLabel label;
     JPasswordField passwordField;
 
@@ -23,5 +25,11 @@ public class PasswordFieldWithDescribtion extends JPanel {
 
     public String getText() {
         return new String(passwordField.getPassword());
+    }
+
+    @Override
+    public void resetValue() {
+        passwordField.setText("");
+
     }
 }

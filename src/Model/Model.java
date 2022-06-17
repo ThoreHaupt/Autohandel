@@ -10,6 +10,7 @@ import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
+import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.NewUserLoginEvent;
 import lib.Event.NewUserLoginListener;
 import lib.fileHandling.FileLoader;
@@ -127,6 +128,10 @@ public class Model {
 
     public void removeNewUserLoginListener(NewUserLoginListener listener) {
         UserLoginChangeListenerList.remove(NewUserLoginListener.class, listener);
+    }
+
+    public String createNewUser(THashMap<String, String> dataMap) {
+        return null;
     }
 
 }

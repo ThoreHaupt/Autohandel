@@ -16,6 +16,18 @@ public class User implements Serializable {
     private String last_name;
     private Filter filter;
 
+    public static final String EMAIL = "email";
+    public static final String USERNAME = "username";
+    public static final String FIRST_NAME = " f_name";
+    public static final String LAST_NAME = " l_name";
+    public static final String BIRTHDAY = "birthday";
+    public static final String PASSWORD1 = "password1";
+    public static final String PASSWORD2 = "password2";
+    public static final String PREFERED_LANGUAGE = "preferredLanguage";
+
+    public static final String[] INPUTTAGS = new String[] { USERNAME, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, PASSWORD1,
+            PASSWORD2, PREFERED_LANGUAGE };
+
     private Language preferredLanguage;
     private boolean preferrsDarkTheme;
 

@@ -19,4 +19,13 @@ public enum Language {
     public String toString() {
         return normal;
     }
+
+    public static Language getByIndex(int selectedIndex) {
+        for (Language l : values()) {
+            if (l.getIndex() == selectedIndex) {
+                return l;
+            }
+        }
+        return null;
+    }
 }

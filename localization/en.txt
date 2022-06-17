@@ -224,4 +224,6 @@
     "Done!":"Done!",
     "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
     "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
+    "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
+    "You are currently logged in as "Guest"":"You are currently logged in as "Guest"",
 }

@@ -9,6 +9,7 @@ import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
+import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.NewUserLoginListener;
 import lib.technicalComponents.Product;
 
@@ -119,8 +120,17 @@ public class Controller {
         System.out.println("shutdown Shit");
     }
 
-    public void signUp() {
-
+    /**
+     * takes all the input needed to create a new User. 
+     * if there are not all nessesary inputs, this will return a Error message
+     * @return
+     */
+    public String signUpAttempt(THashMap<String, String> dataMap) {
+        String s = model.createNewUser(dataMap);
+        if (s == null) {
+            uiController.setWindowContent(UIController.MAINSTORE_PAGE);
+        }
+        return null;
     }
 
     public String[] getLanguageStringArray() {

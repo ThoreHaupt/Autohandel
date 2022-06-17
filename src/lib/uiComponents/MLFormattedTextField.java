@@ -52,4 +52,9 @@ public class MLFormattedTextField extends JFormattedTextField implements CustomT
         update = b;
     }
 
+    @Override
+    public void resetValue() {
+        this.setText(text);
+    }
+
 }
