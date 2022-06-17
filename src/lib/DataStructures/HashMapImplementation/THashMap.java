@@ -1,8 +1,9 @@
 package lib.DataStructures.HashMapImplementation;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class THashMap<K, V> implements Iterable<V> {
+public class THashMap<K, V> implements Iterable<V>, Serializable {
 
     private Bucket<K, V>[] buckets;
     private int currentExponentSize = 4;
@@ -175,7 +176,6 @@ public class THashMap<K, V> implements Iterable<V> {
         public Iterator<KeyValuePair<K, V>> iterator() {
             return getKeyValuePair();
         }
-
     }
 
     public KeyValuePairObj asKeyValuePair() {
@@ -245,12 +245,7 @@ public class THashMap<K, V> implements Iterable<V> {
     }
 
     public boolean containsKey(K key) {
-        try {
-            get(key);
-        } catch (KeyNotFoundException keyEx) {
-            return false;
-        }
-        return true;
+        return (get(key) == null) ? false : true;
     }
 
 }

@@ -1,5 +1,7 @@
 package Model.UserComponentes;
 
+import java.io.Serializable;
+
 import javax.swing.event.EventListenerList;
 
 import lib.DataStructures.HashMapImplementation.THashMap;
@@ -7,7 +9,7 @@ import lib.Event.ChangeToCartEvent;
 import lib.Event.ChangeToCartListener;
 import lib.Other.SupportingCalculations;
 
-public class Cart {
+public class Cart implements Serializable {
     THashMap<Integer, Order> contents;
     User user;
 

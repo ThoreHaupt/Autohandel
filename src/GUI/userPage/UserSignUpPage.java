@@ -1,6 +1,7 @@
 package GUI.userPage;
 
 import javax.swing.JPanel;
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import Controller.Controller;
 
@@ -15,6 +16,7 @@ import Model.UserComponentes.User;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.uiComponents.MLButton;
 import lib.uiComponents.MLComboBoxWithDescribtion;
+import lib.uiComponents.MLLabel;
 import lib.uiComponents.PasswordFieldWithDescribtion;
 import lib.uiComponents.TextFieldWithDescribtion;
 import lib.uiComponents.rigitFreeSpace;
@@ -29,11 +31,12 @@ public class UserSignUpPage extends JPanel {
     String[] tags = new String[] { "UserName", "E-mail", "First Name", "LastName", "Date-Of-Birth" };
     ArrayList<CustomTextComponent> textComponents = new ArrayList<CustomTextComponent>();
     MLComboBoxWithDescribtion languageBox;
+    MLLabel msg;
 
     Dimension fieldQuestionSize = new Dimension(200, 30);
     Dimension fieldQuestionSizeDistance = new Dimension(200, 1);
     Dimension fieldBlockSizes = new Dimension(400, 30);
-    Dimension preferredPanelSize = new Dimension(600, 500);
+    Dimension preferredPanelSize = new Dimension(600, 300);
 
     public UserSignUpPage(UIController uiController) {
         this.uiController = uiController;
@@ -45,6 +48,7 @@ public class UserSignUpPage extends JPanel {
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 2;
+        //c.weightx = 1.0;
         c.fill = GridBagConstraints.HORIZONTAL;
 
         add(buildSimpleUserInputQuestions(), c);
@@ -54,6 +58,12 @@ public class UserSignUpPage extends JPanel {
         add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), fieldQuestionSizeDistance), c);
         c.gridy++;
         add(buildOtherUserInputQuestions(), c);
+        c.gridy++;
+        add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), fieldQuestionSizeDistance), c);
+        c.gridy++;
+        add(createErrorLabel(), c);
+        c.gridy++;
+        add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), fieldQuestionSizeDistance), c);
         c.gridy++;
         add(buildSignUpButton(), c);
     }
@@ -142,26 +152,49 @@ public class UserSignUpPage extends JPanel {
         c.gridy++;
         MLButton button = new MLButton(uiController, "Done!");
         button.setBackground(uiController.getDefaultBackgroundcolor());
-        button.addActionListener(e -> {
-            THashMap<String, String> dataMap = new THashMap<String, String>();
-            for (int i = 0; i < describtions.length + 2; i++) {
-                dataMap.put(User.INPUTTAGS[i], textComponents.get(i).getText());
-            }
-            dataMap.put(User.PREFERED_LANGUAGE, languageBox.getSelectedIndex() + "");
-            for (String string : dataMap) {
-                System.out.println(string);
-            }
-            // call method in Controller and pass dataMap
-            // that tells uiController to set Page to User Profile / Shop idk
-            String portentialErrorMessage = controller.signUpAttempt(dataMap);
-            if (portentialErrorMessage == null) {
-                for (CustomTextComponent compontent : textComponents) {
-                    compontent.resetValue();
-                }
-            }
-        });
+        button.addActionListener(e -> initUserProcess());
         panel.add(button);
         return panel;
+    }
+
+    private void initUserProcess() {
+
+        THashMap<String, String> dataMap = new THashMap<String, String>();
+        for (int i = 0; i < describtions.length + 2; i++) {
+            dataMap.put(User.INPUTTAGS[i], textComponents.get(i).getText());
+        }
+        dataMap.put(User.PREFERED_LANGUAGE, languageBox.getSelectedIndex() + "");
+        for (String string : dataMap) {
+            System.out.println(string);
+        }
+        // call method in Controller and pass dataMap
+        // that tells uiController to set Page to User Profile / Shop idk
+        // if null that means, that the user creation was successfull.
+        String portentialErrorMessage = controller.signUpAttempt(dataMap);
+        if (portentialErrorMessage == null) {
+            for (CustomTextComponent compontent : textComponents) {
+                compontent.resetValue();
+            }
+        } else {
+            setErrorMessage(portentialErrorMessage);
+        }
+
+    }
+
+    private JPanel createErrorLabel() {
+        JPanel panel = new JPanel();
+        msg = new MLLabel(uiController, "");
+        msg.setForeground(uiController.getDefaultErrorColor());
+        msg.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 15));
+        panel.setPreferredSize(fieldBlockSizes);
+        panel.add(msg);
+        return panel;
+    }
+
+    private void setErrorMessage(String error) {
+        msg.setText(error);
+        revalidate();
+        repaint();
     }
 
 }

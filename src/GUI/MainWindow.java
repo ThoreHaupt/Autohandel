@@ -82,7 +82,7 @@ public class MainWindow extends JFrame {
         this.setTitle(windowTitle);
         this.setSize(1000, 500);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     public JPanel getMainPane() {

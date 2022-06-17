@@ -114,23 +114,33 @@ public class Controller {
             return;
         }
         model.logInUser(key, password);
+        lc.setLanguage(model.getLoggedUser().getPreferredLanguage());
+        uiController.setDarkTheme(model.getLoggedUser().getPreferresDarkTheme());
     }
 
     public void intiShutDownSequence() {
+        // log out user properly before shutdown
+
+        if (!isCurrentUserGuest()) {
+            model.getCurrentUser().logOff();
+        }
+        // if guest, make a popup, that lets you safe a file
         System.out.println("shutdown Shit");
+        uiController.closeWindow();
     }
 
     /**
      * takes all the input needed to create a new User. 
      * if there are not all nessesary inputs, this will return a Error message
-     * @return
+     * @param datamap a HashMap with Data to set the UserInformation. 
+     * @return the errormessage or null, when the User Creation was successfull
      */
     public String signUpAttempt(THashMap<String, String> dataMap) {
         String s = model.createNewUser(dataMap);
         if (s == null) {
             uiController.setWindowContent(UIController.MAINSTORE_PAGE);
         }
-        return null;
+        return s;
     }
 
     public String[] getLanguageStringArray() {

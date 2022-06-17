@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import javax.swing.event.EventListenerList;
 
+import GUI.UIController;
 import Model.ModelComponentes.Car;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.User;
@@ -77,7 +78,8 @@ public class Model {
     }
 
     private void loadExistingUserNames() {
-        File folder = new File("Data/UserProfiles/UserAuthentications");
+        File folder = new File(UserAuthKey.authKeyFolderPath);
+        userAuthKeys = new HashMap<>();
         if (folder.listFiles() == null) {
 
             return;
@@ -92,7 +94,10 @@ public class Model {
             try {
                 UserAuthKey authkey = (UserAuthKey) FileLoader.loadSerializedObject(file);
                 String name = file.getName();
-                userAuthKeys.put(name, authkey);
+                System.out.println(name);
+                String userN = name.replace(".ser", "");
+                System.out.println(userN);
+                userAuthKeys.put(userN, authkey);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -102,7 +107,7 @@ public class Model {
 
     public void logInUser(UserAuthKey key, String password) {
         String userDataFileName = key.getUserProfileDataFileName(password);
-        String userDataFilePath = "Data/UserProfiles/UserProfileIformation" + userDataFileName + ".txt";
+        String userDataFilePath = User.USERDATA_STORAGE_PATH + userDataFileName + ".ser";
         File userDataFile = new File(userDataFilePath);
         User user;
         try {
@@ -112,6 +117,10 @@ public class Model {
             e.printStackTrace();
             return;
         }
+        setUser(user);
+    }
+
+    private void setUser(User user) {
         boolean oldWasGuest = currentUser.isGuest();
         currentUser = user;
         fireNewUserLoginEvent(new NewUserLoginEvent(this, user, oldWasGuest));
@@ -135,7 +144,34 @@ public class Model {
     }
 
     public String createNewUser(THashMap<String, String> dataMap) {
+        if (!dataMap.get(User.PASSWORD1).equals(dataMap.get(User.PASSWORD2))) {
+            System.out.println("couldnt create User, because passwords dont match");
+            return "Passwords do not match!";
+        }
+        if (dataMap.get(User.USERNAME).equals("")) {
+            return "No Username!";
+        }
+        if (dataMap.get(User.PASSWORD1).equals("")) {
+            return "No Password!";
+        }
+        if (doesUserExist(dataMap.get(User.USERNAME))) {
+            System.out.println("couldnt create User bc User already exists");
+            return "This user exists already";
+        }
+        User newUser = new User(dataMap.get(User.USERNAME), dataMap.get(User.PASSWORD1));
+        setUser(newUser);
         return null;
+    }
+
+    public boolean doesUserExist(String username) {
+        if (userAuthKeys.containsKey(username)) {
+            return true;
+        }
+        return false;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 
 }

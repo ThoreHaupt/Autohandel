@@ -43,6 +43,7 @@ public class UIController {
     private Font defaultFont = new Font("Segoe", Font.PLAIN, 20);
     private Color defaultAccentColor = new Color(75, 150, 255);
     private Color defaultBackgroundColor = null;
+    private Color errorColor = new Color(255, 51, 51);
 
     private Controller controller;
 
@@ -184,5 +185,22 @@ public class UIController {
     }
 
     public void displayDeniedLoginMessage(String string) {
+        if (currentPage.equals(LOGIN_PAGE)) {
+            ((UserLoginPage) pages.get(LOGIN_PAGE)).displayErrorMessage(string);
+        }
+    }
+
+    public void setDarkTheme(boolean setDarkTheme) {
+        if (lightmode == setDarkTheme) {
+            switchTheme();
+        }
+    }
+
+    public Color getDefaultErrorColor() {
+        return errorColor;
+    }
+
+    public void closeWindow() {
+        window.dispose();
     }
 }

@@ -1,11 +1,11 @@
 package Model.UserComponentes;
 
-import java.io.File;
 import java.io.Serializable;
 
 import lib.fileHandling.FileSaver;
 
 public class UserAuthKey implements Serializable {
+    public final static String authKeyFolderPath = "Data/UserProfiles/UserAuthentications/";
     private String password;
     private String userProfileDataFileName;
 
@@ -31,7 +31,7 @@ public class UserAuthKey implements Serializable {
     }
 
     public void safe(String username) {
-        String path = "Data/UserProfiels/UserAuthentications/" + username + ".txt";
+        String path = authKeyFolderPath + username + ".ser";
         FileSaver.safeSerializableObject(path, this, true);
     }
 

@@ -71,6 +71,12 @@ public class FileSaver {
         } else {
             file.delete();
             file = new File(path);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         try {
             file.createNewFile();

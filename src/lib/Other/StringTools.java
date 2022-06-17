@@ -1,4 +1,4 @@
-package lib.technicalComponents;
+package lib.Other;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,14 @@ public class StringTools {
     public static String getRandomString(int length) {
         ArrayList<Character> l = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
-            l.add((char) (Math.random() * 100 + 70));
+            l.add((char) (Math.random() * 25 + 65));
         }
         char[] arr = new char[length];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = l.get(i);
         }
-        return new String(arr);
+        String newString = new String(arr);
+        System.out.println(newString);
+        return newString;
     }
 }
