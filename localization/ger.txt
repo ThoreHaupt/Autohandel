@@ -35,4 +35,5 @@
     "Preferred Language: ":"Bevorzugte Sprache: ",
     "":"",
     "Done!":"Done!",
+    "This user does not exist!":"This user does not exist!",
 }

@@ -20,6 +20,8 @@ public class UserLoginPage extends JPanel {
     UIController uiController;
     Controller controller;
 
+    MLLabel errorMessage;
+
     Dimension centerSize = new Dimension(300, 30);
     Dimension fieldSizes = new Dimension(200, 30);
     Dimension LoginPageActiveFieldSize = new Dimension(600, 300);
@@ -35,12 +37,19 @@ public class UserLoginPage extends JPanel {
         c.weightx = 1.0;
 
         this.add(currentlyLogedinLabel(), c);
-        c.gridy = 1;
+        c.gridy++;
         this.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(200, 4)), c);
-        c.gridy = 2;
+        c.gridy++;
         this.add(buildLoginField(), c);
-        c.gridy = 3;
+        c.gridy++;
+        this.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(200, 4)), c);
+        c.gridy++;
+        this.add(createErrorLabel(), c);
+        c.gridy++;
+        this.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(200, 4)), c);
+        c.gridy++;
         this.add(buildSignUpButton(), c);
+        c.gridy++;
         setPreferredSize(LoginPageActiveFieldSize);
     }
 
@@ -123,21 +132,26 @@ public class UserLoginPage extends JPanel {
         return panel;
     }
 
-    public void displayErrorMessage(String message) {
-        MLLabel errorMessage = new MLLabel(uiController, message);
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridy = 3;
-        c.gridwidth = 1;
-        c.weightx = 1.0;
-        this.add(errorMessage, c);
-        revalidate();
-        repaint();
-    }
-
     public MLLabel currentlyLogedinLabel() {
         MLLabel label = new MLLabel(uiController, "You are currently logged in as \"Guest\"");
 
         return label;
+    }
+
+    private JPanel createErrorLabel() {
+        JPanel panel = new JPanel();
+        errorMessage = new MLLabel(uiController, "");
+        errorMessage.setForeground(uiController.getDefaultErrorColor());
+        errorMessage.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 15));
+        //panel.setPreferredSize(centerSize);
+        panel.add(errorMessage);
+        return panel;
+    }
+
+    public void setErrorMessage(String error) {
+        errorMessage.setText(error);
+        revalidate();
+        repaint();
     }
 
 }

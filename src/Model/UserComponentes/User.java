@@ -163,7 +163,7 @@ public class User implements Serializable {
     }
 
     private void safeUser() {
-        FileSaver.safeSerializableObject(userDataPath + ".ser", this, true);
+        FileSaver.safeSerializableObject(User.USERDATA_STORAGE_PATH + userDataPath + ".ser", this, true);
     }
 
     public boolean getPreferresDarkTheme() {

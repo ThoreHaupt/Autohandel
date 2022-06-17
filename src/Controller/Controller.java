@@ -116,6 +116,7 @@ public class Controller {
         model.logInUser(key, password);
         lc.setLanguage(model.getLoggedUser().getPreferredLanguage());
         uiController.setDarkTheme(model.getLoggedUser().getPreferresDarkTheme());
+        uiController.setWindowContent(UIController.MAINSTORE_PAGE);
     }
 
     public void intiShutDownSequence() {
@@ -145,6 +146,14 @@ public class Controller {
 
     public String[] getLanguageStringArray() {
         return LocalizationController.getLanguageStringArray();
+    }
+
+    public void setLanguage(Language language) {
+        lc.setLanguage(language);
+    }
+
+    public Language getCurrentLanguage() {
+        return lc.getCurrentLanguage();
     }
 
 }

@@ -159,4 +159,12 @@ public class LocalizationController {
                 .collect(Collectors.toList()).toArray(new String[Language.values().length]);
     }
 
+    public void resetLanguage() {
+        setLanguage(currentLanguage);
+    }
+
+    public Language getCurrentLanguage() {
+        return currentLanguage;
+    }
+
 }

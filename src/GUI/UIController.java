@@ -19,6 +19,7 @@ import GUI.topMenuBar.TopMenuBar;
 import GUI.userPage.UserLoginPage;
 import GUI.userPage.UserPage;
 import GUI.userPage.UserSignUpPage;
+import LocalizationLogic.Language;
 import lib.DataStructures.HashMapImplementation.THashMap;
 
 public class UIController {
@@ -96,20 +97,9 @@ public class UIController {
 
     public void switchTheme() {
         System.out.println("changig Theme ? idk");
+        Language currentLanguage = controller.getCurrentLanguage();
         lightmode = !lightmode;
         setTheme();
-        /* topMenuBar.repaint();
-        topMenuBar.revalidate();
-        topMenuBar.updateUI();
-        
-        window.getMainPane().updateUI();
-        window.getMainPane().revalidate();
-        window.getMainPane().repaint();
-        
-        pages.forEach(e -> e.updateUI());
-        pages.forEach(e -> e.revalidate());
-        pages.forEach(e -> e.repaint()); */
-
         pages = new THashMap<>();
         initializePages();
 
@@ -122,6 +112,8 @@ public class UIController {
         window.revalidate();
 
         setWindowContent(currentPage);
+
+        controller.setLanguage(currentLanguage);
 
     }
 
@@ -151,7 +143,7 @@ public class UIController {
         return defaultAccentColor;
     }
 
-    private void setMainWindowContent(JPanel page) {
+    public void setMainWindowContent(JPanel page) {
         JPanel mainPanel = window.getMainPane();
         mainPanel.removeAll();
         mainPanel.add(page, BorderLayout.CENTER);
@@ -186,7 +178,7 @@ public class UIController {
 
     public void displayDeniedLoginMessage(String string) {
         if (currentPage.equals(LOGIN_PAGE)) {
-            ((UserLoginPage) pages.get(LOGIN_PAGE)).displayErrorMessage(string);
+            ((UserLoginPage) pages.get(LOGIN_PAGE)).setErrorMessage(string);
         }
     }
 
