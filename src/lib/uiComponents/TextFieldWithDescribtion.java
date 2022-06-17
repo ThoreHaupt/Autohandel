@@ -28,4 +28,10 @@ public class TextFieldWithDescribtion extends JPanel implements CustomTextCompon
     public String getText() {
         return textField.getText();
     }
+
+    @Override
+    public void resetValue() {
+        // TODO Auto-generated method stub
+
+    }
 }

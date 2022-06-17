@@ -53,4 +53,9 @@ public class MLComboBox extends JComboBox<String> implements CustomTextComponent
         return getItemAt(getSelectedIndex());
     }
 
+    @Override
+    public void resetValue() {
+        setSelectedIndex(0);
+    }
+
 }

@@ -12,7 +12,7 @@ import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 /**
  * MultiLanguageButton
  */
-public class MLButton extends JButton implements CustomTextComponent {
+public class MLButton extends JButton {
     UIController uiController;
     LocalizationController lc;
     String text;

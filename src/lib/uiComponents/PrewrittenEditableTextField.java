@@ -127,4 +127,9 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
         super.setPreferredSize(d);
         textField.setPreferredSize(d);
     }
+
+    @Override
+    public void resetValue() {
+
+    }
 }

@@ -16,7 +16,8 @@ import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 public class MLTextField extends JTextField implements CustomTextComponent {
     UIController uiController;
     LocalizationController lc;
-    String text;
+    String defaultText;
+    String currentText;
     boolean update;
 
     public MLTextField(UIController uiController, String text) {
@@ -24,7 +25,8 @@ public class MLTextField extends JTextField implements CustomTextComponent {
         this.uiController = uiController;
         Controller controller = uiController.getController();
         this.lc = controller.getLocalizationController();
-
+        this.defaultText = text;
+        this.currentText = defaultText;
         this.setText(text);
         lc.addLanguageChangeListener(e -> updateText());
     }
@@ -35,14 +37,14 @@ public class MLTextField extends JTextField implements CustomTextComponent {
             super.setText(text);
             return;
         }
-        this.text = text;
+        this.currentText = text;
         super.setText(lc.s(text));
     }
 
     public void updateText() {
         if (!update)
             return;
-        this.setText(text);
+        this.setText(defaultText);
         revalidate();
     }
 
@@ -52,6 +54,11 @@ public class MLTextField extends JTextField implements CustomTextComponent {
 
     public void setDocumentFilter(DocumentFilter filter) {
         ((PlainDocument) getDocument()).setDocumentFilter(filter);
+    }
+
+    @Override
+    public void resetValue() {
+        setText(defaultText);
     }
 
 }

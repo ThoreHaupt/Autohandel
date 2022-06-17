@@ -78,6 +78,10 @@ public class Model {
 
     private void loadExistingUserNames() {
         File folder = new File("Data/UserProfiles/UserAuthentications");
+        if (folder.listFiles() == null) {
+
+            return;
+        }
         for (File file : folder.listFiles()) {
             // eigentlich nicht notwendig, weil es ja bekannt ist, welche Filetypen in dem Ordner sind, aber
             // sicher ist sicher
