@@ -6,4 +6,6 @@ public interface CustomTextComponent {
      * @return
      */
     public String getText();
+
+    public void resetValue();
 }
