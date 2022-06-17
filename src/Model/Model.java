@@ -7,7 +7,7 @@ import java.util.HashMap;
 import javax.swing.event.EventListenerList;
 
 import GUI.UIController;
-import Model.ModelComponentes.Car;
+import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
@@ -15,10 +15,9 @@ import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.NewUserLoginEvent;
 import lib.Event.NewUserLoginListener;
 import lib.fileHandling.FileLoader;
-import lib.technicalComponents.Product;
 
 public class Model {
-    Car[] currentOptions;
+    Product[] currentOptions;
     ArrayList<Product> allAvaliableObjects;
 
     HashMap<String, UserAuthKey> userAuthKeys;
@@ -43,7 +42,7 @@ public class Model {
         return currentUser;
     }
 
-    public Car[] getCurrentOptions(Filter filter) {
+    public Product[] getCurrentOptions(Filter filter) {
         clalculteCurrentDisplayList(filter);
         return currentOptions;
     }
@@ -172,6 +171,11 @@ public class Model {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+    public void createOrder(Product product, int amount) {
+        User user = getCurrentUser();
+        user.getCart().order(product, amount);
     }
 
 }

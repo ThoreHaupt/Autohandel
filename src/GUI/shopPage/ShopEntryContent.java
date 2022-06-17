@@ -6,16 +6,14 @@ import GUI.UIController;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.text.Format.*;
 
-import Model.ModelComponentes.Car;
-import Model.UserComponentes.Order;
+import Model.ModelComponentes.Product;
 import lib.uiComponents.MLButton;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
 public class ShopEntryContent extends JPanel {
-    private Car car;
+    private Product product;
     private UIController uiController;
     private Window window;
     private int optimalWidth;
@@ -26,8 +24,8 @@ public class ShopEntryContent extends JPanel {
     private JLabel priceLabel;
     private JPanel buffer;
 
-    public ShopEntryContent(UIController uiController, Car model, boolean isGalary) {
-        this.car = model;
+    public ShopEntryContent(UIController uiController, Product model, boolean isGalary) {
+        this.product = model;
         this.uiController = uiController;
         window = uiController.getWindow();
         this.isGallery = isGalary;
@@ -72,7 +70,7 @@ public class ShopEntryContent extends JPanel {
         JPanel imagePanelSection = new JPanel();
         imagePanelSection.setMinimumSize(dimension);
         usedWidth += dimension.getWidth();
-        ImageIcon imageIcon = new ImageIcon(car.getImagePath());
+        ImageIcon imageIcon = new ImageIcon(product.getImageString());
 
         Image rawImage = imageIcon.getImage();
         Image scaledImage = rawImage.getScaledInstance((int) dimension.getWidth(), (int) dimension.getHeight(),
@@ -86,7 +84,7 @@ public class ShopEntryContent extends JPanel {
     public JPanel buildTitle(int size) {
         JPanel header = new JPanel();
         header.setLayout(new BorderLayout());
-        JLabel title = new JLabel(car.getDescribtionTitle());
+        JLabel title = new JLabel(product.getDescribtionTitle());
         Font titleFont = new Font(uiController.getDefaultFont().getName(), Font.BOLD, size);
         title.setFont(titleFont);
         header.add(title, BorderLayout.WEST);
@@ -95,7 +93,7 @@ public class ShopEntryContent extends JPanel {
 
     public JPanel buildInformationText(boolean b) {
         JPanel textPanel = new JPanel();
-        String textString = b ? car.getShortInformationText() : car.getExtensiveInformationText();
+        String textString = b ? product.getShortInformationText() : product.getShortInformationText();
 
         JLabel text = new JLabel(textString);
         usedWidth += text.getMinimumSize().getWidth();
@@ -112,45 +110,65 @@ public class ShopEntryContent extends JPanel {
 
     public JPanel buildPriceArea(boolean withButton) {
         JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(150, 200));
-        usedWidth += 150;
-        panel.setLayout(new BorderLayout());
-        priceLabel = new JLabel(car.getPriceString() + " €");
-        priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
-        panel.add(new rigitFreeSpace(null, new Dimension(150, withButton ? 50 : 20)), BorderLayout.NORTH);
-        MLLabel otherText = new MLLabel(this.uiController, "incl MwStr.");
+        panel.setPreferredSize(new Dimension(200, 100));
+        usedWidth += 200;
 
-        JPanel subPanel = new JPanel();
-        subPanel.setLayout(new BorderLayout());
-        JPanel subsubPanel = new JPanel();
-        subsubPanel.setLayout(new BorderLayout());
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.9;
+        c.gridwidth = 2;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.HORIZONTAL;
+
+        priceLabel = new JLabel(product.getPriceString() + " €");
+        priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
+
+        panel.add(priceLabel, c);
+
+        c.gridy++;
+
+        panel.add(new rigitFreeSpace(null, new Dimension(300, withButton ? 10 : 10)), c);
+
+        c.gridy++;
+        c.gridwidth = 1;
+        c.anchor = GridBagConstraints.CENTER;
+
+        MLLabel otherText = new MLLabel(this.uiController, "incl MwStr.");
+        otherText.setPreferredSize(new Dimension(30, 20));
+        panel.add(otherText, c);
+
+        c.gridy++;
 
         if (withButton) {
-            MLButton addToCart = new MLButton(uiController, "Configurator");
+            c.gridx = 1;
+            c.gridwidth = 1;
+            MLButton addToCart = new MLButton(uiController, "AddToCart");
+            JSpinner spinner = new JSpinner();
             addToCart.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    uiController.getController().addToOrder(car, 1);
+                    uiController.getController().addToOrder(product, (int) spinner.getValue());
                 }
 
             });
 
             addToCart.setBackground(uiController.getDefaultAccentColor());
             addToCart.setForeground(new Color(255, 255, 255));
-            addToCart.setPreferredSize(new Dimension(50, 30));
-            subsubPanel.add(addToCart, BorderLayout.SOUTH);
+            addToCart.setPreferredSize(new Dimension(40, 30));
+            panel.add(addToCart, c);
 
-            JSpinner spinner = new JSpinner();
+            c.gridx = 0;
+
+            SpinnerNumberModel sm = new SpinnerNumberModel();
+            sm.setMinimum(0);
             spinner.setValue(1);
-            JFormattedTextField txt = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
-            ((NumberFormatter) txt.getFormatter()).setAllowsInvalid(false);
+            spinner.setModel(sm);
+            spinner.setPreferredSize(new Dimension(40, 30));
+            panel.add(spinner, c);
         }
-
-        subsubPanel.add(priceLabel, BorderLayout.NORTH);
-        subsubPanel.add(otherText, BorderLayout.CENTER);
-        subPanel.add(subsubPanel, BorderLayout.NORTH);
-        panel.add(subPanel);
         return panel;
     }
 

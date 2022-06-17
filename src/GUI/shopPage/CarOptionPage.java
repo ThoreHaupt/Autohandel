@@ -5,14 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 
 import GUI.UIController;
-import Model.ModelComponentes.Car;
+import Model.ModelComponentes.Product;
 import lib.uiComponents.rigitFreeSpace;
 
 public class CarOptionPage extends JPanel {
-    Car car;
+    Product car;
     UIController uiController;
 
-    public CarOptionPage(UIController uiController, Car car) {
+    public CarOptionPage(UIController uiController, Product car) {
         this.uiController = uiController;
         this.car = car;
         buildCarOptionPage();

@@ -195,4 +195,8 @@ public class UIController {
     public void closeWindow() {
         window.dispose();
     }
+
+    public int getUsableHeight() {
+        return 0;
+    }
 }

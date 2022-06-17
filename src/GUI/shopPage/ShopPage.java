@@ -5,6 +5,7 @@ import javax.swing.*;
 import GUI.UIController;
 import GUI.MainWindow;
 import Model.ModelComponentes.Car;
+import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import lib.uiComponents.PageSideHideMenu;
 
@@ -83,15 +84,15 @@ public class ShopPage extends JPanel {
     public JPanel loadEntriesFromModel(Filter filter) {
         JPanel panel = new JPanel();
 
-        Car[] cars = uiController.getController().getOptions(filter);
-        entries = new ShopGalleryEntry[cars.length];
+        Product[] products = uiController.getController().getOptions(filter);
+        entries = new ShopGalleryEntry[products.length];
         panel.setBorder(BorderFactory.createEmptyBorder());
 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.weightx = 1.0;
+        c.weightx = 0.9;
 
         if (entries.length == 0) {
             JLabel l = new JLabel(uiController.getController().lc.s(
@@ -101,7 +102,7 @@ public class ShopPage extends JPanel {
         }
 
         for (int i = 0; i < entries.length; i++) {
-            entries[i] = new ShopGalleryEntry(uiController, cars[i]);
+            entries[i] = new ShopGalleryEntry(uiController, products[i]);
             panel.add(entries[i], c);
             // System.out.println(entries[i].getMaximumSize());
         }
@@ -120,26 +121,6 @@ public class ShopPage extends JPanel {
                         window.getHeight() - uiController.getTopMenubarHeight()));
         //making scrolling faster:
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-
-        /* // When the fullWindow Button gets clicked/ minimize usw
-        window.addWindowStateListener(new WindowStateListener() {
-            @Override
-            public void windowStateChanged(WindowEvent e) {
-                scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
-                // System.out.println("changed Window Size");
-                scrollPane.revalidate();
-            }
-        });
-        
-        // when someone changes the window size manually
-        window.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent e) {
-                scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
-                // System.out.println("changed Window Size");
-                scrollPane.revalidate();
-            }
-        
-        }); */
 
         sideMenuManager.addSideHideExtentionStateChangeListener(e -> {
             scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());

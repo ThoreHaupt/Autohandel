@@ -5,13 +5,13 @@ import LocalizationLogic.LocalizationController;
 import LocalizationLogic.Language;
 import Model.Model;
 import Model.ModelComponentes.Car;
+import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.NewUserLoginListener;
-import lib.technicalComponents.Product;
 
 public class Controller {
 
@@ -50,8 +50,10 @@ public class Controller {
     public void addToCart(Order oder) {
     }
 
-    public Car[] getOptions(Filter filter) {
-        return new Car[] { new Car("a"), new Car("asdada"), new Car("asdawdawd"), new Car("asd"), new Car(""),
+    public Product[] getOptions(Filter filter) {
+        //model.getCarOptions(filter);
+        return new Product[] { new Car("a"), new Car("asdada"), new Car("asdawdawd"), new Car("asd"),
+                new Car(""),
                 new Car("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
 
     }
@@ -76,8 +78,8 @@ public class Controller {
         return model.isCurrentUserGuest();
     }
 
-    public void addToOrder(Product car, int amount) {
-
+    public void addToOrder(Product product, int amount) {
+        model.createOrder(product, amount);
     }
 
     public void UserProfileButtonRequest() {

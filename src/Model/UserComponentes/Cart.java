@@ -1,9 +1,11 @@
 package Model.UserComponentes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.swing.event.EventListenerList;
 
+import Model.ModelComponentes.Product;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartEvent;
 import lib.Event.ChangeToCartListener;
@@ -13,7 +15,7 @@ public class Cart implements Serializable {
     THashMap<Integer, Order> contents;
     User user;
 
-    protected EventListenerList listenerList = new EventListenerList();
+    protected transient EventListenerList listenerList = new EventListenerList();
 
     public Cart() {
         contents = new THashMap<>();
@@ -21,14 +23,14 @@ public class Cart implements Serializable {
 
     public void addToCart(Order p) {
         contents.put(p.getID(), p);
-        fireAddToCartEvent(new ChangeToCartEvent(this));
+        fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
     public void removeFromCart(Order p) {
-        fireAddToCartEvent(new ChangeToCartEvent(this));
+        fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
-    protected void fireAddToCartEvent(ChangeToCartEvent event) {
+    protected void fireChangeToCartEvent(ChangeToCartEvent event) {
         Object[] listeners = listenerList.getListenerList();
         for (int i = 0; i < listeners.length; i = i + 2) {
             if (listeners[i] == ChangeToCartListener.class) {
@@ -59,6 +61,28 @@ public class Cart implements Serializable {
             sum += order.getOrderValue();
         }
         return sum;
+    }
+
+    public void deleteOrder(Order order) {
+        contents.remove(order.getID());
+        fireChangeToCartEvent(new ChangeToCartEvent(this));
+    }
+
+    public Order[] getOrders() {
+        ArrayList<Order> tempList = new ArrayList<>();
+        contents.forEach(e -> tempList.add(e));
+
+        return tempList.toArray(new Order[contents.size()]);
+    }
+
+    public void order(Product product, int amount) {
+        Order newOrder = new Order(product, amount);
+        contents.put(newOrder.getID(), newOrder);
+        fireChangeToCartEvent(new ChangeToCartEvent(this));
+    }
+
+    public void notifyChange() {
+        fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
 }

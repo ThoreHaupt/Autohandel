@@ -2,8 +2,6 @@ package Model.ModelComponentes;
 
 import java.util.HashMap;
 
-import lib.technicalComponents.Product;
-
 public class Car extends Product {
     HashMap<String, CarComponentes> carComponentes = new HashMap<>();
     String imagePath = "resources/GUI_images/no_ImageImage.png";
