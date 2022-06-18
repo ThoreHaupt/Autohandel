@@ -37,6 +37,7 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
         setLayout(new BorderLayout());
         this.add(createTextField(), BorderLayout.CENTER);
         textField.setAutoLanguageAdaption(false);
+        this.setTextDefault();
         uiController.getController().lc.addLanguageChangeListener(e -> updateLanguage());
     }
 
@@ -70,14 +71,15 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
 
             @Override
             public void focusLost(FocusEvent e) {
-                textField.setDocumentFilter(defaultFilter);
-                if (textField.getText().equals(""))
+                if (textField.getText().equals("")) {
+                    textField.setDocumentFilter(defaultFilter);
                     textField.setText(defaultString);
-                textField.setDocumentFilter(filter);
+                    textField.setDocumentFilter(filter);
+                }
             }
 
         });
-
+        textField.setChangeAsAction();
         panel.add(textField, BorderLayout.CENTER);
         return panel;
     }
@@ -100,7 +102,7 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
         if (getText().equals("")) {
             System.out.println("updateing language");
             currentDefaultString = uiController.getTransatedString(defaultString);
-            textField.setText(defaultString);
+            setTextDefault();
         }
     }
 
@@ -132,4 +134,18 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
     public void resetValue() {
 
     }
+
+    public void setText(String text) {
+        textField.setText(text);
+        if (textField.getText().equals("")) {
+            textField.setDocumentFilter(defaultFilter);
+            textField.setText(defaultString);
+            textField.setDocumentFilter(filter);
+        }
+    }
+
+    public void addActionListener(ActionListener l) {
+        textField.addActionListener(l);
+    }
+
 }

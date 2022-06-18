@@ -15,6 +15,8 @@ import Model.UserComponentes.UserAuthKey;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartEvent;
 import lib.Event.ChangeToCartListener;
+import lib.Event.FilterChangeEvent;
+import lib.Event.FilterChangeListener;
 import lib.Event.NewUserLoginEvent;
 import lib.Event.NewUserLoginListener;
 import lib.fileHandling.FileLoader;
@@ -32,8 +34,9 @@ public class Model {
     // usually guest, but you can log in
     User currentUser = guest;
 
-    protected EventListenerList UserLoginChangeListenerList = new EventListenerList();
-    protected transient EventListenerList chartChangeEventListenerList = new EventListenerList();
+    protected transient EventListenerList UserLoginChangeListenerList = new EventListenerList();
+    protected transient EventListenerList cartChangeEventListenerList = new EventListenerList();
+    protected transient EventListenerList filterChangeEventListenerList = new EventListenerList();
 
     /**
      * 
@@ -215,11 +218,11 @@ public class Model {
     }
 
     public void addChangeToCartListener(ChangeToCartListener listener) {
-        chartChangeEventListenerList.add(ChangeToCartListener.class, listener);
+        cartChangeEventListenerList.add(ChangeToCartListener.class, listener);
     }
 
     public void removeChangeToCartListener(ChangeToCartListener listener) {
-        chartChangeEventListenerList.remove(ChangeToCartListener.class, listener);
+        cartChangeEventListenerList.remove(ChangeToCartListener.class, listener);
     }
 
     /**
@@ -230,11 +233,36 @@ public class Model {
      * @param event The event that happend
      */
     public void fireChangeToCartEvent(ChangeToCartEvent event) {
-        Object[] listeners = chartChangeEventListenerList.getListenerList();
+        Object[] listeners = cartChangeEventListenerList.getListenerList();
         for (int i = 0; i < listeners.length; i = i + 2) {
             if (listeners[i] == ChangeToCartListener.class) {
                 ((ChangeToCartListener) listeners[i + 1]).onChangeToCart(event);
             }
         }
     }
+
+    public void loadGuestCartIntoCurrentUser() {
+        Order[] guestOrders = guest.getCart().getOrders();
+        for (Order order : guestOrders) {
+            currentUser.getCart().addToCart(order);
+        }
+    }
+
+    public void fireFilterChangeEvent(FilterChangeEvent event) {
+        Object[] listeners = UserLoginChangeListenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i = i + 2) {
+            if (listeners[i] == FilterChangeListener.class) {
+                ((FilterChangeListener) listeners[i + 1]).onFilterChange(event);
+            }
+        }
+    }
+
+    public void addFilterChangeListener(FilterChangeListener listener) {
+        filterChangeEventListenerList.add(FilterChangeListener.class, listener);
+    }
+
+    public void removeFilterChangeListener(FilterChangeListener listener) {
+        filterChangeEventListenerList.remove(FilterChangeListener.class, listener);
+    }
+
 }

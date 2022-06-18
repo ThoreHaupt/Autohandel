@@ -23,8 +23,23 @@ public class Cart implements Serializable {
     }
 
     public void addToCart(Order p) {
+        if (checkForAffort(p)) {
+            // ask if to overwrite setting -> ignore maximum Constraint
+            return;
+        }
         contents.put(p.getID(), p);
         fireChangeToCartEvent(new ChangeToCartEvent(this));
+    }
+
+    private boolean checkForAffort(Order p) {
+        Filter userFilter = user.getFilter();
+        if (userFilter.getMaximumBudget() == -1) {
+            return true;
+        }
+        if (userFilter.getMaximumBudget() >= getTotalPrice() + p.getOrderValue()) {
+            return true;
+        }
+        return false;
     }
 
     public void removeFromCart(Order p) {

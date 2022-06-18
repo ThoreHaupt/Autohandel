@@ -1,6 +1,8 @@
 package lib.uiComponents;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
@@ -48,6 +50,10 @@ public class MLTextField extends JTextField implements CustomTextComponent {
         revalidate();
     }
 
+    public void setChangeAsAction() {
+        getDocument().addDocumentListener(new DocumentChangeAsActionListener());
+    }
+
     public void setAutoLanguageAdaption(boolean b) {
         update = b;
     }
@@ -61,4 +67,23 @@ public class MLTextField extends JTextField implements CustomTextComponent {
         setText(defaultText);
     }
 
+    class DocumentChangeAsActionListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            fireActionPerformed();
+
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            fireActionPerformed();
+
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            fireActionPerformed();
+        }
+    }
 }

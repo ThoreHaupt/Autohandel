@@ -47,6 +47,7 @@ public class UIController {
     private Color errorColor = new Color(255, 51, 51);
 
     private Controller controller;
+    private Color defaultUIcolor = new Color(255, 255, 255);
 
     public UIController(Controller controller) {
         loadStartUpInfoFile();
@@ -124,7 +125,7 @@ public class UIController {
     }
 
     public Color getDefaultUIColor() {
-        return null;
+        return defaultUIcolor;
     }
 
     public Color getDefaultBackgroundcolor() {
@@ -174,6 +175,45 @@ public class UIController {
 
     public Color getNotAffortableColor() {
         return new Color(245, 45, 30);
+    }
+
+    public Color getCloseToSpendingLimitColor() {
+        return new Color(255, 210, 77);
+    }
+
+    /**
+     * checks weather or not you are close to your spending limit and returns the color accordingly
+     * Used by the total Price display in the Cart Tab for example
+     * @return
+     */
+    public Color getColorBasedOnBudgetRestraint() {
+        return getPriceBasedOnBudgetColor(0);
+    }
+
+    /**
+     * returns weather or not a Product can be afforted. If it can not be afforted, this will return red
+     * if it is close this will display Orange
+     * if it will but you below 90% of your spending it will be green
+     * 
+     * this Propably does not make that much business sense, but it is a cool feature so whatever
+     * 
+     * @param price price on which the result will be calculated
+     * @return the color to be used
+     */
+    public Color getPriceBasedOnBudgetColor(double price) {
+        double budget = controller.getCurrentBudget();
+        double usedBudget = controller.getCurrentCartValue() + price;
+
+        if (budget == -1) {
+            return getDefaultUIColor();
+        }
+        if (budget < usedBudget) {
+            return getNotAffortableColor();
+        }
+        if (budget * 0.9 < usedBudget) {
+            return getCloseToSpendingLimitColor();
+        }
+        return getAffortableColor();
     }
 
     public void displayDeniedLoginMessage(String string) {

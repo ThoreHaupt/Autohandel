@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ShopGalleryEntry extends JPanel {
-    ProductPage carPage;
+    ProductPage productPage;
     UIController uiController;
     ShopEntryContent contents;
 
@@ -22,21 +22,19 @@ public class ShopGalleryEntry extends JPanel {
         entry.setLayout(new BorderLayout());
         contents = new ShopEntryContent(uiController, product, true);
         entry.add(contents, BorderLayout.CENTER);
-        entry.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                uiController.setMainWindowContent(carPage);
-            }
-
-        });
+        entry.addActionListener(e -> uiController.setMainWindowContent(productPage));
 
         this.add(entry, BorderLayout.CENTER);
         this.add(new rigitFreeSpace(null, new Dimension(1, 1)), BorderLayout.WEST);
         this.add(new rigitFreeSpace(null, new Dimension(1, 1)), BorderLayout.EAST);
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.NORTH);
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.SOUTH);
-        carPage = product.getProductPage();
+        if (product.getProductPage() == null) {
+            productPage = new ProductPage(uiController, product);
+            product.setPrdoductPage(productPage);
+        } else {
+            productPage = product.getProductPage();
+        }
 
     }
 

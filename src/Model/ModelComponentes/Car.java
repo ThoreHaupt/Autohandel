@@ -11,8 +11,8 @@ public class Car extends Product {
     Double age = null;
     String describtion;
 
-    public Car(Controller controller, String describtionText) {
-        super(controller);
+    public Car(String describtionText) {
+
         describtion = describtionText;
     }
 

@@ -55,10 +55,10 @@ public class Controller {
 
     public Product[] getOptions(Filter filter) {
         //model.getCarOptions(filter);
-        return new Product[] { new Car(this, "a"), new Car(this, "asdada"), new Car(this, "asdawdawd"),
-                new Car(this, "asd"),
-                new Car(this, ""),
-                new Car(this, "Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
+        return new Product[] { new Car("a"), new Car("asdada"), new Car("asdawdawd"),
+                new Car("asd"),
+                new Car(""),
+                new Car("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
 
     }
 
@@ -140,6 +140,7 @@ public class Controller {
             return;
         }
         model.logInUser(key, password);
+        model.loadGuestCartIntoCurrentUser();
         lc.setLanguage(model.getLoggedUser().getPreferredLanguage());
         uiController.setDarkTheme(model.getLoggedUser().getPreferresDarkTheme());
         uiController.setWindowContent(UIController.MAINSTORE_PAGE);
@@ -203,6 +204,10 @@ public class Controller {
     }
 
     public void exportCurrentCart() {
+    }
+
+    public double getCurrentBudget() {
+        return 0;
     }
 
 }

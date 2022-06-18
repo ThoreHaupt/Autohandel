@@ -12,7 +12,7 @@ import lib.Other.StringTools;
 import lib.fileHandling.FileSaver;
 
 public class User implements Serializable {
-    Model model;
+    transient Model model;
 
     private String email = "";
     private String username = "";
@@ -41,6 +41,7 @@ public class User implements Serializable {
     private boolean preferrsDarkTheme = true;
 
     private boolean isGuest = false;
+    private boolean importGuestCartOnLogin = true;
 
     private Cart cart;
 
@@ -57,7 +58,7 @@ public class User implements Serializable {
         history = null;
         first_name = "";
         last_name = "";
-        filter = new Filter();
+        filter = new Filter(this);
         cart = new Cart(model);
     }
 
@@ -65,7 +66,7 @@ public class User implements Serializable {
         this.model = model;
         this.username = username;
         this.password = password;
-        filter = new Filter();
+        filter = new Filter(this);
         cart = new Cart(model);
         createAuthKey();
     }
@@ -170,5 +171,9 @@ public class User implements Serializable {
 
     public boolean getPreferresDarkTheme() {
         return preferrsDarkTheme;
+    }
+
+    public Model getModel() {
+        return model;
     }
 }

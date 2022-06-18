@@ -24,8 +24,8 @@ public class ShopEntryContent extends JPanel {
     private JLabel priceLabel;
     private JPanel buffer;
 
-    public ShopEntryContent(UIController uiController, Product model, boolean isGalary) {
-        this.product = model;
+    public ShopEntryContent(UIController uiController, Product product, boolean isGalary) {
+        this.product = product;
         this.uiController = uiController;
         window = uiController.getWindow();
         this.isGallery = isGalary;
@@ -125,6 +125,11 @@ public class ShopEntryContent extends JPanel {
         priceLabel = new JLabel(product.getPriceString() + " €");
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
 
+        // reset Color, when the filter changes -> eg new Spending maximum, or when the user buys something, so the budget changes
+        uiController.getController().addChangeToCartListener(
+                e -> priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice())));
+        uiController.getController().getModel().addFilterChangeListener(
+                e -> priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice())));
         panel.add(priceLabel, c);
 
         c.gridy++;
@@ -170,14 +175,6 @@ public class ShopEntryContent extends JPanel {
             panel.add(spinner, c);
         }
         return panel;
-    }
-
-    public void setCanAffort(boolean affortable) {
-        if (affortable) {
-            priceLabel.setForeground(uiController.getAffortableColor());
-        } else {
-            priceLabel.setForeground(uiController.getNotAffortableColor());
-        }
     }
 
     /**

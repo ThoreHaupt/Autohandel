@@ -1,7 +1,12 @@
 package Model.UserComponentes;
 
+import Model.Model;
+import lib.Event.FilterChangeEvent;
+import lib.uiComponents.technicalUIComponents.Intervall;
+
 public class Filter {
-    User owner;
+    transient User owner;
+    transient Model model;
 
     double maxSpending = 50000;
     int minPrice = 0;
@@ -14,6 +19,12 @@ public class Filter {
     String searchParameterString = "";
 
     UserBrandSettings[] brands;
+
+    public Filter(User owner) {
+        this.owner = owner;
+        brands = new UserBrandSettings[0];
+        this.model = owner.getModel();
+    }
 
     public User getUser() {
         return owner;
@@ -38,6 +49,7 @@ public class Filter {
      */
     public void setMaxPrice(int maxPrice) {
         this.maxPrice = maxPrice;
+
     }
 
     /**
@@ -71,6 +83,26 @@ public class Filter {
 
     public double getMaximumBudget() {
         return 0;
+    }
+
+    private void fireChangeToFilterEvent(FilterChangeEvent event) {
+        model.fireFilterChangeEvent(new FilterChangeEvent(this));
+    }
+
+    public Object setICE(int stateChange) {
+        return null;
+    }
+
+    public Object setElectro(boolean b) {
+        return null;
+    }
+
+    public Object setFilterMaxSpending(boolean selected) {
+        return null;
+    }
+
+    public Object setSpendingRange(Intervall intervall) {
+        return null;
     }
 
 }

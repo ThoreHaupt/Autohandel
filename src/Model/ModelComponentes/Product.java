@@ -14,14 +14,7 @@ public class Product {
 
     ProductPage productPage;
 
-    private Controller controller;
-
-    private UIController uiController;
-
-    public Product(Controller controller) {
-        this.controller = controller;
-        this.uiController = controller.getUIController();
-        productPage = new ProductPage(uiController, this);
+    public Product() {
     }
 
     public double getPrice() {
@@ -50,6 +43,10 @@ public class Product {
 
     public ProductPage getProductPage() {
         return productPage;
+    }
+
+    public void setPrdoductPage(ProductPage productPage) {
+        this.productPage = productPage;
     }
 
 }

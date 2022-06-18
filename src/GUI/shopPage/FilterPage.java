@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import Controller.Controller;
 import GUI.UIController;
+import Model.UserComponentes.Filter;
+import lib.Other.SupportingCalculations;
 import lib.uiComponents.MLCheckBox;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.RangeSliderPacket;
@@ -16,11 +18,22 @@ import lib.uiComponents.PrewrittenEditableTextField;
 public class FilterPage extends JPanel {
     UIController uiController;
     Controller controller;
+    Filter currentFilter;
 
     public FilterPage(UIController uiController) {
         this.uiController = uiController;
         this.controller = uiController.getController();
+        currentFilter = controller.getCurrentUser().getFilter();
         this.add(buildFilterPage());
+        controller.addNewUserLoginListener(e -> updateFilterPage());
+    }
+
+    private void updateFilterPage() {
+        removeAll();
+        currentFilter = controller.getCurrentUser().getFilter();
+        this.add(buildFilterPage());
+        revalidate();
+        repaint();
     }
 
     private JPanel buildFilterPage() {
@@ -28,8 +41,6 @@ public class FilterPage extends JPanel {
         panel.setLayout(new BorderLayout());
         panel.add(buildNorthFilterPage(), BorderLayout.NORTH);
         panel.add(buildCenterFilterPage(), BorderLayout.CENTER);
-        //RangeSlider s = new RangeSlider();
-        //panel.add(s);
         return panel;
     }
 
@@ -59,12 +70,24 @@ public class FilterPage extends JPanel {
         PrewrittenEditableTextField mltfMaxSpending = new PrewrittenEditableTextField(uiController, "Maximum Budget",
                 new DocumentNumberFilter());
         mltfMaxSpending.setColumns(15);
-        //mltfMaxSpending.addActionListener(e -> );
+        double currentMaxSpending = currentFilter.getMaximumBudget();
+        if (currentMaxSpending > 0) {
+            mltfMaxSpending.setText(SupportingCalculations.round(currentMaxSpending, 2) + "");
+        }
+        mltfMaxSpending.addActionListener(e -> {
+            String text = mltfMaxSpending.getText();
+            System.out.println("change to max Budget Document");
+            if (text.equals("")) {
+                currentFilter.setMaxSpending(-1);
+            } else
+                currentFilter.setMaxSpending(Integer.parseInt(text));
+        });
         panel.add(mltfMaxSpending, c);
 
         // use maximum Spending to filter out Entries
         MLCheckBox checkBox = new MLCheckBox(uiController, "Filter non-affortable Offers");
         checkBox.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 10));
+        checkBox.addItemListener(e -> currentFilter.setFilterMaxSpending(((MLCheckBox) e.getSource()).isSelected()));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
@@ -79,7 +102,9 @@ public class FilterPage extends JPanel {
         c.gridy = 2;
         c.weightx = 0.9;
         c.gridwidth = 2;
-        panel.add(buildSpendingRangeSelector(), c);
+        RangeSliderPacket rangeSlider = new RangeSliderPacket(uiController);
+        rangeSlider.addChangeListener(e -> currentFilter.setSpendingRange(rangeSlider.getIntervall()));
+        panel.add(rangeSlider, c);
         // Engine Style
 
         c.gridx = 0;
@@ -98,11 +123,24 @@ public class FilterPage extends JPanel {
 
         JPanel checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new GridLayout(1, 2));
-        checkBoxPanel.add(new MLCheckBox(uiController, "Electric"), 0);
-        checkBoxPanel.add(new MLCheckBox(uiController, "Internal Combustion"), 1);
+        MLCheckBox electro = new MLCheckBox(uiController, "Electric");
+        electro.addItemListener(e -> currentFilter.setElectro(((MLCheckBox) e.getSource()).isSelected()));
+        checkBoxPanel.add(electro, 0);
+        MLCheckBox ICE = new MLCheckBox(uiController, "Internal Combustion");
+        ICE.addItemListener(e -> currentFilter.setIce(((MLCheckBox) e.getSource()).isSelected()));
+        checkBoxPanel.add(ICE, 1);
         panel.add(checkBoxPanel, c);
 
         // Brands
+
+        c.gridx = 0;
+        c.gridy = 5;
+        c.weightx = 0.9;
+        c.gridwidth = 2;
+
+        JPanel brandFilter = new BrandsSelectorList(uiController, currentFilter);
+
+        panel.add(brandFilter, c);
 
         return panel;
     }

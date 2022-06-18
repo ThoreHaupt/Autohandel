@@ -3,6 +3,7 @@ package lib.uiComponents;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeListener;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,12 +12,16 @@ import java.util.Hashtable;
 import GUI.UIController;
 import lib.technicalComponents.*;
 import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
+import lib.uiComponents.technicalUIComponents.Intervall;
 import lib.uiComponents.technicalUIComponents.RoundedBorder;
 
 public class RangeSliderPacket extends JPanel {
 
     UIController uiController;
     RangeSlider rangeSlider;
+
+    SmartMLTextField lowerLabelSliderValue;
+    SmartMLTextField upperLabelSliderValue;
 
     int start = 5000;
     int end = 50000;
@@ -56,7 +61,7 @@ public class RangeSliderPacket extends JPanel {
 
         // left Label which displays the lower Value of the slider
 
-        SmartMLTextField lowerLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, false);
+        lowerLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, false);
         lowerLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
         lowerLabelSliderValue.setPreferredSize(new Dimension(70, 20));
         lowerLabelSliderValue.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 12));
@@ -64,7 +69,7 @@ public class RangeSliderPacket extends JPanel {
 
         // right Label which displays the upper Value of the slider
 
-        SmartMLTextField upperLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, true);
+        upperLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, true);
         upperLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
         upperLabelSliderValue.setPreferredSize(new Dimension(70, 20));
         upperLabelSliderValue.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 12));
@@ -199,4 +204,13 @@ public class RangeSliderPacket extends JPanel {
         panel.add(titleLabel, BorderLayout.WEST);
         return panel;
     }
+
+    public void addChangeListener(ChangeListener l) {
+        rangeSlider.addChangeListener(l);
+    }
+
+    public Intervall getIntervall() {
+        return new Intervall(rangeSlider.getValue(), rangeSlider.getUpperValue());
+    }
+
 }

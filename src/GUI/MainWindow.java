@@ -5,6 +5,8 @@ import javax.swing.event.EventListenerList;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import Controller.Controller;
 import lib.Event.WindowSizeChangeEvent;
@@ -80,6 +82,9 @@ public class MainWindow extends JFrame {
 
     private void setBasics(String windowTitle) {
         this.setTitle(windowTitle);
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage("resources/GUI_images/CarImageTaskBarIcon32x32.png"));
+
         this.setSize(1000, 500);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -87,5 +92,10 @@ public class MainWindow extends JFrame {
 
     public JPanel getMainPane() {
         return mainPanel;
+    }
+
+    private Image getImage(String path) {
+        ImageIcon icon = new ImageIcon();
+        return icon.getImage();
     }
 }

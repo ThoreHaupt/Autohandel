@@ -10,6 +10,7 @@ import javax.swing.SpinnerNumberModel;
 
 import Controller.Controller;
 import GUI.UIController;
+import GUI.shopPage.ProductPage;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Order;
 import lib.uiComponents.ImageButton;
@@ -24,6 +25,7 @@ public class CartEntry extends JButton {
     Order order;
     Product product;
     Dimension size;
+    ProductPage productPage;
 
     /**
      * @param uiController
@@ -38,7 +40,21 @@ public class CartEntry extends JButton {
         setPreferredSize(size);
         setBackground(uiController.getDefaultBackgroundcolor());
         buildCartEntry();
-        addActionListener(e -> uiController.setMainWindowContent(product.getProductPage()));
+        ensureProductPageExistange();
+        addActionListener(e -> uiController.setMainWindowContent(productPage));
+    }
+
+    /**
+     * Product Page needs to be generated druing initialization of uiController, because obviously it needs the uiController reference and before
+     * that it doesn't exist.
+     */
+    public void ensureProductPageExistange() {
+        if (product.getProductPage() == null) {
+            productPage = new ProductPage(uiController, product);
+            product.setPrdoductPage(productPage);
+        } else {
+            productPage = product.getProductPage();
+        }
     }
 
     public void buildCartEntry() {
