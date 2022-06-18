@@ -2,19 +2,21 @@ package Model.UserComponentes;
 
 import Model.Model;
 import lib.Event.FilterChangeEvent;
-import lib.uiComponents.technicalUIComponents.Intervall;
+import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 
 public class Filter {
     transient User owner;
     transient Model model;
 
-    double maxSpending = 50000;
-    int minPrice = 0;
-    int maxPrice = 50000;
-    boolean upwardPriceLimit = true;
+    SpendingrangeIntervall spendingRange;
 
-    boolean electric;
-    boolean ice;
+    int maximumBudget = -1;
+
+    boolean upwardPriceLimit = true;
+    boolean filterNonAffortable = true;
+
+    boolean electric = true;
+    boolean ice = true;
 
     String searchParameterString = "";
 
@@ -30,49 +32,6 @@ public class Filter {
         return owner;
     }
 
-    /**
-     * @param maxSpending the maxSpending to set
-     */
-    public void setMaxSpending(double maxSpending) {
-        this.maxSpending = maxSpending;
-    }
-
-    /**
-     * @param minPrice the minPrice to set
-     */
-    public void setMinPrice(int minPrice) {
-        this.minPrice = minPrice;
-    }
-
-    /**
-     * @param maxPrice the maxPrice to set
-     */
-    public void setMaxPrice(int maxPrice) {
-        this.maxPrice = maxPrice;
-
-    }
-
-    /**
-     * @param upwardPriceLimit the upwardPriceLimit to set
-     */
-    public void setUpwardPriceLimit(boolean upwardPriceLimit) {
-        this.upwardPriceLimit = upwardPriceLimit;
-    }
-
-    /**
-     * @param electric the electric to set
-     */
-    public void setElectric(boolean electric) {
-        this.electric = electric;
-    }
-
-    /**
-     * @param ice the ice to set
-     */
-    public void setIce(boolean ice) {
-        this.ice = ice;
-    }
-
     public UserBrandSettings[] getBrands() {
         return brands;
     }
@@ -81,28 +40,58 @@ public class Filter {
 
     }
 
-    public double getMaximumBudget() {
-        return 0;
+    public void setMaxBudget(int i) {
+        maximumBudget = i;
+        model.fireFilterChangeEvent(new FilterChangeEvent(this));
+    }
+
+    public int getMaximumBudget() {
+        return maximumBudget;
     }
 
     private void fireChangeToFilterEvent(FilterChangeEvent event) {
         model.fireFilterChangeEvent(new FilterChangeEvent(this));
     }
 
-    public Object setICE(int stateChange) {
-        return null;
+    public void setICE(boolean stateChange) {
+        electric = stateChange;
+        fireChangeToFilterEvent(new FilterChangeEvent(this));
     }
 
-    public Object setElectro(boolean b) {
-        return null;
+    public void setElectro(boolean b) {
+        this.ice = b;
+        fireChangeToFilterEvent(new FilterChangeEvent(this));
     }
 
-    public Object setFilterMaxSpending(boolean selected) {
-        return null;
+    public void setFilterMaxSpending(boolean selected) {
+        filterNonAffortable = selected;
+        fireChangeToFilterEvent(new FilterChangeEvent(this));
     }
 
-    public Object setSpendingRange(Intervall intervall) {
-        return null;
+    public void setSpendingRange(SpendingrangeIntervall intervall) {
+        if (intervall.getUpper() == -1) {
+            upwardPriceLimit = false;
+        } else {
+            upwardPriceLimit = true;
+        }
+        this.spendingRange = intervall;
+        fireChangeToFilterEvent(new FilterChangeEvent(this));
+    }
+
+    public boolean getFilterNonAffortable() {
+        return filterNonAffortable;
+    }
+
+    public SpendingrangeIntervall getSpendingIntervall() {
+        return this.spendingRange;
+    }
+
+    public boolean getICE() {
+        return this.ice;
+    }
+
+    public boolean getElectro() {
+        return this.electric;
     }
 
 }

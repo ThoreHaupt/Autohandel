@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import GUI.UIController;
 import GUI.MainWindow;
+import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
@@ -29,27 +30,8 @@ public class ShopPage extends JPanel {
         this.uiController = uiController;
         this.filter = uiController.getController().getUser().getFilter();
         createShopPage();
-
-        /* uiController.getWindow().addWindowSizeChangeListener(new WindowSizeChangeListener() {
-        
-            @Override
-            public void windowSizeChanged(WindowSizeChangeEvent event) {
-                /* int optimalWidth = getWidth() - 60;
-                if (entries != null) {
-                    for (ShopGalleryEntry entry : entries) {
-                        entry.revalidateBufferSize(optimalWidth);
-                    }
-                }
-                System.out.println("hello");
-                revalidate();
-                repaint(); */
-
-        /* removeAll();
-        setEntriesWithCurrentFilter();
-        //repaint();
-        revalidate(); 
-        
-                */
+        Model model = uiController.getController().getModel();
+        model.addFilterChangeListener(e -> setEntriesWithCurrentFilter());
     }
 
     public void createShopPage() {

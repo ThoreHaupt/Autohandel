@@ -12,7 +12,7 @@ import java.util.Hashtable;
 import GUI.UIController;
 import lib.technicalComponents.*;
 import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
-import lib.uiComponents.technicalUIComponents.Intervall;
+import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 import lib.uiComponents.technicalUIComponents.RoundedBorder;
 
 public class RangeSliderPacket extends JPanel {
@@ -23,8 +23,8 @@ public class RangeSliderPacket extends JPanel {
     SmartMLTextField lowerLabelSliderValue;
     SmartMLTextField upperLabelSliderValue;
 
-    int start = 5000;
-    int end = 50000;
+    int minimalSetting = 5000;
+    int maximalSetting = 50000;
     int minorTickSpacing = 1000;
     int majorTickSpacing = 5000;
     int labelSpacing = 4; // amount of big values between labels
@@ -61,7 +61,7 @@ public class RangeSliderPacket extends JPanel {
 
         // left Label which displays the lower Value of the slider
 
-        lowerLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, false);
+        lowerLabelSliderValue = new SmartMLTextField(uiController, "no Limit", minimalSetting, maximalSetting, false);
         lowerLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
         lowerLabelSliderValue.setPreferredSize(new Dimension(70, 20));
         lowerLabelSliderValue.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 12));
@@ -69,7 +69,7 @@ public class RangeSliderPacket extends JPanel {
 
         // right Label which displays the upper Value of the slider
 
-        upperLabelSliderValue = new SmartMLTextField(uiController, "no Limit", start, end, true);
+        upperLabelSliderValue = new SmartMLTextField(uiController, "no Limit", minimalSetting, maximalSetting, true);
         upperLabelSliderValue.setBackground(uiController.getDefaultBackgroundcolor());
         upperLabelSliderValue.setPreferredSize(new Dimension(70, 20));
         upperLabelSliderValue.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 12));
@@ -79,8 +79,8 @@ public class RangeSliderPacket extends JPanel {
 
         rangeSlider = new RangeSlider();
 
-        rangeSlider.setMinimum(start);
-        rangeSlider.setMaximum(end);
+        rangeSlider.setMinimum(minimalSetting);
+        rangeSlider.setMaximum(maximalSetting);
 
         rangeSlider.setValue(10000);
         rangeSlider.setUpperValue(40000);
@@ -142,10 +142,10 @@ public class RangeSliderPacket extends JPanel {
 
     private Hashtable<Integer, JLabel> populateLabelTabel(Hashtable<Integer, JLabel> labelTable) {
         int labelDistance = (labelSpacing * majorTickSpacing);
-        int reguilarLabelAmount = (end - start) / labelDistance + 1;
+        int reguilarLabelAmount = (maximalSetting - minimalSetting) / labelDistance + 1;
 
         JLabel l1 = new JLabel();
-        blackField bf1 = new blackField(uiController, end);
+        blackField bf1 = new blackField(uiController, maximalSetting);
         bf1.addActionListener(e -> {
             rangeSlider.setValue(bf1.getValue());
             revalidate();
@@ -162,7 +162,7 @@ public class RangeSliderPacket extends JPanel {
         }
 
         JLabel l2 = new JLabel();
-        blackField bf2 = new blackField(uiController, end);
+        blackField bf2 = new blackField(uiController, maximalSetting);
         bf2.addActionListener(e -> {
             rangeSlider.setValue(bf2.getValue());
             revalidate();
@@ -176,7 +176,7 @@ public class RangeSliderPacket extends JPanel {
     private class blackField extends PrewrittenEditableTextField {
 
         public blackField(UIController uiController, double num) {
-            super(uiController, "" + start, new DocumentNumberFilter());
+            super(uiController, "" + minimalSetting, new DocumentNumberFilter());
             textField.setEditable(true);
             this.textField.setAutoLanguageAdaption(false);
             textField.setBorder(BorderFactory.createEmptyBorder());
@@ -209,8 +209,13 @@ public class RangeSliderPacket extends JPanel {
         rangeSlider.addChangeListener(l);
     }
 
-    public Intervall getIntervall() {
-        return new Intervall(rangeSlider.getValue(), rangeSlider.getUpperValue());
+    public SpendingrangeIntervall getIntervall() {
+        return new SpendingrangeIntervall(rangeSlider.getValue(), rangeSlider.getUpperValue());
+    }
+
+    public void setIntervall(SpendingrangeIntervall spendingIntervall) {
+        rangeSlider.setValue(spendingIntervall.getLower());
+        rangeSlider.setUpperValue((spendingIntervall.getUpper() == maximalSetting) ? -1 : spendingIntervall.getUpper());
     }
 
 }

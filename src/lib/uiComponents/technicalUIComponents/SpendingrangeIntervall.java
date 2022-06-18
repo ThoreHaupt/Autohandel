@@ -1,16 +1,16 @@
 package lib.uiComponents.technicalUIComponents;
 
-public class Intervall {
+public class SpendingrangeIntervall {
     int lower;
-    int higher;
+    int upper;
 
     /**
      * @param lower
      * @param higher
      */
-    public Intervall(int lower, int higher) {
+    public SpendingrangeIntervall(int lower, int upper) {
         this.lower = lower;
-        this.higher = higher;
+        this.upper = upper;
     }
 
     /**
@@ -23,8 +23,8 @@ public class Intervall {
     /**
      * @return the higher
      */
-    public int getHigher() {
-        return higher;
+    public int getUpper() {
+        return upper;
     }
 
 }

@@ -239,4 +239,9 @@ public class UIController {
     public int getUsableHeight() {
         return window.getHeight() - topMenuBarHeight;
     }
+
+    public void regenerateUserDefinedPanels() {
+        pages = new THashMap<>();
+        initializePages();
+    }
 }

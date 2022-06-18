@@ -143,6 +143,7 @@ public class Controller {
         model.loadGuestCartIntoCurrentUser();
         lc.setLanguage(model.getLoggedUser().getPreferredLanguage());
         uiController.setDarkTheme(model.getLoggedUser().getPreferresDarkTheme());
+        uiController.regenerateUserDefinedPanels();
         uiController.setWindowContent(UIController.MAINSTORE_PAGE);
     }
 

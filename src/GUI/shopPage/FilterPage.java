@@ -78,15 +78,16 @@ public class FilterPage extends JPanel {
             String text = mltfMaxSpending.getText();
             System.out.println("change to max Budget Document");
             if (text.equals("")) {
-                currentFilter.setMaxSpending(-1);
+                currentFilter.setMaxBudget(-1);
             } else
-                currentFilter.setMaxSpending(Integer.parseInt(text));
+                currentFilter.setMaxBudget(Integer.parseInt(text));
         });
         panel.add(mltfMaxSpending, c);
 
         // use maximum Spending to filter out Entries
         MLCheckBox checkBox = new MLCheckBox(uiController, "Filter non-affortable Offers");
         checkBox.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 10));
+        checkBox.setSelected(currentFilter.getFilterNonAffortable());
         checkBox.addItemListener(e -> currentFilter.setFilterMaxSpending(((MLCheckBox) e.getSource()).isSelected()));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
@@ -103,6 +104,7 @@ public class FilterPage extends JPanel {
         c.weightx = 0.9;
         c.gridwidth = 2;
         RangeSliderPacket rangeSlider = new RangeSliderPacket(uiController);
+        rangeSlider.setIntervall(currentFilter.getSpendingIntervall());
         rangeSlider.addChangeListener(e -> currentFilter.setSpendingRange(rangeSlider.getIntervall()));
         panel.add(rangeSlider, c);
         // Engine Style
@@ -121,13 +123,20 @@ public class FilterPage extends JPanel {
         c.weightx = 0.9;
         c.gridwidth = 2;
 
+        // Engine Filter checkboxes
         JPanel checkBoxPanel = new JPanel();
         checkBoxPanel.setLayout(new GridLayout(1, 2));
+
+        // electro Engine
         MLCheckBox electro = new MLCheckBox(uiController, "Electric");
+        electro.setSelected(currentFilter.getElectro());
         electro.addItemListener(e -> currentFilter.setElectro(((MLCheckBox) e.getSource()).isSelected()));
         checkBoxPanel.add(electro, 0);
+
+        // ice Engine
         MLCheckBox ICE = new MLCheckBox(uiController, "Internal Combustion");
-        ICE.addItemListener(e -> currentFilter.setIce(((MLCheckBox) e.getSource()).isSelected()));
+        ICE.setSelected(currentFilter.getICE());
+        ICE.addItemListener(e -> currentFilter.setICE(((MLCheckBox) e.getSource()).isSelected()));
         checkBoxPanel.add(ICE, 1);
         panel.add(checkBoxPanel, c);
 
