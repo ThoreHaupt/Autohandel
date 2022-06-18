@@ -8,11 +8,11 @@ import GUI.UIController;
 import Model.ModelComponentes.Product;
 import lib.uiComponents.rigitFreeSpace;
 
-public class CarOptionPage extends JPanel {
+public class ProductPage extends JPanel {
     Product car;
     UIController uiController;
 
-    public CarOptionPage(UIController uiController, Product car) {
+    public ProductPage(UIController uiController, Product car) {
         this.uiController = uiController;
         this.car = car;
         buildCarOptionPage();

@@ -5,46 +5,68 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
+import Controller.Controller;
 import GUI.UIController;
+import Model.UserComponentes.Cart;
 import Model.UserComponentes.Order;
+import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
+import java.util.DuplicateFormatFlagsException;
 
 public class CartDisplayArea extends JPanel {
 
     UIController uiController;
+    Controller controller;
     Dimension preferredSize;
+    JScrollPane scrollPane;
     JPanel backPanel;
 
     /**
      * @param uiController
      * @param width
      */
-    public CartDisplayArea(UIController uiController, Order[] orders, Dimension preferredSize) {
+    public CartDisplayArea(UIController uiController, Cart cart, Dimension preferredSize) {
         this.uiController = uiController;
         this.preferredSize = preferredSize;
-        setPreferredSize(preferredSize);
+        this.controller = uiController.getController();
+        //setPreferredSize(preferredSize);
         // @temp:
         setBackground(new Color(255, 0, 0));
-        this.add(buildScrollableOrderDisplay(orders));
+        updateCart(cart.getOrders());
+        controller.addChangeToCartListener(e -> updateCart(cart.getOrders()));
+        //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
+    }
+
+    private void updateCart(Order[] orders) {
+        backPanel = buildScrollableOrderDisplay(orders);
+        removeAll();
+        add(backPanel);
+        revalidate();
+        repaint();
     }
 
     private JPanel buildScrollableOrderDisplay(Order[] orders) {
         JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
 
         backPanel = buildOrderCollectionPanel(orders, preferredSize);
-        /* JScrollPane scrollbar = new JScrollPane(backPanel);
-        scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        
-        panel.add(scrollbar); */
-        panel.add(backPanel);
+        //backPanel.setPreferredSize(preferredSize);
+        JScrollPane scrollbar = new JScrollPane(backPanel,
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollbar.setPreferredSize(preferredSize);
+        //panel.setPreferredSize(preferredSize);
+        panel.add(scrollbar, BorderLayout.CENTER);
+        /* panel.add(backPanel); */
         return panel;
     }
 
     @Override
     public void setPreferredSize(Dimension preferredSize) {
+        this.preferredSize = preferredSize;
         super.setPreferredSize(preferredSize);
+        revalidate();
     }
 
     private JPanel buildOrderCollectionPanel(Order[] orders, Dimension dimension) {
@@ -59,20 +81,23 @@ public class CartDisplayArea extends JPanel {
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
         System.out.println(orders.length);
+        if (orders.length == 0) {
+            MLLabel noItemsInCartLabel = new MLLabel(uiController,
+                    "There are currently no Items in your cart. Head over to the shop to add some!");
+            noItemsInCartLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
+            c.fill = GridBagConstraints.BOTH;
+            panel.add(noItemsInCartLabel, c);
+        }
         for (int i = 0; i < orders.length; i++) {
             System.out.println("adding Shit to the Display ig");
-            JButton button = new JButton();
-            CartEntry entry = new CartEntry(uiController, orders[i], width);
+            JButton entry = new CartEntry(uiController, orders[i], width);
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
-                    width, 1)),
-                    BorderLayout.NORTH);
+                    width, 1)), c);
             c.gridy++;
-            button.add(entry, BorderLayout.CENTER);
-            panel.add(button, c);
+            panel.add(entry, c);
             c.gridy++;
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
-                    width, 1)),
-                    BorderLayout.SOUTH);
+                    width, 1)), c);
             c.gridy++;
         }
         return panel;

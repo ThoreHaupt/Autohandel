@@ -34,7 +34,11 @@ public class CartEntry extends JButton {
         this.controller = uiController.getController();
         this.order = order;
         this.product = order.getProduct();
-        size = new Dimension(500, 50);
+        size = new Dimension(width, 60);
+        setPreferredSize(size);
+        setBackground(uiController.getDefaultBackgroundcolor());
+        buildCartEntry();
+        addActionListener(e -> uiController.setMainWindowContent(product.getProductPage()));
     }
 
     public void buildCartEntry() {
@@ -87,40 +91,56 @@ public class CartEntry extends JButton {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 1.0;
+        c.weightx = 0.3;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.CENTER;
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.VERTICAL;
 
         // Price  ===========================
-        String title = product.getTitleString();
-        JLabel priceLabel = new JLabel(title);
+        JPanel pricePanel = new JPanel();
+        pricePanel.setLayout(new BorderLayout());
+        String price = product.getPriceString();
+        JLabel priceLabel = new JLabel(price);
+        pricePanel.setPreferredSize(new Dimension(90, 60));
         //set Font
-        Font priceFont = uiController.getDefaultFont().deriveFont(Font.BOLD, 11);
+        Font priceFont = uiController.getDefaultFont().deriveFont(Font.BOLD, 20);
         priceLabel.setFont(priceFont);
         // add to panel
-        panel.add(priceLabel, c);
+        pricePanel.add(priceLabel, BorderLayout.WEST);
+        panel.add(pricePanel, c);
+        // more space =======================
+        c.gridx++;
+        panel.add(
+                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(4, (int) size.getHeight())),
+                c);
 
         // numberEditor  ====================
         JSpinner spinner = new JSpinner();
         SpinnerNumberModel sm = new SpinnerNumberModel();
         sm.setMinimum(1);
-        spinner.setValue(order.getAmount());
         spinner.setModel(sm);
-        spinner.setPreferredSize(new Dimension(40, 30));
+        spinner.setValue(order.getAmount());
+        spinner.setPreferredSize(new Dimension(50, 40));
         spinner.addChangeListener(e -> order.orderAmountChanged(this, (int) spinner.getValue()));
-
-        c.gridx = 1;
         panel.add(spinner, c);
+
+        // more space =======================
+        c.gridx++;
+        panel.add(
+                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(4, (int) size.getHeight())),
+                c);
+
         // Delete   ===========================
-        String redCrossPath = "resources/GUI_images/Cross.png";
+        String redCrossPath = "resources/GUI_images/CrossTransparent.png";
         ImageButton button = new ImageButton(redCrossPath, e -> order.deleteOrder());
         button.setBorder(BorderFactory.createEmptyBorder());
         button.resizeImageButton(new Dimension(40, 40));
-        c.gridx = 2;
+        button.setBackground(uiController.getDefaultBackgroundcolor());
+        c.gridx++;
         panel.add(button, c);
 
         // Extra Space for scrollbar   ===========================
+        c.gridx++;
         panel.add(
                 new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(4, (int) size.getHeight())),
                 c);
@@ -128,6 +148,6 @@ public class CartEntry extends JButton {
     }
 
     public Order getOrder() {
-        return null;
+        return order;
     }
 }

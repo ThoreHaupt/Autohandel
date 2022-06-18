@@ -10,17 +10,17 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ShopGalleryEntry extends JPanel {
-    CarOptionPage carPage;
+    ProductPage carPage;
     UIController uiController;
     ShopEntryContent contents;
 
-    public ShopGalleryEntry(UIController uiController, Product car) {
+    public ShopGalleryEntry(UIController uiController, Product product) {
         this.setLayout(new BorderLayout());
         this.uiController = uiController;
         JButton entry = new JButton();
         entry.setBackground(UIManager.getColor("default"));
         entry.setLayout(new BorderLayout());
-        contents = new ShopEntryContent(uiController, car, true);
+        contents = new ShopEntryContent(uiController, product, true);
         entry.add(contents, BorderLayout.CENTER);
         entry.addActionListener(new ActionListener() {
 
@@ -36,7 +36,7 @@ public class ShopGalleryEntry extends JPanel {
         this.add(new rigitFreeSpace(null, new Dimension(1, 1)), BorderLayout.EAST);
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.NORTH);
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.SOUTH);
-        carPage = new CarOptionPage(uiController, car);
+        carPage = product.getProductPage();
 
     }
 

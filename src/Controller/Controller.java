@@ -55,9 +55,10 @@ public class Controller {
 
     public Product[] getOptions(Filter filter) {
         //model.getCarOptions(filter);
-        return new Product[] { new Car("a"), new Car("asdada"), new Car("asdawdawd"), new Car("asd"),
-                new Car(""),
-                new Car("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
+        return new Product[] { new Car(this, "a"), new Car(this, "asdada"), new Car(this, "asdawdawd"),
+                new Car(this, "asd"),
+                new Car(this, ""),
+                new Car(this, "Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
 
     }
 
@@ -195,6 +196,13 @@ public class Controller {
 
     public Model getModel() {
         return model;
+    }
+
+    public Object buyCart() {
+        return null;
+    }
+
+    public void exportCurrentCart() {
     }
 
 }

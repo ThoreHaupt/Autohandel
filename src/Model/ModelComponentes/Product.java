@@ -1,7 +1,28 @@
 package Model.ModelComponentes;
 
+import javax.swing.JPanel;
+
+import Controller.Controller;
+import GUI.UIController;
+import GUI.shopPage.ProductPage;
+import lib.DataStructures.HashMapImplementation.THashMap;
+
 public class Product {
     double price = 420.69;
+
+    THashMap<String, Component> dataMap = new THashMap<>();
+
+    ProductPage productPage;
+
+    private Controller controller;
+
+    private UIController uiController;
+
+    public Product(Controller controller) {
+        this.controller = controller;
+        this.uiController = controller.getUIController();
+        productPage = new ProductPage(uiController, this);
+    }
 
     public double getPrice() {
         return price;
@@ -26,4 +47,9 @@ public class Product {
     public String getPriceString() {
         return "" + price;
     }
+
+    public ProductPage getProductPage() {
+        return productPage;
+    }
+
 }

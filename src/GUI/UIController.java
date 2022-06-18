@@ -197,6 +197,6 @@ public class UIController {
     }
 
     public int getUsableHeight() {
-        return 0;
+        return window.getHeight() - topMenuBarHeight;
     }
 }

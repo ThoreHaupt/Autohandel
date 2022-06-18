@@ -64,7 +64,7 @@ public class Cart implements Serializable {
     }
 
     public void addOrder(Product product, int amount) {
-        Order newOrder = new Order(product, amount);
+        Order newOrder = new Order(this, product, amount);
         contents.put(newOrder.getID(), newOrder);
         fireChangeToCartEvent(new ChangeToCartEvent(this));
     }

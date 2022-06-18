@@ -41,4 +41,5 @@
     "Order Now!":"Bestell jetzt!",
     "Export ":"Exportiere ",
     "AddToCart":"Zum Einkaufswagen hinzufügen",
+    "There are currently no Items in your cart. Head over to the shop to add some!":"There are currently no Items in your cart. Head over to the shop to add some!",
 }

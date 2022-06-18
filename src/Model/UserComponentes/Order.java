@@ -9,9 +9,10 @@ public class Order {
     private int ID;
     private transient Cart cart;
 
-    public Order(Product product, int amount) {
+    public Order(Cart cart, Product product, int amount) {
         this.product = product;
         this.amount = amount;
+        this.cart = cart;
         /* 
         Ja, ist nicht richtig sicher, aber keine Lust jetzt nen System zu bauen, 
         dass Speichert welche OrderID schon vergeben wurde. Weil das muss dann ja speicherbar sein usw, 

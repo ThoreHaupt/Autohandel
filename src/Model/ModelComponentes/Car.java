@@ -2,14 +2,17 @@ package Model.ModelComponentes;
 
 import java.util.HashMap;
 
+import Controller.Controller;
+
 public class Car extends Product {
-    HashMap<String, CarComponentes> carComponentes = new HashMap<>();
+    HashMap<String, Component> carComponentes = new HashMap<>();
     String imagePath = "resources/GUI_images/no_ImageImage.png";
     double price = 25000;
     Double age = null;
     String describtion;
 
-    public Car(String describtionText) {
+    public Car(Controller controller, String describtionText) {
+        super(controller);
         describtion = describtionText;
     }
 

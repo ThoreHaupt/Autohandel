@@ -1,13 +1,14 @@
 package Model.ModelComponentes;
 
-public class CarComponentes implements Comparable<CarComponentes> {
+public class Component implements Comparable<Component> {
     private String type;
     private String value;
     private boolean isNumeric;
     private double num_value;
+    private boolean undefined = true;
 
     @Override
-    public int compareTo(CarComponentes o) {
+    public int compareTo(Component o) {
         if (!this.type.equals(o.getType()))
             return 0;
         if (isNumeric)
