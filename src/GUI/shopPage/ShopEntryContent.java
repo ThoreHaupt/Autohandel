@@ -164,8 +164,8 @@ public class ShopEntryContent extends JPanel {
 
             SpinnerNumberModel sm = new SpinnerNumberModel();
             sm.setMinimum(0);
-            spinner.setValue(1);
             spinner.setModel(sm);
+            spinner.setValue(1);
             spinner.setPreferredSize(new Dimension(40, 30));
             panel.add(spinner, c);
         }

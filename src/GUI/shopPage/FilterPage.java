@@ -73,10 +73,6 @@ public class FilterPage extends JPanel {
         panel.add(checkBox, c);
 
         // current spending in shopping Cart --> not here, but rather in TopBar so it has better visibility
-        JLabel currentSpending = new JLabel();
-        currentSpending.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 8));
-        double cashLeft = uiController.getController().getCurrentFreeBudget();
-        uiController.getController().getCurrentFreeBudget();
 
         // Spending Range
         c.gridx = 0;

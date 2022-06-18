@@ -1,29 +1,29 @@
 package Model.ModelComponentes;
 
 public class Product {
-    double price = 1;
+    double price = 420.69;
 
     public double getPrice() {
         return price;
     }
 
     public String getImageString() {
-        return null;
+        return "resources/GUI_images/no_ImageImage.png";
     }
 
     public String getTitleString() {
-        return null;
+        return "Random Product";
     }
 
     public String getDescribtionTitle() {
-        return null;
+        return "I am a very nice Product, shut the fuck up,... please";
     }
 
     public String getShortInformationText() {
-        return null;
+        return "Who even are you?";
     }
 
     public String getPriceString() {
-        return null;
+        return "" + price;
     }
 }

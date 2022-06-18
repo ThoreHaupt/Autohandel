@@ -6,12 +6,15 @@ import LocalizationLogic.Language;
 import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.ModelComponentes.Product;
+import Model.UserComponentes.Cart;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
 import lib.DataStructures.HashMapImplementation.THashMap;
+import lib.Event.ChangeToCartListener;
 import lib.Event.NewUserLoginListener;
+import lib.Other.SupportingCalculations;
 
 public class Controller {
 
@@ -66,7 +69,26 @@ public class Controller {
         return lc;
     }
 
-    public double getCurrentFreeBudget() {
+    public String getCurrentFreeBudget() {
+        Filter filter = getCurrentUser().getFilter();
+
+        double currentMaxBudget = filter.getMaximumBudget();
+        double currentSpending = getCurrentCartValue();
+        return (currentMaxBudget >= 0) ? SupportingCalculations.round(currentMaxBudget - currentSpending, 2) + ""
+                : "unlimited";
+    }
+
+    public boolean isCurrentFreeBudgetPositive() {
+        Filter filter = getCurrentUser().getFilter();
+
+        double currentMaxBudget = filter.getMaximumBudget();
+        double currentSpending = getCurrentCartValue();
+        if (currentMaxBudget < 0 || (currentMaxBudget - currentSpending) > 0)
+            return true;
+        return false;
+    }
+
+    public double getCurrentCartValue() {
         return getCurrentUser().getCart().getTotalPrice();
     }
 
@@ -80,6 +102,7 @@ public class Controller {
 
     public void addToOrder(Product product, int amount) {
         model.createOrder(product, amount);
+        System.out.println("new Order: " + amount + " x " + product.getDescribtionTitle());
     }
 
     public void UserProfileButtonRequest() {
@@ -156,6 +179,22 @@ public class Controller {
 
     public Language getCurrentLanguage() {
         return lc.getCurrentLanguage();
+    }
+
+    /**
+     * passing that along, because it makes sense, that you could do that
+     * @param listener
+     */
+    public void addChangeToCartListener(ChangeToCartListener listener) {
+        model.addChangeToCartListener(listener);
+    }
+
+    public void removeAddToCartListener(ChangeToCartListener listener) {
+        model.removeChangeToCartListener(listener);
+    }
+
+    public Model getModel() {
+        return model;
     }
 
 }

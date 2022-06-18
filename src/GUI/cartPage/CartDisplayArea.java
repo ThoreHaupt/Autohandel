@@ -34,10 +34,11 @@ public class CartDisplayArea extends JPanel {
         JPanel panel = new JPanel();
 
         backPanel = buildOrderCollectionPanel(orders, preferredSize);
-        JScrollPane scrollbar = new JScrollPane(backPanel);
+        /* JScrollPane scrollbar = new JScrollPane(backPanel);
         scrollbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-        panel.add(scrollbar);
+        
+        panel.add(scrollbar); */
+        panel.add(backPanel);
         return panel;
     }
 
@@ -57,9 +58,9 @@ public class CartDisplayArea extends JPanel {
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
-
+        System.out.println(orders.length);
         for (int i = 0; i < orders.length; i++) {
-
+            System.out.println("adding Shit to the Display ig");
             JButton button = new JButton();
             CartEntry entry = new CartEntry(uiController, orders[i], width);
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(

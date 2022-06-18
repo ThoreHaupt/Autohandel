@@ -1,5 +1,6 @@
 package LocalizationLogic;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -86,9 +87,6 @@ public class LocalizationController {
      * @return translated Key
      */
     public String s(String string_inEnglish) {
-        if (string_inEnglish.equals("5000")) {
-            System.out.println("huch");
-        }
         if (languageMap.containsKey(string_inEnglish)) {
             return languageMap.get(string_inEnglish);
         } else {
@@ -99,6 +97,9 @@ public class LocalizationController {
     }
 
     private void addKeyToLocalizationFile(String key) {
+        /* char[] charArr = key.toCharArray();
+        ArrayList<Character> charList = new ArrayList<>(); */
+
         String storedString = "    \"" + key + "\":\"" + key + "\",";
         String[] newArray = new String[localizationMap.length + 1];
         for (int i = 0; i < localizationMap.length - 1; i++) {

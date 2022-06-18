@@ -9,9 +9,12 @@ import javax.swing.event.EventListenerList;
 import GUI.UIController;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
+import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
 import lib.DataStructures.HashMapImplementation.THashMap;
+import lib.Event.ChangeToCartEvent;
+import lib.Event.ChangeToCartListener;
 import lib.Event.NewUserLoginEvent;
 import lib.Event.NewUserLoginListener;
 import lib.fileHandling.FileLoader;
@@ -24,17 +27,20 @@ public class Model {
     boolean lastAuthenticationSucess = false;
 
     // immer da
-    User guest = new User();
+    User guest;
 
     // usually guest, but you can log in
     User currentUser = guest;
 
     protected EventListenerList UserLoginChangeListenerList = new EventListenerList();
+    protected transient EventListenerList chartChangeEventListenerList = new EventListenerList();
 
     /**
      * 
      */
     public Model() {
+        guest = new User(this);
+        currentUser = guest;
         loadExistingUserNames();
     }
 
@@ -125,6 +131,11 @@ public class Model {
         fireNewUserLoginEvent(new NewUserLoginEvent(this, user, oldWasGuest));
     }
 
+    /**
+     * When logging in a new User, there a couple of components that need to be changed, like the set Filters for example,
+     * or the current Cart. Thus it makes sense to have an event that fires when that happens
+     * @param event 
+     */
     private void fireNewUserLoginEvent(NewUserLoginEvent event) {
         Object[] listeners = UserLoginChangeListenerList.getListenerList();
         for (int i = 0; i < listeners.length; i = i + 2) {
@@ -142,6 +153,14 @@ public class Model {
         UserLoginChangeListenerList.remove(NewUserLoginListener.class, listener);
     }
 
+    /**
+     * creates a new User and then logs this user in as the current user. 
+     * Since you can only reach the sign up Page over the log in page, it is not nessesary to log the current user out.
+     * for a user it is nessesary to have a username and a password. So if one of those is not given, this will return an
+     * error
+     * @param dataMap the HashMap that contains information on the new User. It is only 
+     * @return null if sucessfull, the errormessage if there was a problem
+     */
     public String createNewUser(THashMap<String, String> dataMap) {
         if (!dataMap.get(User.PASSWORD1).equals(dataMap.get(User.PASSWORD2))) {
             System.out.println("couldnt create User, because passwords dont match");
@@ -157,11 +176,16 @@ public class Model {
             System.out.println("couldnt create User bc User already exists");
             return "This user exists already";
         }
-        User newUser = new User(dataMap.get(User.USERNAME), dataMap.get(User.PASSWORD1));
+        User newUser = new User(this, dataMap.get(User.USERNAME), dataMap.get(User.PASSWORD1));
         setUser(newUser);
         return null;
     }
 
+    /**
+     * checks if a given Username exists. Needed for SignUp, because it would be bad to have the same username twice
+     * @param username the username
+     * @return true if the user already exists
+     */
     public boolean doesUserExist(String username) {
         if (userAuthKeys.containsKey(username)) {
             return true;
@@ -169,13 +193,48 @@ public class Model {
         return false;
     }
 
+    /**
+     * get Method for current User
+     * @return currentUser
+     */
     public User getCurrentUser() {
+        // Ich habe keine Ahnung warum, aber wenn man diesen Kommentar für die Methode benutzt, bekommt man 
+        // einen Java.lang.VerifyError beim Initialisieren von Model. Wenn jemand weiß warum, ich würde es gerne Erfahren.
+        /* return (currentUser == null) ? guest : currentUser; */
         return currentUser;
     }
 
+    /**
+     * passes along the Call to create a new Order in the current users cart.
+     * @param product the product which is ordered
+     * @param amount the amount
+     */
     public void createOrder(Product product, int amount) {
         User user = getCurrentUser();
-        user.getCart().order(product, amount);
+        user.getCart().addOrder(product, amount);
     }
 
+    public void addChangeToCartListener(ChangeToCartListener listener) {
+        chartChangeEventListenerList.add(ChangeToCartListener.class, listener);
+    }
+
+    public void removeChangeToCartListener(ChangeToCartListener listener) {
+        chartChangeEventListenerList.remove(ChangeToCartListener.class, listener);
+    }
+
+    /**
+     * This fires in the case that the contents of the current users cart change in any way. The purpose is for all
+     * labels and texts to use this to update their information on the current Cart.
+     * Theoratically this should propably be in Cart, but then I would have to reset all the Listeners everytime I change the User and this is
+     * quite unpractical. It would propably work, but NO.
+     * @param event The event that happend
+     */
+    public void fireChangeToCartEvent(ChangeToCartEvent event) {
+        Object[] listeners = chartChangeEventListenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i = i + 2) {
+            if (listeners[i] == ChangeToCartListener.class) {
+                ((ChangeToCartListener) listeners[i + 1]).onChangeToCart(event);
+            }
+        }
+    }
 }

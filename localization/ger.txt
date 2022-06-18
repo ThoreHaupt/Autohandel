@@ -34,6 +34,11 @@
     "switch Theme":"wechsle das Aussehen",
     "Preferred Language: ":"Bevorzugte Sprache: ",
     "":"",
-    "Done!":"Done!",
-    "This user does not exist!":"This user does not exist!",
+    "Done!":"Los Geht's!",
+    "This user does not exist!":"Dieser Benutzer existiert nicht",
+    "Cart":"Einfaufswagen",
+    "Total:":"Gesammt:",
+    "Order Now!":"Bestell jetzt!",
+    "Export ":"Exportiere ",
+    "AddToCart":"Zum Einkaufswagen hinzufügen",
 }

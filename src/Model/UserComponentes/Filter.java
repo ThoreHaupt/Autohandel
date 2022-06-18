@@ -69,4 +69,8 @@ public class Filter {
 
     }
 
+    public double getMaximumBudget() {
+        return 0;
+    }
+
 }

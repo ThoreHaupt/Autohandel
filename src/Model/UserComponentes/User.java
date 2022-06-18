@@ -5,12 +5,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import LocalizationLogic.Language;
+import Model.Model;
 import lib.DataStructures.HashMapImplementation.KeyValuePair;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Other.StringTools;
 import lib.fileHandling.FileSaver;
 
 public class User implements Serializable {
+    Model model;
+
     private String email = "";
     private String username = "";
     private String password = "";
@@ -35,16 +38,17 @@ public class User implements Serializable {
             PASSWORD2, PREFERED_LANGUAGE };
 
     private Language preferredLanguage;
-    private boolean preferrsDarkTheme;
+    private boolean preferrsDarkTheme = true;
 
     private boolean isGuest = false;
 
-    private Cart cart = new Cart();
+    private Cart cart;
 
     private String userDataPath;
     private transient UserAuthKey key;
 
-    public User() {
+    public User(Model model) {
+        this.model = model;
         isGuest = true;
         preferredLanguage = Language.ENGLISH;
         email = "";
@@ -54,17 +58,15 @@ public class User implements Serializable {
         first_name = "";
         last_name = "";
         filter = new Filter();
+        cart = new Cart(model);
     }
 
-    public User(THashMap<String, String> userDataInitMap) {
-        setUserSettingsWithDataMap(userDataInitMap);
-        filter = new Filter();
-        System.out.println("created new User with name: " + username + " " + first_name);
-    }
-
-    public User(String username, String password) {
+    public User(Model model, String username, String password) {
+        this.model = model;
         this.username = username;
         this.password = password;
+        filter = new Filter();
+        cart = new Cart(model);
         createAuthKey();
     }
 

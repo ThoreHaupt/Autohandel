@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.event.EventListenerList;
 
+import Model.Model;
 import Model.ModelComponentes.Product;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartEvent;
@@ -14,10 +15,10 @@ import lib.Other.SupportingCalculations;
 public class Cart implements Serializable {
     THashMap<Integer, Order> contents;
     User user;
+    Model model;
 
-    protected transient EventListenerList listenerList = new EventListenerList();
-
-    public Cart() {
+    public Cart(Model model) {
+        this.model = model;
         contents = new THashMap<>();
     }
 
@@ -30,25 +31,12 @@ public class Cart implements Serializable {
         fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
-    protected void fireChangeToCartEvent(ChangeToCartEvent event) {
-        Object[] listeners = listenerList.getListenerList();
-        for (int i = 0; i < listeners.length; i = i + 2) {
-            if (listeners[i] == ChangeToCartListener.class) {
-                ((ChangeToCartListener) listeners[i + 1]).onChangeToCart(event);
-            }
-        }
-    }
-
-    public void addAddToCartListener(ChangeToCartListener listener) {
-        listenerList.add(ChangeToCartListener.class, listener);
-    }
-
-    public void removeAddToCartListener(ChangeToCartListener listener) {
-        listenerList.remove(ChangeToCartListener.class, listener);
-    }
-
     public double getTotalPrice() {
         return SupportingCalculations.round(calculatePrice(), 2);
+    }
+
+    public void fireChangeToCartEvent(ChangeToCartEvent event) {
+        model.fireChangeToCartEvent(event);
     }
 
     /**
@@ -75,7 +63,7 @@ public class Cart implements Serializable {
         return tempList.toArray(new Order[contents.size()]);
     }
 
-    public void order(Product product, int amount) {
+    public void addOrder(Product product, int amount) {
         Order newOrder = new Order(product, amount);
         contents.put(newOrder.getID(), newOrder);
         fireChangeToCartEvent(new ChangeToCartEvent(this));
