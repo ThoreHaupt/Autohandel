@@ -1,8 +1,10 @@
 package Model.UserComponentes;
 
+import java.io.Serializable;
+
 import Model.ModelComponentes.Brand;
 
-public class UserBrandSettings {
+public class UserBrandSettings implements Serializable {
 
     boolean filterActive;
     Brand brand;

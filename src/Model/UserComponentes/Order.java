@@ -1,9 +1,11 @@
 package Model.UserComponentes;
 
+import java.io.Serializable;
+
 import GUI.cartPage.CartEntry;
 import Model.ModelComponentes.Product;
 
-public class Order {
+public class Order implements Serializable {
     private int amount;
     Product product;
     private int ID;

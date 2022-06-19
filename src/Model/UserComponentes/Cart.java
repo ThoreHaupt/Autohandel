@@ -15,7 +15,7 @@ import lib.Other.SupportingCalculations;
 public class Cart implements Serializable {
     THashMap<Integer, Order> contents;
     User user;
-    Model model;
+    transient Model model;
 
     public Cart(Model model) {
         this.model = model;

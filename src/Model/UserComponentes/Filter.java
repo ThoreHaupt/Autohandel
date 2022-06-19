@@ -1,14 +1,16 @@
 package Model.UserComponentes;
 
+import java.io.Serializable;
+
 import Model.Model;
 import lib.Event.FilterChangeEvent;
 import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 
-public class Filter {
+public class Filter implements Serializable {
     transient User owner;
     transient Model model;
 
-    SpendingrangeIntervall spendingRange;
+    SpendingrangeIntervall spendingRange = new SpendingrangeIntervall(5000, 60000);
 
     int maximumBudget = -1;
 

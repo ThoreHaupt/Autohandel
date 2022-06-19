@@ -1,6 +1,8 @@
 package lib.uiComponents.technicalUIComponents;
 
-public class SpendingrangeIntervall {
+import java.io.Serializable;
+
+public class SpendingrangeIntervall implements Serializable {
     int lower;
     int upper;
 

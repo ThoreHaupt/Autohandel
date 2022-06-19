@@ -12,16 +12,6 @@ import lib.Other.StringTools;
 import lib.fileHandling.FileSaver;
 
 public class User implements Serializable {
-    transient Model model;
-
-    private String email = "";
-    private String username = "";
-    private String password = "";
-    private String birthDay = "";
-    private ArrayList<Order> history;
-    private String first_name = "";
-    private String last_name = "";
-    private Filter filter;
 
     public static final String EMAIL = "email";
     public static final String USERNAME = "username";
@@ -36,6 +26,17 @@ public class User implements Serializable {
 
     public static final String[] INPUTTAGS = new String[] { USERNAME, EMAIL, FIRST_NAME, LAST_NAME, BIRTHDAY, PASSWORD1,
             PASSWORD2, PREFERED_LANGUAGE };
+
+    transient Model model;
+
+    private String email = "";
+    private String username = "";
+    private String password = "";
+    private String birthDay = "";
+    private ArrayList<Order> history;
+    private String first_name = "";
+    private String last_name = "";
+    private Filter filter;
 
     private Language preferredLanguage;
     private boolean preferrsDarkTheme = true;
