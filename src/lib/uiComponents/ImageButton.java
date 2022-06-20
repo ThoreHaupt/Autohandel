@@ -33,7 +33,7 @@ public class ImageButton extends JButton {
 
     public void resizeImageButton(Dimension dimension) {
         setPreferredSize(dimension);
-        this.setIcon(ImageTools.resizeImageIcon(buttonIcon, buttonDimension));
+        this.setIcon(ImageTools.resizeImageIcon(buttonIcon, dimension));
         revalidate();
         repaint();
     }
