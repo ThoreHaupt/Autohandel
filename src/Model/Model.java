@@ -52,11 +52,11 @@ public class Model {
     }
 
     public Product[] getCurrentOptions(Filter filter) {
-        clalculteCurrentDisplayList(filter);
+        calculteCurrentDisplayList(filter);
         return currentOptions;
     }
 
-    private void clalculteCurrentDisplayList(Filter filter) {
+    private void calculteCurrentDisplayList(Filter filter) {
     }
 
     public boolean isCurrentUserGuest() {
@@ -89,7 +89,6 @@ public class Model {
         File folder = new File(UserAuthKey.authKeyFolderPath);
         userAuthKeys = new HashMap<>();
         if (folder.listFiles() == null) {
-
             return;
         }
         for (File file : folder.listFiles()) {

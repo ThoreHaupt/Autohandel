@@ -6,7 +6,6 @@ import LocalizationLogic.Language;
 import Model.Model;
 import Model.ModelComponentes.Car;
 import Model.ModelComponentes.Product;
-import Model.UserComponentes.Cart;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
