@@ -96,4 +96,12 @@ public class Filter implements Serializable {
         return this.electric;
     }
 
+    public void setModel(Model m) {
+        this.model = m;
+    }
+
+    public void setUser(User user) {
+        this.owner = user;
+    }
+
 }

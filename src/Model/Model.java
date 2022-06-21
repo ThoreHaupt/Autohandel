@@ -126,7 +126,7 @@ public class Model {
             e.printStackTrace();
             return;
         }
-        user.setModel(this);
+        user.initAfterSerialization(this);
         setUser(user);
     }
 
@@ -295,6 +295,16 @@ public class Model {
     public void purchaseCart() {
         currentUser.purchaseCart();
         firePurchaseEvent(new PurchaseEvent(this));
+    }
+
+    public void logOffCurrentUser() {
+        currentUser.logOff();
+        setUser(guest);
+    }
+
+    public void replaceUserAuthKey(String username, UserAuthKey key) {
+        userAuthKeys.remove(username);
+        userAuthKeys.put(username, key);
     }
 
 }

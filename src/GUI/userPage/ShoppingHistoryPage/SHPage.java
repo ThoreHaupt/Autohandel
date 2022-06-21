@@ -9,9 +9,7 @@ import Controller.Controller;
 import java.awt.*;
 
 import GUI.UIController;
-import Model.UserComponentes.Cart;
 import Model.UserComponentes.User;
-import lib.uiComponents.MLButton;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
@@ -20,9 +18,8 @@ public class SHPage extends JPanel {
     Controller controller;
     User user;
 
-    double displayHorizontalPercentage = 0.8;
-    double displayVerticalPercentage = 0.8;
-
+    double displayHorizontalPercentage = 1.0;
+    double displayVerticalPercentage = 1.0;
     Dimension priceAreaSize = new Dimension();
     int heightDelta;
 
@@ -36,6 +33,10 @@ public class SHPage extends JPanel {
         buildSHPage();
         uiController.getWindow().addWindowSizeChangeListener(e -> rebuildSH());
         controller.addNewUserLoginListener(e -> reloadSH());
+    }
+
+    private void buildDeactivePage() {
+        add(new MLLabel(uiController, "please log in to see your shopping history!"));
     }
 
     public SHPage(UIController uiController) {
@@ -55,6 +56,12 @@ public class SHPage extends JPanel {
     }
 
     public void buildSHPage() {
+
+        if (user.isGuest()) {
+            buildDeactivePage();
+            return;
+        }
+
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;

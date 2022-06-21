@@ -33,9 +33,10 @@ public class CartDisplayArea extends JPanel {
         this.controller = uiController.getController();
         //setPreferredSize(preferredSize);
         // @temp:
-        setBackground(new Color(255, 0, 0));
+        //setBackground(new Color(255, 0, 0));
         updateCart(cart.getOrders());
         controller.addChangeToCartListener(e -> updateCart(cart.getOrders()));
+        controller.addPurchaseEventListener(e -> updateCart(cart.getOrders()));
         //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
     }
 

@@ -46,4 +46,8 @@
     "shopping Cart":"Einkaufswagen",
     "Purchase History":"Einkaufsgeschichte",
     "User Settings":"NutzerEinstellungen",
+    "please log in to see your shopping history!":"please log in to see your shopping history!",
+    "Log Off":"Log Off",
+    "Thank you for your purchase!":"Thank you for your purchase!",
+    "Click here to continue Shopping":"Click here to continue Shopping",
 }

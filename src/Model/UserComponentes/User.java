@@ -52,11 +52,11 @@ public class User implements Serializable {
     public User(Model model) {
         this.model = model;
         isGuest = true;
+        history = new ArrayList<>();
         preferredLanguage = Language.ENGLISH;
         email = "";
         username = "GUEST";
         password = "";
-        history = null;
         first_name = "";
         last_name = "";
         filter = new Filter(this);
@@ -67,6 +67,7 @@ public class User implements Serializable {
         this.model = model;
         this.username = username;
         this.password = password;
+        history = new ArrayList<>();
         filter = new Filter(this);
         cart = new Cart(model);
         createAuthKey();
@@ -113,6 +114,7 @@ public class User implements Serializable {
         deleteAuthKey();
         deleteOldData();
         createAuthKey();
+        model.replaceUserAuthKey(username, key);
     }
 
     private void deleteOldData() {
@@ -178,11 +180,16 @@ public class User implements Serializable {
         return model;
     }
 
-    public void setModel(Model m) {
+    public void initAfterSerialization(Model m) {
         this.model = m;
+        filter.setModel(m);
+        cart.setUser(this);
     }
 
     public void purchaseCart() {
+        if (history == null) {
+            System.out.println("ups");
+        }
         for (Order order : cart.getOrders()) {
             history.add(order);
         }

@@ -34,9 +34,11 @@ public class SHDisplayArea extends JPanel {
         this.controller = uiController.getController();
         //setPreferredSize(preferredSize);
         // @temp:
-        setBackground(new Color(255, 0, 0));
+        //setBackground(new Color(255, 0, 0));
         updateSH(user.getShopHistory());
         controller.addChangeToCartListener(e -> updateSH(user.getShopHistory()));
+
+        controller.addPurchaseEventListener(e -> updateSH(user.getShopHistory()));
         //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
     }
 

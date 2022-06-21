@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import GUI.UIController;
+import GUI.userPage.ShoppingHistoryPage.SHPage;
 import GUI.userPage.cartPage.CartPage;
 import Model.UserComponentes.User;
 import lib.uiComponents.MLTabbedPane;
@@ -26,20 +27,34 @@ public class UserPage extends JPanel {
 
         tabbedPane = new MLTabbedPane(uiController);
         tabbedPane.addTab("shopping Cart", new CartPage(uiController, 100));
-        tabbedPane.addTab("Purchase History", buildHistroyPage());
-        tabbedPane.addTab("User Settings", buildUserSettingPage());
+        tabbedPane.addTab("Purchase History", new SHPage(uiController, 100));
+        tabbedPane.addTab("User Settings", new UserProfilePage(uiController));
 
         panel.add(tabbedPane);
+        updateonLogin();
+        uiController.getController().addNewUserLoginListener(e -> updateonLogin());
 
         this.add(panel);
     }
 
-    private JPanel buildUserSettingPage() {
-        JPanel panel = new JPanel();
-        return panel;
+    /**
+     * disabele tabs if the loge in user is guest
+     */
+    void updateonLogin() {
+        user = uiController.getController().getCurrentUser();
+        if (user.isGuest()) {
+            for (int i = 1; i < tabbedPane.getTabCount(); i++) {
+                tabbedPane.setEnabledAt(i, false);
+            }
+        } else {
+            for (int i = 1; i < tabbedPane.getTabCount(); i++) {
+                tabbedPane.setEnabledAt(i, true);
+            }
+        }
+
     }
 
-    public JPanel buildHistroyPage() {
+    private JPanel buildUserSettingPage() {
         JPanel panel = new JPanel();
         return panel;
     }

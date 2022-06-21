@@ -15,6 +15,7 @@ import Controller.Controller;
 import GUI.configurator.Configurator;
 import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
+import GUI.userPage.ThankYouPage;
 import GUI.userPage.UserPage;
 import GUI.userPage.UserLoginSignUP.UserLoginPage;
 import GUI.userPage.UserLoginSignUP.UserSignUpPage;
@@ -34,6 +35,7 @@ public class UIController {
     public static final String LOGIN_PAGE = "login";
     public static final String SIGNUP_PAGE = "signup";
     public static final String USERPROFILE_PAGE = "userProfile";
+    public static final String THANK_YOU_4_PUCHASE = "tnaks";
 
     JPanel topMenuBar;
     int topMenuBarHeight = 60;
@@ -76,6 +78,8 @@ public class UIController {
         pages.put(USERPROFILE_PAGE, new UserPage(this));
         pages.put(SIGNUP_PAGE, new UserSignUpPage(this));
         pages.put(LOGIN_PAGE, new UserLoginPage(this));
+
+        pages.put(THANK_YOU_4_PUCHASE, new ThankYouPage(this));
 
         ((ShopPage) pages.get(MAINSTORE_PAGE)).setEntriesWithCurrentFilter();
     }

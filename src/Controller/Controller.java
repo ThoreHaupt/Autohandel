@@ -200,8 +200,9 @@ public class Controller {
         return model;
     }
 
-    public Object buyCart() {
-        return null;
+    public void buyCart() {
+        model.purchaseCart();
+        uiController.setWindowContent(UIController.THANK_YOU_4_PUCHASE);
     }
 
     public void exportCurrentCart() {
@@ -213,6 +214,11 @@ public class Controller {
 
     public void addPurchaseEventListener(PurchaseEventListener l) {
         model.addPurchaseEventListener(l);
+    }
+
+    public void logOffCurrentUser() {
+        model.logOffCurrentUser();
+        uiController.setWindowContent(UIController.MAINSTORE_PAGE);
     }
 
 }
