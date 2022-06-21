@@ -177,4 +177,8 @@ public class User implements Serializable {
     public Model getModel() {
         return model;
     }
+
+    public void setModel(Model m) {
+        this.model = m;
+    }
 }

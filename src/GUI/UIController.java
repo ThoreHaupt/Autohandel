@@ -70,7 +70,7 @@ public class UIController {
 
     private void initializePages() {
         pages.put(MAINSTORE_PAGE, new ShopPage(this));
-        pages.put(CART_PAGE, new CartPage(this));
+        //pages.put(CART_PAGE, new CartPage(this));
         pages.put(CONFIGURATOR_PAGE, new Configurator(this));
 
         pages.put(USERPROFILE_PAGE, new UserPage(this));
@@ -118,12 +118,6 @@ public class UIController {
 
     }
 
-    public void setWindowContent(String mode) {
-        System.out.println("setting to: " + mode);
-        currentPage = mode;
-        setMainWindowContent(pages.get(mode));
-    }
-
     public Color getDefaultUIColor() {
         return defaultUIcolor;
     }
@@ -151,6 +145,19 @@ public class UIController {
 
         mainPanel.repaint();
         mainPanel.revalidate();
+    }
+
+    public void setWindowContent(String mode) {
+        System.out.println("setting to: " + mode);
+        currentPage = mode;
+        setMainWindowContent(pages.get(mode));
+    }
+
+    public void setWindowContent(String userprofilePage, int i) {
+        setWindowContent(userprofilePage);
+        if (userprofilePage == UIController.USERPROFILE_PAGE) {
+            ((UserPage) pages.get(UIController.USERPROFILE_PAGE)).setTab(i);
+        }
     }
 
     public MainWindow getWindow() {
@@ -244,4 +251,5 @@ public class UIController {
         pages = new THashMap<>();
         initializePages();
     }
+
 }

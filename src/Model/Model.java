@@ -124,6 +124,7 @@ public class Model {
             e.printStackTrace();
             return;
         }
+        user.setModel(this);
         setUser(user);
     }
 
@@ -262,6 +263,10 @@ public class Model {
 
     public void removeFilterChangeListener(FilterChangeListener listener) {
         filterChangeEventListenerList.remove(FilterChangeListener.class, listener);
+    }
+
+    public String[] getSortingOptions() {
+        return null;
     }
 
 }

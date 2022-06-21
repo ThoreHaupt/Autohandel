@@ -72,7 +72,7 @@ public class TopMenuBar extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                uiController.setWindowContent("cart");
+                uiController.setWindowContent(UIController.USERPROFILE_PAGE, 0);
             }
 
         }, new Dimension(60, min_Height)));

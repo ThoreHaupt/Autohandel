@@ -51,4 +51,5 @@
     "Export ":"Export ",
     "You are currently logged in as \"Guest\"":"You are currently logged in as \"Guest\"",
     "There are currently no Items in your cart. Head over to the shop to add some!":"There are currently no Items in your cart. Head over to the shop to add some!",
+    "Brands:":"Brands:",
 }

@@ -1,14 +1,11 @@
 package lib.uiComponents;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 /**
- * Image Rotation Button. So a press will switch to the next Image and select next Index
+ * Image Rotate Button. So a press will switch to the next Image and select next Index
  */
 public class IRButton extends ImageButton {
 
@@ -50,5 +47,9 @@ public class IRButton extends ImageButton {
 
     public int getSelectedIndex() {
         return currentImageIndex;
+    }
+
+    public int getCurrentIndex() {
+        return 0;
     }
 }

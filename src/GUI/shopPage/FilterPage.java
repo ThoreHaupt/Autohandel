@@ -154,11 +154,4 @@ public class FilterPage extends JPanel {
         return panel;
     }
 
-    private JPanel buildSpendingRangeSelector() {
-        JPanel backpanel = new JPanel();
-        RangeSliderPacket rangeSlider = new RangeSliderPacket(uiController);
-
-        backpanel.add(rangeSlider);
-        return backpanel;
-    }
 }

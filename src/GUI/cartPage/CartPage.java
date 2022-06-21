@@ -23,15 +23,22 @@ public class CartPage extends JPanel {
     double displayVerticalPercentage = 0.8;
 
     Dimension priceAreaSize = new Dimension();
+    int heightDelta;
 
-    public CartPage(UIController uiController) {
+    public CartPage(UIController uiController, int heightDelta) {
         this.uiController = uiController;
         this.controller = uiController.getController();
         cart = controller.getUser().getCart();
 
+        this.heightDelta = heightDelta;
+
         buildCartPage();
         uiController.getWindow().addWindowSizeChangeListener(e -> rebuildCart());
         controller.addNewUserLoginListener(e -> reloadCart());
+    }
+
+    public CartPage(UIController uiController) {
+        this(uiController, 0);
     }
 
     public void rebuildCart() {
@@ -92,7 +99,7 @@ public class CartPage extends JPanel {
      * @return that Dimension
      */
     private Dimension calculateDisplayDimension() {
-        int height = uiController.getUsableHeight();
+        int height = uiController.getUsableHeight() - heightDelta;
         int width = uiController.getWindow().getWidth();
         int displayWidth = (int) (width * displayHorizontalPercentage * 0.95);
         int displayHeight = (int) (height * displayVerticalPercentage * 0.95);
@@ -104,7 +111,7 @@ public class CartPage extends JPanel {
      * @return that Dimension
      */
     private Dimension calculateButtonPriceDimension() {
-        int height = uiController.getUsableHeight();
+        int height = uiController.getUsableHeight() - heightDelta;
         int width = uiController.getWindow().getWidth();
         int buttonPriceWidth = (int) (width * (1 - displayHorizontalPercentage));
         int buttonPriceHeight = (int) (height * displayVerticalPercentage);

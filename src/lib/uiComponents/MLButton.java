@@ -7,7 +7,6 @@ import java.awt.event.*;
 import Controller.Controller;
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
-import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
 /**
  * MultiLanguageButton
