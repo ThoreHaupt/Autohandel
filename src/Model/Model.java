@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import javax.swing.event.EventListenerList;
 
-import GUI.UIController;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
@@ -19,6 +18,8 @@ import lib.Event.FilterChangeEvent;
 import lib.Event.FilterChangeListener;
 import lib.Event.NewUserLoginEvent;
 import lib.Event.NewUserLoginListener;
+import lib.Event.PurchaseEvent;
+import lib.Event.PurchaseEventListener;
 import lib.fileHandling.FileLoader;
 
 public class Model {
@@ -37,6 +38,7 @@ public class Model {
     protected transient EventListenerList UserLoginChangeListenerList = new EventListenerList();
     protected transient EventListenerList cartChangeEventListenerList = new EventListenerList();
     protected transient EventListenerList filterChangeEventListenerList = new EventListenerList();
+    protected transient EventListenerList purchaseEventListenerList = new EventListenerList();
 
     /**
      * 
@@ -267,6 +269,32 @@ public class Model {
 
     public String[] getSortingOptions() {
         return null;
+    }
+
+    public void addPurchaseEventListener(PurchaseEventListener l) {
+        purchaseEventListenerList.add(PurchaseEventListener.class, l);
+    }
+
+    public void removePurchaseEventListener(PurchaseEventListener listener) {
+        purchaseEventListenerList.remove(PurchaseEventListener.class, listener);
+    }
+
+    /**
+     * When the user purchases the cart this event gets fired
+     * @param event The event that happend
+     */
+    public void firePurchaseEvent(PurchaseEvent event) {
+        Object[] listeners = purchaseEventListenerList.getListenerList();
+        for (int i = 0; i < listeners.length; i = i + 2) {
+            if (listeners[i] == PurchaseEventListener.class) {
+                ((PurchaseEventListener) listeners[i + 1]).onPurchaseEventCart(event);
+            }
+        }
+    }
+
+    public void purchaseCart() {
+        currentUser.purchaseCart();
+        firePurchaseEvent(new PurchaseEvent(this));
     }
 
 }

@@ -1,4 +1,4 @@
-package GUI.cartPage;
+package GUI.userPage.cartPage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;

@@ -41,6 +41,9 @@
     "Order Now!":"Bestell jetzt!",
     "Export ":"Exportiere ",
     "AddToCart":"Zum Einkaufswagen hinzufügen",
-    "There are currently no Items in your cart. Head over to the shop to add some!":"There are currently no Items in your cart. Head over to the shop to add some!",
-    "Brands:":"Brands:",
+    "There are currently no Items in your cart. Head over to the shop to add some!":"Momentan sind keine Einkäufe in ihrem Einkaufswagen. Gehen sie zum Markt und goennen Sie sich!",
+    "Brands:":"Marken:",
+    "shopping Cart":"Einkaufswagen",
+    "Purchase History":"Einkaufsgeschichte",
+    "User Settings":"NutzerEinstellungen",
 }

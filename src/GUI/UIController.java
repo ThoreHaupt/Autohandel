@@ -12,13 +12,13 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Controller.Controller;
-import GUI.cartPage.CartPage;
 import GUI.configurator.Configurator;
 import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
-import GUI.userPage.UserLoginPage;
 import GUI.userPage.UserPage;
-import GUI.userPage.UserSignUpPage;
+import GUI.userPage.UserLoginSignUP.UserLoginPage;
+import GUI.userPage.UserLoginSignUP.UserSignUpPage;
+import GUI.userPage.cartPage.CartPage;
 import LocalizationLogic.Language;
 import lib.DataStructures.HashMapImplementation.THashMap;
 

@@ -2,7 +2,7 @@ package Model.UserComponentes;
 
 import java.io.Serializable;
 
-import GUI.cartPage.CartEntry;
+import GUI.userPage.cartPage.CartEntry;
 import Model.ModelComponentes.Product;
 
 public class Order implements Serializable {

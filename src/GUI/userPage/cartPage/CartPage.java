@@ -1,4 +1,4 @@
-package GUI.cartPage;
+package GUI.userPage.cartPage;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -150,7 +150,7 @@ public class CartPage extends JPanel {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 1.0;
+        c.weightx = 0.3;
         c.gridwidth = 1;
         c.ipadx = 10;
         c.ipady = 5;
@@ -160,6 +160,7 @@ public class CartPage extends JPanel {
         panel.add(priceLabelTag, c);
         c.gridx++;
 
+        c.weightx = 0.7;
         JLabel priceLabel = new JLabel();
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
         priceLabel.setPreferredSize(new Dimension(100, 100));
@@ -169,6 +170,7 @@ public class CartPage extends JPanel {
 
         c.gridy++;
 
+        c.weightx = 1.0;
         // Some Extra space
         panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
                 200, 5)), c);

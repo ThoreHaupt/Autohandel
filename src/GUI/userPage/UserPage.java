@@ -6,13 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import GUI.UIController;
-import GUI.cartPage.CartPage;
+import GUI.userPage.cartPage.CartPage;
 import Model.UserComponentes.User;
+import lib.uiComponents.MLTabbedPane;
 
 public class UserPage extends JPanel {
     UIController uiController;
     User user;
-    JTabbedPane tabbedPane;
+    MLTabbedPane tabbedPane;
 
     public UserPage(UIController uiController) {
         this.uiController = uiController;
@@ -23,7 +24,7 @@ public class UserPage extends JPanel {
     public void buildUserPage() {
         JPanel panel = new JPanel();
 
-        tabbedPane = new JTabbedPane();
+        tabbedPane = new MLTabbedPane(uiController);
         tabbedPane.addTab("shopping Cart", new CartPage(uiController, 100));
         tabbedPane.addTab("Purchase History", buildHistroyPage());
         tabbedPane.addTab("User Settings", buildUserSettingPage());

@@ -1,4 +1,4 @@
-package GUI.cartPage;
+package GUI.userPage.ShoppingHistoryPage;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -9,13 +9,14 @@ import Controller.Controller;
 import GUI.UIController;
 import Model.UserComponentes.Cart;
 import Model.UserComponentes.Order;
+import Model.UserComponentes.User;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
 import java.util.DuplicateFormatFlagsException;
 
-public class CartDisplayArea extends JPanel {
+public class SHDisplayArea extends JPanel {
 
     UIController uiController;
     Controller controller;
@@ -27,19 +28,19 @@ public class CartDisplayArea extends JPanel {
      * @param uiController
      * @param width
      */
-    public CartDisplayArea(UIController uiController, Cart cart, Dimension preferredSize) {
+    public SHDisplayArea(UIController uiController, User user, Dimension preferredSize) {
         this.uiController = uiController;
         this.preferredSize = preferredSize;
         this.controller = uiController.getController();
         //setPreferredSize(preferredSize);
         // @temp:
         setBackground(new Color(255, 0, 0));
-        updateCart(cart.getOrders());
-        controller.addChangeToCartListener(e -> updateCart(cart.getOrders()));
+        updateSH(user.getShopHistory());
+        controller.addChangeToCartListener(e -> updateSH(user.getShopHistory()));
         //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
     }
 
-    private void updateCart(Order[] orders) {
+    private void updateSH(Order[] orders) {
         backPanel = buildScrollableOrderDisplay(orders);
         removeAll();
         add(backPanel);
@@ -90,7 +91,7 @@ public class CartDisplayArea extends JPanel {
         }
         for (int i = 0; i < orders.length; i++) {
             System.out.println("adding Shit to the Display ig");
-            JButton entry = new CartEntry(uiController, orders[i], width);
+            JButton entry = new SHEntry(uiController, orders[i], width);
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
                     width, 1)), c);
             c.gridy++;

@@ -1,4 +1,4 @@
-package GUI.userPage;
+package GUI.userPage.UserLoginSignUP;
 
 import javax.swing.JPanel;
 import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;

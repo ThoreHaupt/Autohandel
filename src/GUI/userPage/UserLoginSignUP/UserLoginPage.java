@@ -1,4 +1,4 @@
-package GUI.userPage;
+package GUI.userPage.UserLoginSignUP;
 
 import java.awt.Dimension;
 

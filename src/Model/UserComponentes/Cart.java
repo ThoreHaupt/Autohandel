@@ -88,4 +88,8 @@ public class Cart implements Serializable {
         fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
+    public void empty() {
+        contents.empty();
+    }
+
 }

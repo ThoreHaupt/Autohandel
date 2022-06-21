@@ -13,6 +13,7 @@ import Model.UserComponentes.UserAuthKey;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartListener;
 import lib.Event.NewUserLoginListener;
+import lib.Event.PurchaseEventListener;
 import lib.Other.SupportingCalculations;
 
 public class Controller {
@@ -208,6 +209,10 @@ public class Controller {
 
     public double getCurrentBudget() {
         return 0;
+    }
+
+    public void addPurchaseEventListener(PurchaseEventListener l) {
+        model.addPurchaseEventListener(l);
     }
 
 }

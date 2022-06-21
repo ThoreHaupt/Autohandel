@@ -6,9 +6,10 @@ import java.util.Iterator;
 public class THashMap<K, V> implements Iterable<V>, Serializable {
 
     private Bucket<K, V>[] buckets;
-    private int currentExponentSize = 4;
+    private int currentExponentSize;;
     private float loadFactor;
     private int size = 0;
+    private int starterArraySize;
 
     public THashMap() {
         this((int) Math.pow(2, 4), 0.75f);
@@ -21,6 +22,8 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
     @SuppressWarnings("unchecked")
     public THashMap(int starterArraySize, float loadFactor) {
         this.buckets = new Bucket[starterArraySize];
+        this.starterArraySize = starterArraySize;
+        this.currentExponentSize = (int) (Math.log(starterArraySize) / Math.log(2));
         this.loadFactor = loadFactor;
 
     }
@@ -246,6 +249,13 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
 
     public boolean containsKey(K key) {
         return (get(key) == null) ? false : true;
+    }
+
+    @SuppressWarnings("unchecked")
+    public void empty() {
+        this.buckets = new Bucket[starterArraySize];
+        this.size = 0;
+        this.currentExponentSize = (int) (Math.log(starterArraySize) / Math.log(2));
     }
 
 }

@@ -149,8 +149,8 @@ public class User implements Serializable {
         return email;
     }
 
-    public ArrayList<Order> getShopHistory() {
-        return history;
+    public Order[] getShopHistory() {
+        return history.toArray(new Order[history.size()]);
     }
 
     public void buy() {
@@ -180,5 +180,12 @@ public class User implements Serializable {
 
     public void setModel(Model m) {
         this.model = m;
+    }
+
+    public void purchaseCart() {
+        for (Order order : cart.getOrders()) {
+            history.add(order);
+        }
+        cart.empty();
     }
 }
