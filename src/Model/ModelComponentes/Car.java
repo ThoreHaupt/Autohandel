@@ -1,13 +1,13 @@
 package Model.ModelComponentes;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import Controller.Controller;
 
-public class Car extends Product {
+public class Car extends Product implements Serializable {
     HashMap<String, Component> carComponentes = new HashMap<>();
     String imagePath = "resources/GUI_images/no_ImageImage.png";
-    double price = 25000;
     Double age = null;
     String describtion;
 

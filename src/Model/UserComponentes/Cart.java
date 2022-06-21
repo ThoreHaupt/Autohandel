@@ -17,8 +17,9 @@ public class Cart implements Serializable {
     transient User user;
     transient Model model;
 
-    public Cart(Model model) {
+    public Cart(Model model, User user) {
         this.model = model;
+        this.user = user;
         contents = new THashMap<>();
     }
 
@@ -90,6 +91,7 @@ public class Cart implements Serializable {
 
     public void empty() {
         contents.empty();
+        fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
     public void setUser(User user) {

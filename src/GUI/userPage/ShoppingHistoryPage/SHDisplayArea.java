@@ -55,13 +55,11 @@ public class SHDisplayArea extends JPanel {
         panel.setLayout(new BorderLayout());
 
         backPanel = buildOrderCollectionPanel(orders, preferredSize);
-        //backPanel.setPreferredSize(preferredSize);
         JScrollPane scrollbar = new JScrollPane(backPanel,
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollbar.setPreferredSize(preferredSize);
-        //panel.setPreferredSize(preferredSize);
+        scrollbar.getVerticalScrollBar().setUnitIncrement(16);
         panel.add(scrollbar, BorderLayout.CENTER);
-        /* panel.add(backPanel); */
         return panel;
     }
 

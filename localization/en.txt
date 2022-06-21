@@ -59,4 +59,6 @@
     "Click here to continue Shopping":"Click here to continue Shopping",
     "please log in to see your shopping history!":"please log in to see your shopping history!",
     "Log Off":"Log Off",
+    "Shopping History":"Shopping History",
+    "This user exists already":"This user exists already",
 }

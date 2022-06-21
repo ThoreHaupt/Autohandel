@@ -133,6 +133,7 @@ public class Model {
     private void setUser(User user) {
         boolean oldWasGuest = currentUser.isGuest();
         currentUser = user;
+        loadGuestCartIntoCurrentUser();
         fireNewUserLoginEvent(new NewUserLoginEvent(this, user, oldWasGuest));
     }
 
@@ -183,6 +184,7 @@ public class Model {
         }
         User newUser = new User(this, dataMap.get(User.USERNAME), dataMap.get(User.PASSWORD1));
         setUser(newUser);
+
         return null;
     }
 
@@ -248,6 +250,7 @@ public class Model {
         for (Order order : guestOrders) {
             currentUser.getCart().addToCart(order);
         }
+        guest.getCart().empty();
     }
 
     public void fireFilterChangeEvent(FilterChangeEvent event) {

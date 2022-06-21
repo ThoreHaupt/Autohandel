@@ -65,6 +65,7 @@ public class CartEntry extends JButton {
 
     public JPanel buildPictureTitleSpace() {
         JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(300, 70));
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -88,6 +89,11 @@ public class CartEntry extends JButton {
         // add imageLabel to panel
 
         panel.add(image, c);
+        c.gridx++;
+        panel.add(
+                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(10, (int) size.getHeight())),
+                c);
+
         // Title  ========================
         String title = product.getTitleString();
         JLabel titleLabel = new JLabel(title);
@@ -95,7 +101,7 @@ public class CartEntry extends JButton {
         Font titleFont = uiController.getDefaultFont().deriveFont(Font.BOLD, 13);
         titleLabel.setFont(titleFont);
         // add to panel
-        c.gridx = 1;
+        c.gridx++;
         c.gridwidth = 4;
         panel.add(titleLabel, c);
         return panel;
@@ -104,11 +110,12 @@ public class CartEntry extends JButton {
     public JPanel buildPriceOrderEditSpace() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
+        panel.setPreferredSize(new Dimension(300, 70));
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
         c.gridy = 0;
-        c.weightx = 0.3;
         c.gridwidth = 1;
+        c.weightx = 0.35;
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.VERTICAL;
 
@@ -126,8 +133,9 @@ public class CartEntry extends JButton {
         panel.add(pricePanel, c);
         // more space =======================
         c.gridx++;
+        c.weightx = 0.05;
         panel.add(
-                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(4, (int) size.getHeight())),
+                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(10, (int) size.getHeight())),
                 c);
 
         // numberEditor  ====================
@@ -138,12 +146,14 @@ public class CartEntry extends JButton {
         spinner.setValue(order.getAmount());
         spinner.setPreferredSize(new Dimension(50, 40));
         spinner.addChangeListener(e -> order.orderAmountChanged(this, (int) spinner.getValue()));
+        c.weightx = 0.2;
         panel.add(spinner, c);
 
         // more space =======================
         c.gridx++;
+        c.weightx = 0.05;
         panel.add(
-                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(4, (int) size.getHeight())),
+                new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(5, (int) size.getHeight())),
                 c);
 
         // Delete   ===========================
@@ -153,10 +163,12 @@ public class CartEntry extends JButton {
         button.resizeImageButton(new Dimension(40, 40));
         button.setBackground(uiController.getDefaultBackgroundcolor());
         c.gridx++;
+        c.weightx = 0.3;
         panel.add(button, c);
 
-        // Extra Space for scrollbar   ===========================
+        // Extra Space for scrollbar   ========
         c.gridx++;
+        c.weightx = 0.05;
         panel.add(
                 new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(4, (int) size.getHeight())),
                 c);

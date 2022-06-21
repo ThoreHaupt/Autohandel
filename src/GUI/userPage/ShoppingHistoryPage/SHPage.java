@@ -126,7 +126,7 @@ public class SHPage extends JPanel {
         c.gridx++;
         c.weightx = 0.99;
         c.anchor = GridBagConstraints.LINE_START;
-        MLLabel pageTitle = new MLLabel(uiController, "Cart");
+        MLLabel pageTitle = new MLLabel(uiController, "Shopping History");
         pageTitle.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 40));
         panel.add(pageTitle, c);
         return panel;

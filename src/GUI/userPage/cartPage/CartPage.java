@@ -182,9 +182,14 @@ public class CartPage extends JPanel {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
         MLButton order = new MLButton(uiController, "Order Now!");
+        order.setEnabled(false);
         order.setPreferredSize(new Dimension(400, 100));
         order.setBackground(uiController.getDefaultAccentColor());
-        order.addActionListener(e -> controller.buyCart());
+        order.addActionListener(e -> {
+            if (cart.getOrders().length > 0)
+                controller.buyCart();
+        });
+
         panel.add(order, c);
 
         c.gridy++;
@@ -196,7 +201,18 @@ public class CartPage extends JPanel {
         MLButton exportCart = new MLButton(uiController, "Export ");
         exportCart.setPreferredSize(new Dimension(400, 80));
         controller.exportCurrentCart();
+        exportCart.setEnabled(false);
         panel.add(exportCart, c);
+
+        uiController.getController().addChangeToCartListener(e -> {
+            if (cart.getOrders().length > 0) {
+                order.setEnabled(true);
+                exportCart.setEnabled(true);
+            } else {
+                order.setEnabled(false);
+                exportCart.setEnabled(false);
+            }
+        });
 
         panel.setPreferredSize(calculateButtonPriceDimension());
 

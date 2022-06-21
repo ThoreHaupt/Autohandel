@@ -60,7 +60,7 @@ public class User implements Serializable {
         first_name = "";
         last_name = "";
         filter = new Filter(this);
-        cart = new Cart(model);
+        cart = new Cart(model, this);
     }
 
     public User(Model model, String username, String password) {
@@ -69,7 +69,7 @@ public class User implements Serializable {
         this.password = password;
         history = new ArrayList<>();
         filter = new Filter(this);
-        cart = new Cart(model);
+        cart = new Cart(model, this);
         createAuthKey();
     }
 
@@ -183,6 +183,7 @@ public class User implements Serializable {
     public void initAfterSerialization(Model m) {
         this.model = m;
         filter.setModel(m);
+        filter.setUser(this);
         cart.setUser(this);
     }
 

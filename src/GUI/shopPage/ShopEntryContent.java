@@ -124,7 +124,7 @@ public class ShopEntryContent extends JPanel {
 
         priceLabel = new JLabel(product.getPriceString() + " €");
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
-
+        priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice()));
         // reset Color, when the filter changes -> eg new Spending maximum, or when the user buys something, so the budget changes
         uiController.getController().addChangeToCartListener(
                 e -> priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice())));

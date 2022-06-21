@@ -79,8 +79,17 @@ public class FilterPage extends JPanel {
             System.out.println("change to max Budget Document");
             if (text.equals("")) {
                 currentFilter.setMaxBudget(-1);
-            } else
-                currentFilter.setMaxBudget(Integer.parseInt(text));
+            } else {
+                int newMaxBudgetRequest = Integer.parseInt(text);
+                if (currentFilter.getUser().getCart().getTotalPrice() <= newMaxBudgetRequest) {
+                    currentFilter.setMaxBudget(newMaxBudgetRequest);
+                } else {
+                    int newMaxBudget = (int) currentFilter.getUser().getCart().getTotalPrice() + 1;
+                    currentFilter.setMaxBudget(newMaxBudget);
+                    mltfMaxSpending.setText(newMaxBudget + "");
+                }
+            }
+
         });
         panel.add(mltfMaxSpending, c);
 

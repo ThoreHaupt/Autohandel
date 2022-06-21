@@ -140,7 +140,6 @@ public class Controller {
             return;
         }
         model.logInUser(key, password);
-        model.loadGuestCartIntoCurrentUser();
         lc.setLanguage(model.getLoggedUser().getPreferredLanguage());
         uiController.setDarkTheme(model.getLoggedUser().getPreferresDarkTheme());
         uiController.regenerateUserDefinedPanels();
@@ -209,7 +208,7 @@ public class Controller {
     }
 
     public double getCurrentBudget() {
-        return 0;
+        return model.getCurrentUser().getFilter().getMaximumBudget();
     }
 
     public void addPurchaseEventListener(PurchaseEventListener l) {
