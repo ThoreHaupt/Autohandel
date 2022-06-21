@@ -1,9 +1,5 @@
 package Model.ModelComponentes;
 
-import javax.swing.JPanel;
-
-import Controller.Controller;
-import GUI.UIController;
 import GUI.shopPage.ProductPage;
 import lib.DataStructures.HashMapImplementation.THashMap;
 
