@@ -13,7 +13,6 @@ import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
-import java.util.DuplicateFormatFlagsException;
 
 public class CartDisplayArea extends JPanel {
 
@@ -99,6 +98,9 @@ public class CartDisplayArea extends JPanel {
                     width, 1)), c);
             c.gridy++;
         }
+        panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
+                width, (int) dimension.getHeight() - orders.length * (CartEntry.height + 2) - 5)), c);
+
         return panel;
     }
 

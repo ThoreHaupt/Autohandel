@@ -25,6 +25,7 @@ public class CartEntry extends JButton {
     Order order;
     Product product;
     Dimension size;
+    static int height = 60;
     ProductPage productPage;
 
     /**
@@ -36,7 +37,7 @@ public class CartEntry extends JButton {
         this.controller = uiController.getController();
         this.order = order;
         this.product = order.getProduct();
-        size = new Dimension(width, 60);
+        size = new Dimension(width, height);
         setPreferredSize(size);
         setBackground(uiController.getDefaultBackgroundcolor());
         buildCartEntry();

@@ -11,10 +11,11 @@ public class Product {
     double price = 420.69;
 
     THashMap<String, Component> dataMap = new THashMap<>();
+    ProductDescribtion describtion;
 
     ProductPage productPage;
 
-    public Product() {
+    public Product(String string) {
     }
 
     public double getPrice() {

@@ -4,7 +4,6 @@ import GUI.UIController;
 import LocalizationLogic.LocalizationController;
 import LocalizationLogic.Language;
 import Model.Model;
-import Model.ModelComponentes.Car;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
@@ -55,10 +54,10 @@ public class Controller {
 
     public Product[] getOptions(Filter filter) {
         //model.getCarOptions(filter);
-        return new Product[] { new Car("a"), new Car("asdada"), new Car("asdawdawd"),
-                new Car("asd"),
-                new Car(""),
-                new Car("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
+        return new Product[] { new Product("a"), new Product("asdada"), new Product("asdawdawd"),
+                new Product("asd"),
+                new Product(""),
+                new Product("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
 
     }
 

@@ -5,7 +5,6 @@ import javax.swing.*;
 import GUI.UIController;
 import GUI.MainWindow;
 import Model.Model;
-import Model.ModelComponentes.Car;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import lib.uiComponents.PageSideHideMenu;
