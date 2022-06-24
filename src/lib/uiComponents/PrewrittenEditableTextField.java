@@ -32,7 +32,7 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
         controller = uiController.getController();
         this.defaultString = defaultString;
         this.defaultFilter = new DocumentFilter();
-        this.currentDefaultString = uiController.getTransatedString(defaultString);
+        this.currentDefaultString = uiController.getTranslatedString(defaultString);
         this.filter = filter;
         setLayout(new BorderLayout());
         this.add(createTextField(), BorderLayout.CENTER);
@@ -101,7 +101,7 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
     private void updateLanguage() {
         if (getText().equals("")) {
             System.out.println("updateing language");
-            currentDefaultString = uiController.getTransatedString(defaultString);
+            currentDefaultString = uiController.getTranslatedString(defaultString);
             setTextDefault();
         }
     }

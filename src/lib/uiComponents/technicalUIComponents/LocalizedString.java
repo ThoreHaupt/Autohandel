@@ -9,13 +9,13 @@ public class LocalizedString {
 
     public LocalizedString(UIController uiController, String value) {
         this.value = value;
-        this.translatedValue = uiController.getTransatedString(value);
+        this.translatedValue = uiController.getTranslatedString(value);
         this.uiController = uiController;
         uiController.getController().getLocalizationController().addLanguageChangeListener(e -> updateValue());
     }
 
     public void updateValue() {
-        translatedValue = uiController.getTransatedString(value);
+        translatedValue = uiController.getTranslatedString(value);
     }
 
     public String toString() {

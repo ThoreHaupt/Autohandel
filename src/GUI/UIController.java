@@ -176,7 +176,7 @@ public class UIController {
         return pages.get(page);
     }
 
-    public String getTransatedString(String string) {
+    public String getTranslatedString(String string) {
         return controller.getLocalizationController().s(string);
     }
 
