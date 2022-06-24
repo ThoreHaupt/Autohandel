@@ -89,7 +89,6 @@ public class FilterPage extends JPanel {
                     mltfMaxSpending.setText(newMaxBudget + "");
                 }
             }
-
         });
         panel.add(mltfMaxSpending, c);
 
