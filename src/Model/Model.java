@@ -7,6 +7,7 @@ import java.util.HashMap;
 import javax.swing.event.EventListenerList;
 
 import Model.ModelComponentes.Product;
+import Model.UserComponentes.Cart;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
@@ -308,6 +309,18 @@ public class Model {
     public void replaceUserAuthKey(String username, UserAuthKey key) {
         userAuthKeys.remove(username);
         userAuthKeys.put(username, key);
+    }
+
+    public String[] getCurrentClassStringArr() {
+        Cart cart = currentUser.getCart();
+        Order[] orders = cart.getOrders();
+
+        String[] stringArr = new String[orders.length];
+        for (int i = 0; i < stringArr.length; i++) {
+            stringArr[i] = orders[i].toString();
+        }
+
+        return stringArr;
     }
 
 }

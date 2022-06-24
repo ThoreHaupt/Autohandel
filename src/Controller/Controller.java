@@ -1,5 +1,7 @@
 package Controller;
 
+import java.io.File;
+
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
 import LocalizationLogic.Language;
@@ -14,6 +16,7 @@ import lib.Event.ChangeToCartListener;
 import lib.Event.NewUserLoginListener;
 import lib.Event.PurchaseEventListener;
 import lib.Other.SupportingCalculations;
+import lib.fileHandling.FileSaver;
 
 public class Controller {
 
@@ -203,7 +206,9 @@ public class Controller {
         uiController.setWindowContent(UIController.THANK_YOU_4_PUCHASE);
     }
 
-    public void exportCurrentCart() {
+    public void exportCurrentCart(File f) {
+        String[] array = model.getCurrentClassStringArr();
+        FileSaver.saveFile(f, array);
     }
 
     public double getCurrentBudget() {

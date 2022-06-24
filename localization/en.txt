@@ -61,4 +61,5 @@
     "Log Off":"Log Off",
     "Shopping History":"Shopping History",
     "This user exists already":"This user exists already",
+    "1263":"1263",
 }
