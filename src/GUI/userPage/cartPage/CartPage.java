@@ -1,12 +1,15 @@
 package GUI.userPage.cartPage;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
 
+import javax.swing.filechooser.FileSystemView;
 import Controller.Controller;
 
 import java.awt.*;
+import java.io.File;
 
 import GUI.UIController;
 import Model.UserComponentes.Cart;
@@ -200,8 +203,14 @@ public class CartPage extends JPanel {
         c.gridy++;
         MLButton exportCart = new MLButton(uiController, "Export ");
         exportCart.setPreferredSize(new Dimension(400, 80));
-        controller.exportCurrentCart();
         exportCart.setEnabled(false);
+        exportCart.addActionListener(e -> {
+            File file = getExportFile();
+            if (file != null) {
+                controller.exportCurrentCart(file);
+            }
+        });
+
         panel.add(exportCart, c);
 
         uiController.getController().addChangeToCartListener(e -> {
@@ -217,5 +226,17 @@ public class CartPage extends JPanel {
         panel.setPreferredSize(calculateButtonPriceDimension());
 
         return panel;
+    }
+
+    public File getExportFile() {
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+
+        int returnValue = jfc.showOpenDialog(null);
+        // int returnValue = jfc.showSaveDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            return jfc.getSelectedFile();
+        } else
+            return null;
     }
 }

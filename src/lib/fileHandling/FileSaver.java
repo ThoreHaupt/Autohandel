@@ -11,6 +11,21 @@ import java.io.Serializable;
 public class FileSaver {
 
     /**
+     * This creates a new file and writes the given String Array into each line
+     * @param path filepath
+     * @param arr String Array with the to be written Content
+     */
+    public static void saveFile(String path, String[] arr, boolean override) {
+
+        File file = new File(path);
+        if (file.exists() && override) {
+            file.delete();
+            file = new File(path);
+        }
+        saveFile(file, arr);
+    }
+
+    /**
      * This creates a new file and writes the given String Array into each line 
      * Overrides old file on default
      * @param path filepath
@@ -25,18 +40,14 @@ public class FileSaver {
      * @param path filepath
      * @param arr String Array with the to be written Content
      */
-    public static void saveFile(String path, String[] arr, boolean override) {
-        File file = new File(path);
-        if (file.exists() && override) {
-            file.delete();
-            file = new File(path);
-        }
+    public static void saveFile(File file, String[] arr) {
         try {
-            FileWriter fwriter = new FileWriter(new File(path));
+            FileWriter fwriter = new FileWriter(file);
             for (String string : arr) {
                 fwriter.append(string + "\n");
             }
             fwriter.flush();
+            fwriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

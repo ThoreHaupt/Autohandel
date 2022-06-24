@@ -47,4 +47,10 @@ public class Order implements Serializable {
     public void deleteOrder() {
         cart.deleteOrder(this);
     }
+
+    @Override
+    public String toString() {
+        String s = product.getTitleString() + ": " + amount + " x";
+        return s;
+    }
 }
