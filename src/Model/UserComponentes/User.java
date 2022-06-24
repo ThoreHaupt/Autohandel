@@ -196,4 +196,8 @@ public class User implements Serializable {
         }
         cart.empty();
     }
+
+    public boolean getLoadGuestCart() {
+        return importGuestCartOnLogin;
+    }
 }

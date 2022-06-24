@@ -5,18 +5,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileLoader {
 
     public static String[] getallLinesFromFile(String path) {
+        return getallLinesFromFile(new File(path));
+    }
+
+    public static String[] getallLinesFromFile(File file) {
         ArrayList<String> returnlines = new ArrayList<String>();
         String line;
 
         try {
-            File file = new File(path);
             Scanner filereader = new Scanner(file);
             while (filereader.hasNextLine()) {
                 line = filereader.nextLine();

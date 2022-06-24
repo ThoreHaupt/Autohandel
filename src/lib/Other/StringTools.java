@@ -25,4 +25,13 @@ public class StringTools {
         System.out.println(newString);
         return newString;
     }
+
+    public static boolean checkEmptyArray(String[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (!arr[i].equals("")) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

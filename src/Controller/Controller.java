@@ -2,6 +2,8 @@ package Controller;
 
 import java.io.File;
 
+import javax.swing.JOptionPane;
+
 import GUI.UIController;
 import LocalizationLogic.LocalizationController;
 import LocalizationLogic.Language;
@@ -26,7 +28,7 @@ public class Controller {
 
     public Controller() {
         this.lc = new LocalizationController();
-        model = new Model();
+        model = new Model(this);
         this.uiController = new UIController(this);
     }
 
@@ -40,12 +42,6 @@ public class Controller {
 
     public void setLanguage(int selectedItem) {
         lc.setLanguage(Language.values()[selectedItem]);
-    }
-
-    public String[] getLanuguageImageArray() {
-        String[] s = new String[] { "resources/GUI_images/IconUS_transparent.png",
-                "resources/GUI_images/IconGer_transparent.png" };
-        return s;
     }
 
     public UIController getUIController() {
@@ -149,13 +145,33 @@ public class Controller {
     }
 
     public void intiShutDownSequence() {
+
+        if (model.getCurrentUser().getCart().size() > 0) {
+            // if guest, make a popup, that lets you safe a file
+            String msg = "If you are loged in as a guest"
+                    + (isCurrentUserGuest() ? "(you are)" : "you aren't)")
+                    + ", you might want to export your cart before quitting. Otherwise its contents may be lost."
+                    + " Do you want to continue?";
+            int shutdownPermission = JOptionPane.showConfirmDialog(uiController.getWindow(), lc.s(msg), "waring",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+            switch (shutdownPermission) {
+                case 0:
+                    break;
+                case 1:
+                case 2:
+                    return;
+                default:
+                    break;
+            }
+        }
+
         // log out user properly before shutdown
 
         if (!isCurrentUserGuest()) {
             model.getCurrentUser().logOff();
         }
-        // if guest, make a popup, that lets you safe a file
-        System.out.println("shutdown Shit");
+
         uiController.closeWindow();
     }
 

@@ -7,6 +7,13 @@ public class Component implements Comparable<Component> {
     private double num_value;
     private boolean undefined = true;
 
+    public Component(String string) {
+    }
+
+    public Component(String ComponentType, String value) {
+
+    }
+
     @Override
     public int compareTo(Component o) {
         if (!this.type.equals(o.getType()))

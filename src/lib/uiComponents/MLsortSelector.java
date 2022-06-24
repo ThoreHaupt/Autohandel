@@ -22,6 +22,7 @@ public class MLsortSelector extends JPanel {
         Controller controller = uiController.getController();
         this.model = controller.getModel();
         options = model.getSortingOptions();
+        setBackground(new Color(255, 255, 0));
     }
 
     public void buildIRSortSelector() {
@@ -31,8 +32,8 @@ public class MLsortSelector extends JPanel {
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 0.2;
-
         panel.add(buildDirectionButton(buttonsize), c);
+
         c.gridx = 1;
         c.weightx = 0.8;
         panel.add(buildSortQuiteriorSelectionArea(), c);
@@ -41,15 +42,19 @@ public class MLsortSelector extends JPanel {
 
     public JPanel buildDirectionButton(Dimension n) {
         JPanel panel = new JPanel();
-        String[] imagesDirectionSelector = {}; // up and down
+        String[] imagesDirectionSelector = { "resources/GUI_images/SortUpwards.png",
+                "resources/GUI_images/SortDownwards.png" }; // up and down
         irButton = new IRButton(imagesDirectionSelector, n);
+        panel.setBackground(new Color(150, 150, 0));
+        panel.add(irButton);
         return panel;
-
     }
 
     public JPanel buildSortQuiteriorSelectionArea() {
         JPanel panel = new JPanel();
         comboBox = new MLComboBox(uiController, options);
+        panel.setBackground(new Color(150, 150, 250));
+        panel.add(comboBox);
         return panel;
     }
 
@@ -57,7 +62,7 @@ public class MLsortSelector extends JPanel {
         return comboBox.getSelectedIndex();
     }
 
-    public int getSelectedSortingDierection() {
+    public int getSelectedSortingDirection() {
         return irButton.getCurrentIndex();
     }
 }

@@ -19,7 +19,6 @@ import GUI.userPage.ThankYouPage;
 import GUI.userPage.UserPage;
 import GUI.userPage.UserLoginSignUP.UserLoginPage;
 import GUI.userPage.UserLoginSignUP.UserSignUpPage;
-import GUI.userPage.cartPage.CartPage;
 import LocalizationLogic.Language;
 import lib.DataStructures.HashMapImplementation.THashMap;
 
@@ -35,7 +34,9 @@ public class UIController {
     public static final String LOGIN_PAGE = "login";
     public static final String SIGNUP_PAGE = "signup";
     public static final String USERPROFILE_PAGE = "userProfile";
-    public static final String THANK_YOU_4_PUCHASE = "tnaks";
+    public static final String THANK_YOU_4_PUCHASE = "thanks";
+
+    private Controller controller;
 
     JPanel topMenuBar;
     int topMenuBarHeight = 60;
@@ -44,11 +45,12 @@ public class UIController {
 
     boolean lightmode = false;
     private Font defaultFont = new Font("Segoe", Font.PLAIN, 20);
+
     private Color defaultAccentColor = new Color(75, 150, 255);
     private Color defaultBackgroundColor = null;
     private Color errorColor = new Color(255, 51, 51);
-
-    private Controller controller;
+    private Color defaultRedColor = new Color(171, 3, 3);
+    private Color defaultFontColor = null;
     private Color defaultUIcolor = new Color(255, 255, 255);
 
     public UIController(Controller controller) {
@@ -216,7 +218,7 @@ public class UIController {
         double usedBudget = controller.getCurrentCartValue() + price;
 
         if (budget == -1) {
-            return getDefaultUIColor();
+            return getDefaultFontColor();
         }
         if (budget < usedBudget) {
             return getNotAffortableColor();
@@ -225,6 +227,10 @@ public class UIController {
             return getCloseToSpendingLimitColor();
         }
         return getAffortableColor();
+    }
+
+    private Color getDefaultFontColor() {
+        return defaultFontColor;
     }
 
     public void displayDeniedLoginMessage(String string) {
@@ -254,6 +260,10 @@ public class UIController {
     public void regenerateUserDefinedPanels() {
         pages = new THashMap<>();
         initializePages();
+    }
+
+    public Color getDefaultRedColor() {
+        return defaultRedColor;
     }
 
 }

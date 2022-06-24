@@ -98,4 +98,8 @@ public class Cart implements Serializable {
         this.user = user;
     }
 
+    public int size() {
+        return contents.size();
+    }
+
 }

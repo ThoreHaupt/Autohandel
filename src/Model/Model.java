@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 import javax.swing.event.EventListenerList;
 
+import Controller.Controller;
+import Model.ModelComponentes.Component;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Cart;
 import Model.UserComponentes.Filter;
@@ -21,14 +23,20 @@ import lib.Event.NewUserLoginEvent;
 import lib.Event.NewUserLoginListener;
 import lib.Event.PurchaseEvent;
 import lib.Event.PurchaseEventListener;
+import lib.Other.StringTools;
 import lib.fileHandling.FileLoader;
 
 public class Model {
+
+    Controller controller;
+
     Product[] currentOptions;
-    ArrayList<Product> allAvaliableObjects;
+    ArrayList<Product> allAvaliableObjects = new ArrayList<>();
 
     HashMap<String, UserAuthKey> userAuthKeys;
     boolean lastAuthenticationSucess = false;
+
+    public String sortFor = "";
 
     // immer da
     User guest;
@@ -44,10 +52,12 @@ public class Model {
     /**
      * 
      */
-    public Model() {
+    public Model(Controller controller) {
+        this.controller = controller;
         guest = new User(this);
         currentUser = guest;
         loadExistingUserNames();
+        loadCostumDatabase(new File("Data/commons/ElectricCarSpreadSheet.csv"));
     }
 
     public User getLoggedUser() {
@@ -134,7 +144,8 @@ public class Model {
     private void setUser(User user) {
         boolean oldWasGuest = currentUser.isGuest();
         currentUser = user;
-        loadGuestCartIntoCurrentUser();
+        if (currentUser.getLoadGuestCart())
+            loadGuestCartIntoCurrentUser();
         fireNewUserLoginEvent(new NewUserLoginEvent(this, user, oldWasGuest));
     }
 
@@ -272,7 +283,7 @@ public class Model {
     }
 
     public String[] getSortingOptions() {
-        return null;
+        return new String[] { "no Order", "price" };
     }
 
     public void addPurchaseEventListener(PurchaseEventListener l) {
@@ -315,7 +326,8 @@ public class Model {
         Cart cart = currentUser.getCart();
         Order[] orders = cart.getOrders();
 
-        String[] stringArr = new String[orders.length];
+        String[] stringArr = new String[orders.length + 1];
+        stringArr[0] = controller.lc.s("You selected and exported the following items:");
         for (int i = 0; i < stringArr.length; i++) {
             stringArr[i] = orders[i].toString();
         }
@@ -323,4 +335,36 @@ public class Model {
         return stringArr;
     }
 
+    public void loadCostumDatabase(File f) {
+        String[] dataArray = FileLoader.getallLinesFromFile(f);
+        String[] splitededDataHeaders = dataArray[0].split(";");
+
+        for (int i = 1; i < dataArray.length; i++) {
+            THashMap<String, Component> map = new THashMap<>();
+            String[] splitededData = dataArray[i].split(";");
+            if (StringTools.checkEmptyArray(splitededData)) {
+                continue;
+            }
+            for (int j = 0; j < splitededData.length; j++) {
+                if (!splitededData[j].equals(""))
+                    map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
+            }
+            allAvaliableObjects.add(new Product(map));
+        }
+    }
+
+    public void loadGivenDatabase() {
+        String[] dataArray = FileLoader.getallLinesFromFile(new File("Data/commons/info.csv"));
+        String[] splitededDataHeaders = { "TITLE", "PRICE", "DESCRIPTION" };
+        for (int i = 0; i < dataArray.length; i++) {
+            THashMap<String, Component> map = new THashMap<>();
+            String[] splitededData = dataArray[i].split(";");
+
+            for (int j = 0; j < splitededDataHeaders.length; j++) {
+                if (!splitededData[j].equals(""))
+                    map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
+            }
+            allAvaliableObjects.add(new Product(map));
+        }
+    }
 }

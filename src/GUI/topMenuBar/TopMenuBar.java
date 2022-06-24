@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import Controller.Controller;
 import GUI.UIController;
+import LocalizationLogic.Language;
 import lib.uiComponents.*;
 
 public class TopMenuBar extends JPanel {
@@ -86,14 +87,10 @@ public class TopMenuBar extends JPanel {
 
         }, new Dimension(60, min_Height)));
 
-        panel.add(new ImageComboBox(uiController, controller.getLanuguageImageArray(), new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.setLanguage(((ImageComboBox) e.getSource()).getSelectedIndex());
-            }
-
-        }, new Dimension(60, min_Height)));
+        ImageComboBox lanugageSelection = new ImageComboBox(uiController, Language.getLanuguageImageArray(),
+                e -> controller.setLanguage(((ImageComboBox) e.getSource()).getSelectedIndex()));
+        lanugageSelection.setSelectedIndex(controller.lc.getCurrentLanguage().getIndex());
+        panel.add(lanugageSelection, new Dimension(60, min_Height));
         return panel;
     }
 

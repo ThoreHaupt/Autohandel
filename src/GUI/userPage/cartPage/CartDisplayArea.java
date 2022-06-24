@@ -10,6 +10,7 @@ import GUI.UIController;
 import Model.UserComponentes.Cart;
 import Model.UserComponentes.Order;
 import lib.uiComponents.MLLabel;
+import lib.uiComponents.MLsortSelector;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
@@ -20,6 +21,7 @@ public class CartDisplayArea extends JPanel {
     Controller controller;
     Dimension preferredSize;
     JScrollPane scrollPane;
+    MLsortSelector sortSelector;
     JPanel backPanel;
 
     /**
@@ -30,9 +32,9 @@ public class CartDisplayArea extends JPanel {
         this.uiController = uiController;
         this.preferredSize = preferredSize;
         this.controller = uiController.getController();
-        //setPreferredSize(preferredSize);
+        // setPreferredSize(preferredSize);
         // @temp:
-        //setBackground(new Color(255, 0, 0));
+        // setBackground(new Color(255, 0, 0));
         updateCart(cart.getOrders());
         controller.addChangeToCartListener(e -> updateCart(cart.getOrders()));
         controller.addPurchaseEventListener(e -> updateCart(cart.getOrders()));
@@ -79,12 +81,29 @@ public class CartDisplayArea extends JPanel {
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
         System.out.println(orders.length);
+
         if (orders.length == 0) {
             MLLabel noItemsInCartLabel = new MLLabel(uiController,
                     "There are currently no Items in your cart. Head over to the shop to add some!");
             noItemsInCartLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
             c.fill = GridBagConstraints.BOTH;
             panel.add(noItemsInCartLabel, c);
+
+        } else {
+
+            panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
+                    width, 1)), c);
+            c.gridy++;
+
+            sortSelector = new MLsortSelector(uiController);
+
+            panel.add(sortSelector, c);
+
+            c.gridy++;
+
+            panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
+                    width, 5)), c);
+            c.gridy++;
         }
         for (int i = 0; i < orders.length; i++) {
             System.out.println("adding Shit to the Display ig");

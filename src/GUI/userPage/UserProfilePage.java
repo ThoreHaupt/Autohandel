@@ -26,7 +26,7 @@ public class UserProfilePage extends JPanel {
         JPanel panel = new JPanel();
 
         MLButton logOffButton = new MLButton(uiController, "Log Off");
-        logOffButton.setBackground(new Color(171, 3, 3));
+        logOffButton.setBackground(uiController.getDefaultRedColor());
 
         logOffButton.addActionListener(e -> uiController.getController().logOffCurrentUser());
         logOffButton.setPreferredSize(new Dimension(400, 300));

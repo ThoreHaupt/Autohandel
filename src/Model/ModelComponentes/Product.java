@@ -12,6 +12,17 @@ public class Product {
     ProductPage productPage;
 
     public Product(String string) {
+
+    }
+
+    public Product(THashMap<String, Component> dataMap) {
+        this.dataMap = dataMap;
+        if (!dataMap.containsKey("Price")) {
+            System.out.println("Error, tried to add product without price");
+        }
+        if (!dataMap.containsKey("Type")) {
+            System.out.println("Error, tried to add product without pyte");
+        }
     }
 
     public double getPrice() {

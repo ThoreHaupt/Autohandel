@@ -213,13 +213,31 @@ public class CartPage extends JPanel {
 
         panel.add(exportCart, c);
 
+        c.gridy++;
+        // Some Extra space
+        panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
+                200, 1)), c);
+
+        c.gridy++;
+        MLButton emptyCart = new MLButton(uiController, "clear cart ");
+        emptyCart.setPreferredSize(new Dimension(400, 80));
+        emptyCart.setEnabled(false);
+        emptyCart.setBackground(uiController.getDefaultErrorColor());
+        emptyCart.addActionListener(e -> {
+            cart.empty();
+        });
+
+        panel.add(emptyCart, c);
+
         uiController.getController().addChangeToCartListener(e -> {
             if (cart.getOrders().length > 0) {
                 order.setEnabled(true);
                 exportCart.setEnabled(true);
+                emptyCart.setEnabled(true);
             } else {
                 order.setEnabled(false);
                 exportCart.setEnabled(false);
+                emptyCart.setEnabled(false);
             }
         });
 
@@ -232,7 +250,6 @@ public class CartPage extends JPanel {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
         int returnValue = jfc.showOpenDialog(null);
-        // int returnValue = jfc.showSaveDialog(null);
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             return jfc.getSelectedFile();
