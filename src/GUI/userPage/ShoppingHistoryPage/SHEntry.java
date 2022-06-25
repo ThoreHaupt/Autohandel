@@ -84,8 +84,8 @@ public class SHEntry extends JButton {
         // Image  ========================
         int imageWidth = 60;
         int imageHeight = (int) size.getHeight();
-        String imageString = product.getImageString();
-        ImageIcon imageIcon = new ImageIcon(imageString);
+
+        ImageIcon imageIcon = product.getImage();
         //scale image
         Image rawImage = imageIcon.getImage();
         Image scaledImage = rawImage.getScaledInstance(imageWidth, imageHeight, Image.SCALE_FAST);

@@ -77,7 +77,7 @@ public class ShopPage extends JPanel {
 
         if (entries.length == 0) {
             JLabel l = new JLabel(uiController.getController().lc.s(
-                    "No Entry found. Either there aren't any entries in Database,\n or your filters and search parameters did not mathc to any suitable entry."));
+                    "No Entry found. Either there aren't any entries in Database, or your filters and search parameters did not mathc to any suitable entry."));
             panel.add(l);
             panel.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 20));
         }

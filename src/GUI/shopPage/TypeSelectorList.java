@@ -4,14 +4,12 @@ import java.awt.Font;
 import java.awt.*;
 
 import javax.swing.BoxLayout;
-import javax.swing.JApplet;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import GUI.UIController;
 import Model.ModelComponentes.TypeMutation;
 import Model.UserComponentes.Filter;
-import Model.UserComponentes.UserBrandSettings;
 import lib.uiComponents.MLLabel;
 
 public class TypeSelectorList extends JPanel {

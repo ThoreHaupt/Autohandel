@@ -1,6 +1,7 @@
 package lib.DataStructures.HashMapImplementation;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 public class THashMap<K, V> implements Iterable<V>, Serializable {
@@ -104,18 +105,47 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         this.buckets = bucketsTemp;
     }
 
+    /**
+     * Berechnet normalerweise über Object.hashCode den Hash eines Objektes. Wenn es sich jedoch um einen String handelt,
+     * muss man besonders aufpassen, da die unsichtbaren Charaktere einem wirklich zu schaffe machen können, wenn man mit 
+     * Files arbeitet
+     * 
+     * @param key
+     * @return
+     */
     private int calculateHash(K key) {
 
         // return System.identityHashCode(key);
+        if (key instanceof String) {
+            int i = 0;
+            // es ist absolut disgusting, dass ees einfach unsichtbare Buchstaben gibt, die einem nicht angezeigt werden.
+            String k_string = ((String) key).replaceAll("\\p{C}", "");
+            /* String asciiEncodedString = new String(k_string.getBytes(), StandardCharsets.US_ASCII);
+            for (char c : asciiEncodedString.toCharArray()) {
+                i += Math.pow(Math.E, (c - 35) / 4.0);
+                i = i >> 5 % 31;
+            } */
+            return Math.abs(k_string.hashCode());
+        }
 
         return Math.abs(key.hashCode());
 
     }
 
+    /**
+     * calculates the Index of the bucket this has has to be put into
+     * @param hash
+     * @param bucketArraySize
+     * @return
+     */
     private int calculateBucketIndex(int hash, int bucketArraySize) {
         return (hash % (bucketArraySize - 1));
     }
 
+    /**
+     * calculates the last bucket used in the map, for the iterator
+     * @return
+     */
     private int getLastUsedBucketIndex() {
         int last = -1;
         for (int i = 0; i < buckets.length; i++) {
@@ -126,6 +156,11 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return last;
     }
 
+    /**
+     * gets the next Bucket in the Array
+     * @param start
+     * @return
+     */
     private int getNextUsedBucketIndex(int start) {
         int i = start + 1;
         while (buckets[i] == null || (buckets[i].head == null && buckets[i].root == null)) {
@@ -136,6 +171,9 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return i;
     }
 
+    /**
+     * Iterates over all values in this Array
+     */
     @Override
     public Iterator<V> iterator() {
         THashMap<K, V> map = this;
@@ -173,6 +211,9 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return iterator;
     }
 
+    /**
+     * Iterates over all Key, Value Pairs of this Array
+     */
     public class KeyValuePairObj implements Iterable<KeyValuePair<K, V>> {
 
         @Override
@@ -181,11 +222,18 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         }
     }
 
+    /**
+     * The iterator, that can iterate over Key, Value Pairs
+     */
     public KeyValuePairObj asKeyValuePair() {
         KeyValuePairObj obj = new KeyValuePairObj();
         return obj;
     }
 
+    /**
+     * The Iterator that iterates over the Key and Value Pairs
+     * @return
+     */
     public Iterator<KeyValuePair<K, V>> getKeyValuePair() {
         THashMap<K, V> map = this;
         Iterator<KeyValuePair<K, V>> iterator = new Iterator<KeyValuePair<K, V>>() {

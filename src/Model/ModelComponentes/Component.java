@@ -1,17 +1,24 @@
 package Model.ModelComponentes;
 
+import java.util.Arrays;
+
+import lib.Other.StringTools;
+
 public class Component implements Comparable<Component> {
     private String type;
     private String value;
     private boolean isNumeric;
     private double num_value;
-    private boolean undefined = true;
 
     public Component(String string) {
     }
 
     public Component(String ComponentType, String value) {
-
+        this.type = ComponentType;
+        this.value = value;
+        isNumeric = Arrays.stream(Product.numericAttributes).anyMatch(ComponentType::equals);
+        if (isNumeric)
+            this.num_value = StringTools.getNumbersFromString(value);
     }
 
     @Override

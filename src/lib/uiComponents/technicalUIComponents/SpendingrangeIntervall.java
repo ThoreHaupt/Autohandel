@@ -29,4 +29,17 @@ public class SpendingrangeIntervall implements Serializable {
         return upper;
     }
 
+    public boolean isInRange(double i) {
+        if (lower == -1) {
+            return true;
+        }
+        if (upper == -1) {
+            return true;
+        }
+        if (lower <= i && i <= upper) {
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -1,7 +1,10 @@
 package lib.Other;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StringTools {
     public static boolean isNumber(String s) {
@@ -33,5 +36,22 @@ public class StringTools {
             }
         }
         return true;
+    }
+
+    /**
+     * returns a String only contraining numeric digits of a String
+     * @param value
+     * @return
+     */
+    public static int getNumbersFromString(String value) {
+
+        String s = value.chars().filter(c -> Character.isDigit(c))
+                .mapToObj(i -> Character.valueOf((char) i)).map(Object::toString).collect(Collectors.joining());
+        /* value.chars().filter(c -> Character.isDigit(c)).forEachOrdered(ch -> sb.append((char) ch));
+        String s = sb.toString(); */
+        if (s != "")
+            return Integer.parseInt(s);
+        else
+            return -1;
     }
 }

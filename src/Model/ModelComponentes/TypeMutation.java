@@ -24,8 +24,12 @@ public class TypeMutation implements Serializable {
         return null;
     }
 
-    public Object setCurrentStatus(boolean selected) {
-        return null;
+    public void setCurrentStatus(boolean selected) {
+        this.selected = selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
     }
 
 }

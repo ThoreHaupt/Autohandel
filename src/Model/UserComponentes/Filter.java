@@ -3,6 +3,7 @@ package Model.UserComponentes;
 import java.io.Serializable;
 
 import Model.Model;
+import Model.ModelComponentes.Product;
 import Model.ModelComponentes.TypeMutation;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.FilterChangeEvent;
@@ -11,7 +12,7 @@ import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 public class Filter implements Serializable {
     transient User owner;
     transient Model model;
-    THashMap<String, TypeMutation> typeSettings = new THashMap<>();
+    transient THashMap<String, THashMap<String, TypeMutation>> typeSettings = new THashMap<>();
 
     SpendingrangeIntervall spendingRange = new SpendingrangeIntervall(5000, 60000);
 
@@ -108,4 +109,25 @@ public class Filter implements Serializable {
         return new TypeMutation[0];
     }
 
+    public boolean isEgliable(Product product) {
+        double price = product.getPrice();
+        if (maximumBudget != -1) {
+            if (filterNonAffortable) {
+                if (price > maximumBudget)
+                    return false;
+            }
+        }
+        String type = product.getType();
+        if (type == null) {
+            return true;
+        }
+        if (!typeSettings.get(Product.TYPE).get(type).isSelected()) {
+            return false;
+        }
+        String brand = product.getBrand(); // the brad this product has
+        if (brand != null && !typeSettings.get(Product.BRAND).get(brand).isSelected()) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -7,8 +7,10 @@ import java.util.HashMap;
 import javax.swing.event.EventListenerList;
 
 import Controller.Controller;
+import GUI.shopPage.ProductPage;
 import Model.ModelComponentes.Component;
 import Model.ModelComponentes.Product;
+import Model.ModelComponentes.TypeMutation;
 import Model.UserComponentes.Cart;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
@@ -25,6 +27,7 @@ import lib.Event.PurchaseEvent;
 import lib.Event.PurchaseEventListener;
 import lib.Other.StringTools;
 import lib.fileHandling.FileLoader;
+import lib.uiComponents.LoadingProgressbarFrame;
 
 public class Model {
 
@@ -36,6 +39,8 @@ public class Model {
     boolean lastAuthenticationSucess = false;
 
     public String sortFor = "";
+
+    THashMap<String, THashMap<String, TypeMutation>> defaulttypeSettings;
 
     // immer da
     User guest;
@@ -56,6 +61,7 @@ public class Model {
         guest = new User(this);
         currentUser = guest;
         loadExistingUserNames();
+        loadGivenDatabase();
         loadCostumDatabase(new File("Data/commons/ElectricCarSpreadSheet.csv"));
     }
 
@@ -65,9 +71,11 @@ public class Model {
 
     public Product[] getCurrentProductOptions(Filter filter) {
         ArrayList<Product> egliableProducts = new ArrayList<>();
-
+        Filter currentFilter = getCurrentUser().getFilter();
         for (int i = 0; i < allAvaliableProducts.size(); i++) {
-
+            if (currentFilter.isEgliable(allAvaliableProducts.get(i))) {
+                egliableProducts.add(allAvaliableProducts.get(i));
+            }
         }
 
         return egliableProducts.toArray(new Product[egliableProducts.size()]);
@@ -336,7 +344,57 @@ public class Model {
         return stringArr;
     }
 
+    /**
+     * loads the custom Datasets with cars 
+    */
     public void loadCostumDatabase(File f) {
+        loadProductsOfCustomData(f);
+        extrapolateListOfComponentTypes();
+    }
+
+    /**
+     * gets all Types and Brands from the Dataset and stores those into nested THashMaps as TypeMutation
+     * This will be the default for every new Creation of a new filter
+     */
+    private void extrapolateListOfComponentTypes() {
+        defaulttypeSettings = new THashMap<>();
+        final String[] classifiedComponentTypes = { Product.TYPE, Product.BRAND };
+
+        for (String componentType : classifiedComponentTypes) {
+            THashMap<String, TypeMutation> innerMap = new THashMap<>();
+            for (Product product : allAvaliableProducts) {
+                Component typeComponent = product.getDataMap().get(componentType);
+                if (typeComponent == null)
+                    continue;
+                String classification = typeComponent.getValue();
+                if (classification == null)
+                    continue;
+                if (innerMap.containsKey(classification)) {
+                    continue;
+                }
+                innerMap.put(classification, new TypeMutation(classification));
+            }
+            defaulttypeSettings.put(componentType, innerMap);
+        }
+    }
+
+    public void loadGivenDatabase() {
+        String[] dataArray = FileLoader.getallLinesFromFile(new File("Data/commons/infos.csv"));
+        String[] splitededDataHeaders = { Product.TITLE, Product.PRICE, Product.DESCRIBTION };
+        for (int i = 0; i < dataArray.length; i++) {
+            THashMap<String, Component> map = new THashMap<>();
+            String[] splitededData = dataArray[i].split(",");
+
+            for (int j = 0; j < splitededDataHeaders.length; j++) {
+                if (!splitededData[j].equals(""))
+                    map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
+            }
+            allAvaliableProducts.add(new Product(map));
+        }
+    }
+
+    public void loadProductsOfCustomData(File f) {
+        LoadingProgressbarFrame progressbar = new LoadingProgressbarFrame();
         String[] dataArray = FileLoader.getallLinesFromFile(f);
         String[] splitededDataHeaders = dataArray[0].split(";");
 
@@ -350,23 +408,14 @@ public class Model {
                 if (!splitededData[j].equals(""))
                     map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
             }
-            allAvaliableProducts.add(new Product(map));
-        }
-    }
-
-    public void loadGivenDatabase() {
-        String[] dataArray = FileLoader.getallLinesFromFile(new File("Data/commons/info.csv"));
-        String[] splitededDataHeaders = { "TITLE", "PRICE", "DESCRIPTION" };
-        for (int i = 0; i < dataArray.length; i++) {
-            THashMap<String, Component> map = new THashMap<>();
-            String[] splitededData = dataArray[i].split(";");
-
-            for (int j = 0; j < splitededDataHeaders.length; j++) {
-                if (!splitededData[j].equals(""))
-                    map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
+            if (map.get(Product.IMAGE) != null) {
+                progressbar.setText(map.get(Product.IMAGE).getValue());
             }
             allAvaliableProducts.add(new Product(map));
+            progressbar.increment(1.0 / dataArray.length);
         }
+
+        progressbar.close();
     }
 
     public boolean canAffort(double price) {
@@ -380,9 +429,5 @@ public class Model {
             return true;
         }
         return false;
-    }
-
-    public Product[] getProductOptions(Filter filter) {
-        return null;
     }
 }

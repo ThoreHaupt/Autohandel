@@ -1,9 +1,11 @@
 package Model.ModelComponentes;
 
 import java.util.Comparator;
+import javax.swing.ImageIcon;
 
 import GUI.shopPage.ProductPage;
 import lib.DataStructures.HashMapImplementation.THashMap;
+import lib.Other.ImageTools;
 
 public class Product {
 
@@ -13,24 +15,29 @@ public class Product {
     public static final String TYPE = "type";
     public static final String RANGE = "range";
     public static final String BRAND = "brand";
+    public static final String IMAGE = "image";
 
-    String[] sortableComponentAttributes = new String[] { TITLE, PRICE, RANGE, BRAND };
+    public static final String[] sortableComponentAttributes = new String[] { TITLE, PRICE, RANGE, BRAND };
+    public static final String[] numericAttributes = new String[] { PRICE, RANGE };
+    public static final String[] stringAttributes = new String[] { TITLE, BRAND };
 
-    THashMap<String, Component> dataMap = new THashMap<>();
+    THashMap<String, Component> dataMap;
     ProductDescribtion describtion;
+    ImageIcon image;
 
     ProductPage productPage;
 
     public Product(String string) {
-
+        dataMap = new THashMap<>();
     }
 
     public Product(THashMap<String, Component> dataMap) {
         this.dataMap = dataMap;
-        if (!dataMap.containsKey("Price")) {
+        loadImage();
+        if (!dataMap.containsKey(PRICE)) {
             System.out.println("Error, tried to add product without price");
         }
-        if (!dataMap.containsKey("Type")) {
+        if (!dataMap.containsKey(TYPE)) {
             System.out.println("Error, tried to add product without pyte");
         }
     }
@@ -44,20 +51,41 @@ public class Product {
         }
     }
 
-    public String getImageString() {
-        return "resources/GUI_images/no_ImageImage.png";
+    public ImageIcon getImage() {
+        return this.image;
+    }
+
+    public void loadImage() {
+        String path;
+        if (!dataMap.containsKey(IMAGE))
+            path = ImageTools.defaultNoImagePath;
+        else {
+            //path = dataMap.get(IMAGE).getValue();
+            path = ImageTools.defaultNoImagePath;
+        }
+        this.image = ImageTools.getIconFromAnyLocation(path);
     }
 
     public String getTitleString() {
-        return dataMap.get(TITLE).getValue();
+        Component titleComponent = dataMap.get(TITLE);
+        if (titleComponent != null) {
+            return titleComponent.getValue();
+        } else {
+            return "Title missing";
+        }
     }
 
     public String getDescribtionTitle() {
-        return "I am a very nice Product, shut the fuck up,... please";
+        return getTitleString();
     }
 
     public String getShortInformationText() {
-        return "Who even are you?";
+        Component titleComponent = dataMap.get(DESCRIBTION);
+        if (titleComponent != null) {
+            return titleComponent.getValue();
+        } else {
+            return "Product.";
+        }
     }
 
     public String getPriceString() {
@@ -98,6 +126,18 @@ public class Product {
         };
 
         return comperator;
+    }
+
+    public String getType() {
+        return null;
+    }
+
+    public String getBrand() {
+        return null;
+    }
+
+    public THashMap<String, Component> getDataMap() {
+        return dataMap;
     }
 
 }
