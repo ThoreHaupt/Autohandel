@@ -44,9 +44,10 @@ public class ShopPage extends JPanel {
     }
 
     public void setShopEntries(JPanel EntryPanel) {
+        mainPanel.removeAll();
         mainPanel.add(EntryPanel);
-        repaint();
-        revalidate();
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }
 
     /**
@@ -55,6 +56,8 @@ public class ShopPage extends JPanel {
      * {@code setShopEntries(loadEntriesFromModel(someLoadedFilters))}
      */
     public void setEntriesWithCurrentFilter() {
+
+        this.filter = uiController.getController().getUser().getFilter();
         setShopEntries(loadEntriesFromModel(filter));
     }
 
@@ -85,6 +88,7 @@ public class ShopPage extends JPanel {
         for (int i = 0; i < entries.length; i++) {
             entries[i] = new ShopGalleryEntry(uiController, products[i]);
             panel.add(entries[i], c);
+            c.gridy++;
             // System.out.println(entries[i].getMaximumSize());
         }
 

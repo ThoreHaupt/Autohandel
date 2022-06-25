@@ -184,6 +184,7 @@ public class User implements Serializable {
         this.model = m;
         filter.setModel(m);
         filter.setUser(this);
+        filter.setDefaultTypeSettings(m.getDefaultTypeSettingsClone());
         cart.setUser(this);
     }
 

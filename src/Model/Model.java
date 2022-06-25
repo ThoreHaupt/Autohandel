@@ -10,12 +10,13 @@ import Controller.Controller;
 import GUI.shopPage.ProductPage;
 import Model.ModelComponentes.Component;
 import Model.ModelComponentes.Product;
-import Model.ModelComponentes.TypeMutation;
 import Model.UserComponentes.Cart;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.Order;
+import Model.UserComponentes.TypeMutation;
 import Model.UserComponentes.User;
 import Model.UserComponentes.UserAuthKey;
+import lib.DataStructures.HashMapImplementation.KeyValuePair;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartEvent;
 import lib.Event.ChangeToCartListener;
@@ -40,7 +41,7 @@ public class Model {
 
     public String sortFor = "";
 
-    THashMap<String, THashMap<String, TypeMutation>> defaulttypeSettings;
+    THashMap<String, THashMap<String, TypeMutation>> defaultTypeSettings;
 
     // immer da
     User guest;
@@ -63,6 +64,7 @@ public class Model {
         loadExistingUserNames();
         loadGivenDatabase();
         loadCostumDatabase(new File("Data/commons/ElectricCarSpreadSheet.csv"));
+        guest.getFilter().pullTypeSettings();
     }
 
     public User getLoggedUser() {
@@ -275,7 +277,8 @@ public class Model {
     }
 
     public void fireFilterChangeEvent(FilterChangeEvent event) {
-        Object[] listeners = UserLoginChangeListenerList.getListenerList();
+        Object[] listeners = filterChangeEventListenerList.getListenerList();
+        System.out.println("Filter changed apperantly");
         for (int i = 0; i < listeners.length; i = i + 2) {
             if (listeners[i] == FilterChangeListener.class) {
                 ((FilterChangeListener) listeners[i + 1]).onFilterChange(event);
@@ -357,7 +360,7 @@ public class Model {
      * This will be the default for every new Creation of a new filter
      */
     private void extrapolateListOfComponentTypes() {
-        defaulttypeSettings = new THashMap<>();
+        defaultTypeSettings = new THashMap<>();
         final String[] classifiedComponentTypes = { Product.TYPE, Product.BRAND };
 
         for (String componentType : classifiedComponentTypes) {
@@ -374,7 +377,7 @@ public class Model {
                 }
                 innerMap.put(classification, new TypeMutation(classification));
             }
-            defaulttypeSettings.put(componentType, innerMap);
+            defaultTypeSettings.put(componentType, innerMap);
         }
     }
 
@@ -429,5 +432,20 @@ public class Model {
             return true;
         }
         return false;
+    }
+
+    public THashMap<String, THashMap<String, TypeMutation>> getDefaultTypeSettingsClone() {
+        THashMap<String, THashMap<String, TypeMutation>> deepClone = new THashMap<>();
+
+        for (KeyValuePair<String, THashMap<String, TypeMutation>> classifiableComponentPair : defaultTypeSettings
+                .asKeyValuePair()) {
+            THashMap<String, TypeMutation> innerMap = new THashMap<>();
+            for (KeyValuePair<String, TypeMutation> typeTypeSettingPair : innerMap.asKeyValuePair()) {
+                innerMap.put(new String(typeTypeSettingPair.key()), typeTypeSettingPair.value().deepClone());
+            }
+            deepClone.put(classifiableComponentPair.key(), innerMap);
+        }
+
+        return defaultTypeSettings;
     }
 }

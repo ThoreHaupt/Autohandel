@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import Model.Model;
 import Model.ModelComponentes.Product;
-import Model.ModelComponentes.TypeMutation;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.FilterChangeEvent;
 import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
@@ -12,7 +11,12 @@ import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 public class Filter implements Serializable {
     transient User owner;
     transient Model model;
-    transient THashMap<String, THashMap<String, TypeMutation>> typeSettings = new THashMap<>();
+    transient THashMap<String, THashMap<String, TypeMutation>> typeSettings;
+    public final static THashMap<String, String> typeBrandTitleTable = new THashMap<>();
+
+    static {
+        initLookUpTable();
+    }
 
     SpendingrangeIntervall spendingRange = new SpendingrangeIntervall(5000, 60000);
 
@@ -29,14 +33,25 @@ public class Filter implements Serializable {
     public Filter(User owner) {
         this.owner = owner;
         this.model = owner.getModel();
+
+    }
+
+    public void pullTypeSettings() {
+        this.typeSettings = model.getDefaultTypeSettingsClone();
+        for (THashMap<String, TypeMutation> componentClass : typeSettings) {
+            for (TypeMutation typeMutation : componentClass) {
+                typeMutation.setFilter(this);
+            }
+        }
+    }
+
+    private static void initLookUpTable() {
+        typeBrandTitleTable.put(Product.BRAND, "Brand: ");
+        typeBrandTitleTable.put(Product.TYPE, "Type: ");
     }
 
     public User getUser() {
         return owner;
-    }
-
-    public void getTypeMutationsFromModel() {
-
     }
 
     public void setMaxBudget(int i) {
@@ -50,16 +65,6 @@ public class Filter implements Serializable {
 
     private void fireChangeToFilterEvent(FilterChangeEvent event) {
         model.fireFilterChangeEvent(new FilterChangeEvent(this));
-    }
-
-    public void setICE(boolean stateChange) {
-        electric = stateChange;
-        fireChangeToFilterEvent(new FilterChangeEvent(this));
-    }
-
-    public void setElectro(boolean b) {
-        this.ice = b;
-        fireChangeToFilterEvent(new FilterChangeEvent(this));
     }
 
     public void setFilterMaxSpending(boolean selected) {
@@ -85,14 +90,6 @@ public class Filter implements Serializable {
         return this.spendingRange;
     }
 
-    public boolean getICE() {
-        return this.ice;
-    }
-
-    public boolean getElectro() {
-        return this.electric;
-    }
-
     public void setModel(Model m) {
         this.model = m;
     }
@@ -102,13 +99,18 @@ public class Filter implements Serializable {
     }
 
     public String getTitleByType(String type) {
-        return null;
+        return typeBrandTitleTable.get(type);
     }
 
-    public TypeMutation[] getTypeMutations(String type) {
-        return new TypeMutation[0];
+    public THashMap<String, TypeMutation> getTypeMutations(String type) {
+        return typeSettings.get(type);
     }
 
+    /**
+     * returns true, if the product is allowed in this filter. Otherwise this will be false
+     * @param product
+     * @return
+     */
     public boolean isEgliable(Product product) {
         double price = product.getPrice();
         if (maximumBudget != -1) {
@@ -129,5 +131,13 @@ public class Filter implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public void setDefaultTypeSettings(THashMap<String, THashMap<String, TypeMutation>> defaultTypeSettings) {
+        this.typeSettings = defaultTypeSettings;
+    }
+
+    public void fireFilterChange() {
+        model.fireFilterChangeEvent(new FilterChangeEvent(this));
     }
 }

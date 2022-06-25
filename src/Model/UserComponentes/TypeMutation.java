@@ -1,4 +1,4 @@
-package Model.ModelComponentes;
+package Model.UserComponentes;
 
 import java.io.Serializable;
 
@@ -14,22 +14,36 @@ public class TypeMutation implements Serializable {
     String name;
     boolean selected = true;
 
+    Filter filter;
+
     // Different Types:
 
     public TypeMutation(String name) {
         this.name = name;
     }
 
-    public Icon getName() {
-        return null;
+    public String getName() {
+        return name;
     }
 
     public void setCurrentStatus(boolean selected) {
+        boolean old = this.selected;
         this.selected = selected;
+        if (old != selected) {
+            filter.fireFilterChange();
+        }
     }
 
     public boolean isSelected() {
         return selected;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+
+    public TypeMutation deepClone() {
+        return new TypeMutation(this.name);
     }
 
 }

@@ -129,11 +129,21 @@ public class Product {
     }
 
     public String getType() {
-        return null;
+        Component typeComponent = dataMap.get(TYPE);
+        if (typeComponent != null) {
+            return typeComponent.getValue();
+        } else {
+            return null;
+        }
     }
 
     public String getBrand() {
-        return null;
+        Component brandComponent = dataMap.get(BRAND);
+        if (brandComponent != null) {
+            return brandComponent.getValue();
+        } else {
+            return null;
+        }
     }
 
     public THashMap<String, Component> getDataMap() {

@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import Controller.Controller;
 import GUI.UIController;
+import Model.ModelComponentes.Product;
 import Model.UserComponentes.Filter;
 import lib.Other.SupportingCalculations;
 import lib.uiComponents.MLCheckBox;
@@ -147,24 +148,9 @@ public class FilterPage extends JPanel {
         c.weightx = 0.9;
         c.gridwidth = 2;
 
-        // Engine Filter checkboxes
-        JPanel checkBoxPanel = new JPanel();
-        checkBoxPanel.setLayout(new GridLayout(1, 2));
+        JPanel typeFilter = new TypeSelectorList(uiController, currentFilter, Product.TYPE);
 
-        // electro Engine
-        MLCheckBox electro = new MLCheckBox(uiController,
-                "Electric");
-        electro.setSelected(currentFilter.getElectro());
-        electro.addItemListener(e -> currentFilter.setElectro(((MLCheckBox) e.getSource()).isSelected()));
-        checkBoxPanel.add(electro, 0);
-
-        // ice Engine
-        MLCheckBox ICE = new MLCheckBox(uiController,
-                "Internal Combustion");
-        ICE.setSelected(currentFilter.getICE());
-        ICE.addItemListener(e -> currentFilter.setICE(((MLCheckBox) e.getSource()).isSelected()));
-        checkBoxPanel.add(ICE, 1);
-        panel.add(checkBoxPanel, c);
+        panel.add(typeFilter, c);
 
         // Brands
 
@@ -173,7 +159,7 @@ public class FilterPage extends JPanel {
         c.weightx = 0.9;
         c.gridwidth = 2;
 
-        JPanel brandFilter = new TypeSelectorList(uiController, currentFilter, "Brands:");
+        JPanel brandFilter = new TypeSelectorList(uiController, currentFilter, Product.BRAND);
 
         panel.add(brandFilter, c);
 

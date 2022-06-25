@@ -116,6 +116,10 @@ public class ShopEntryContent extends JPanel {
         panel.setPreferredSize(new Dimension(200, 100));
         usedWidth += 200;
 
+        if (!product.hasPrice()) {
+            return panel;
+        }
+
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -157,7 +161,7 @@ public class ShopEntryContent extends JPanel {
         c.gridy++;
 
         //build add to cart Area
-        if (withButton && product.hasPrice()) {
+        if (withButton) {
             c.gridx = 1;
             c.gridwidth = 1;
             MLButton addToCart = new MLButton(uiController, "AddToCart");
