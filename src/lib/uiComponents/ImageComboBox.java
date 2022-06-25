@@ -58,13 +58,16 @@ public class ImageComboBox extends JComboBox<ImageIcon> {
 
             @Override
             protected JButton createArrowButton() {
-                return new JButton() {
+
+                JButton b = new JButton() {
 
                     @Override
                     public int getWidth() {
                         return 0;
                     }
                 };
+                b.setBackground(uiController.getDefaultBackgroundcolor());
+                return b;
             }
         });
         this.remove(this.getComponent(0));

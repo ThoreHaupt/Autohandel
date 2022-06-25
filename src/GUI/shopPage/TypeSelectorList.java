@@ -9,42 +9,42 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import GUI.UIController;
+import Model.ModelComponentes.TypeMutation;
 import Model.UserComponentes.Filter;
 import Model.UserComponentes.UserBrandSettings;
 import lib.uiComponents.MLLabel;
 
-public class BrandsSelectorList extends JPanel {
+public class TypeSelectorList extends JPanel {
     UIController uiController;
 
-    public BrandsSelectorList(UIController uiController, Filter filter) {
+    public TypeSelectorList(UIController uiController, Filter filter, String type) {
         this.uiController = uiController;
 
         this.setLayout(new BorderLayout());
         //Title
-        JPanel titlePanel = buildBrandTitle();
+        JPanel titlePanel = buildTypeTitle(filter.getTitleByType(type));
         add(titlePanel, BorderLayout.NORTH);
         // BrandPanel:
-        JPanel brandPanel = buildBrandPanel(filter.getBrands());
+        JPanel brandPanel = buildTypeSelectionPanel(filter.getTypeMutations(type));
         add(brandPanel, BorderLayout.CENTER);
-
     }
 
-    private JPanel buildBrandTitle() {
+    private JPanel buildTypeTitle(String titleString) {
         JPanel panel = new JPanel();
-        MLLabel title = new MLLabel(uiController, "Brands:");
+        MLLabel title = new MLLabel(uiController, titleString);
         title.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
         return panel;
     }
 
-    private JPanel buildBrandPanel(UserBrandSettings[] brands) {
+    private JPanel buildTypeSelectionPanel(TypeMutation[] types) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        for (int i = 0; i < brands.length; i++) {
-            JCheckBox box = new JCheckBox(brands[i].getName());
+        for (int i = 0; i < types.length; i++) {
+            JCheckBox box = new JCheckBox(types[i].getName());
             box.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 10));
-            UserBrandSettings currentBrand = brands[i];
-            box.addChangeListener(e -> currentBrand.setCurrentStatus(((JCheckBox) e.getSource()).isSelected()));
+            TypeMutation currentType = types[i];
+            box.addChangeListener(e -> currentType.setCurrentStatus(((JCheckBox) e.getSource()).isSelected()));
         }
 
         return panel;

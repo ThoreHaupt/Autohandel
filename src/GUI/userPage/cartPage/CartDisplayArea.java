@@ -94,11 +94,11 @@ public class CartDisplayArea extends JPanel {
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
                     width, 1)), c);
             c.gridy++;
-
+            c.anchor = GridBagConstraints.WEST;
             sortSelector = new MLsortSelector(uiController);
 
             panel.add(sortSelector, c);
-
+            c.anchor = GridBagConstraints.CENTER;
             c.gridy++;
 
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(

@@ -27,6 +27,7 @@ public class IRButton extends ImageButton {
      */
     private ImageIcon[] getImageArrayList(String[] imagePaths, Dimension n) {
         ImageIcon[] arr = new ImageIcon[imagePaths.length];
+        imageCount = imagePaths.length;
         for (int i = 0; i < arr.length; i++) {
             arr[i] = new ImageIcon(imagePaths[i]);
         }

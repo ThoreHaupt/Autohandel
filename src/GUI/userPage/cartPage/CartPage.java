@@ -167,7 +167,7 @@ public class CartPage extends JPanel {
         JLabel priceLabel = new JLabel();
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
         priceLabel.setPreferredSize(new Dimension(100, 100));
-        priceLabel.setText("0");
+        priceLabel.setText(cart.getTotalPrice() + "");
         controller.addChangeToCartListener(e -> priceLabel.setText(((Cart) e.getSource()).getTotalPrice() + ""));
         panel.add(priceLabel, c);
 

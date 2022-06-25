@@ -65,7 +65,7 @@ public class ShopPage extends JPanel {
     public JPanel loadEntriesFromModel(Filter filter) {
         JPanel panel = new JPanel();
 
-        Product[] products = uiController.getController().getOptions(filter);
+        Product[] products = uiController.getController().getFilteredProducts(filter);
         entries = new ShopGalleryEntry[products.length];
         panel.setBorder(BorderFactory.createEmptyBorder());
 

@@ -1,7 +1,7 @@
 package LocalizationLogic;
 
 public enum Language {
-    ENGLISH(0, "English", "resources/GUI_images/IconUS_transparent.png)"),
+    ENGLISH(0, "English", "resources/GUI_images/IconUS_transparent.png"),
     GERMAN(1, "German", "resources/GUI_images/IconGer_transparent.png");
 
     private int index;

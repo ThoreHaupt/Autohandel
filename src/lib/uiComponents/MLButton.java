@@ -46,4 +46,8 @@ public class MLButton extends JButton {
         revalidate();
     }
 
+    /* public void setActive(boolean b) {
+        setActive(b);
+    } */
+
 }

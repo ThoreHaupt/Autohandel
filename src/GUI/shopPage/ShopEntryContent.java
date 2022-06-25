@@ -2,6 +2,7 @@ package GUI.shopPage;
 
 import javax.swing.*;
 
+import Controller.Controller;
 import GUI.UIController;
 
 import java.awt.*;
@@ -15,6 +16,7 @@ import lib.uiComponents.rigitFreeSpace;
 public class ShopEntryContent extends JPanel {
     private Product product;
     private UIController uiController;
+    private Controller controller;
     private Window window;
     private int optimalWidth;
     private int usedWidth = 0;
@@ -27,6 +29,7 @@ public class ShopEntryContent extends JPanel {
     public ShopEntryContent(UIController uiController, Product product, boolean isGalary) {
         this.product = product;
         this.uiController = uiController;
+        this.controller = uiController.getController();
         window = uiController.getWindow();
         this.isGallery = isGalary;
         this.setBackground(new Color(255, 255, 255));
@@ -122,14 +125,20 @@ public class ShopEntryContent extends JPanel {
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.HORIZONTAL;
 
-        priceLabel = new JLabel(product.getPriceString() + " €");
+        // build the price Display Area
+        priceLabel = new JLabel(product.getPriceString());
         priceLabel.setFont(uiController.getDefaultFont().deriveFont(Font.BOLD, 20));
-        priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice()));
+        if (product.hasPrice())
+            priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice()));
         // reset Color, when the filter changes -> eg new Spending maximum, or when the user buys something, so the budget changes
-        uiController.getController().addChangeToCartListener(
-                e -> priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice())));
-        uiController.getController().getModel().addFilterChangeListener(
-                e -> priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice())));
+        if (product.hasPrice())
+            uiController.getController().addChangeToCartListener(
+                    e -> priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice())));
+        if (product.hasPrice())
+            uiController.getController().getModel().addFilterChangeListener(
+                    e -> {
+                        priceLabel.setForeground(uiController.getPriceBasedOnBudgetColor(product.getPrice()));
+                    });
         panel.add(priceLabel, c);
 
         c.gridy++;
@@ -140,13 +149,15 @@ public class ShopEntryContent extends JPanel {
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.CENTER;
 
+        // the incl Value added Tax label
         MLLabel otherText = new MLLabel(this.uiController, "incl MwStr.");
         otherText.setPreferredSize(new Dimension(30, 20));
         panel.add(otherText, c);
 
         c.gridy++;
 
-        if (withButton) {
+        //build add to cart Area
+        if (withButton && product.hasPrice()) {
             c.gridx = 1;
             c.gridwidth = 1;
             MLButton addToCart = new MLButton(uiController, "AddToCart");
@@ -155,9 +166,17 @@ public class ShopEntryContent extends JPanel {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    uiController.getController().addToOrder(product, (int) spinner.getValue());
+                    controller.addToOrder(product, (int) spinner.getValue());
                 }
 
+            });
+
+            controller.getModel().addChangeToCartListener(e -> {
+                if (!controller.getModel().canAffort(product.getPrice() * (int) spinner.getValue())) {
+                    addToCart.setEnabled(false);
+                } else {
+                    addToCart.setEnabled(true);
+                }
             });
 
             addToCart.setBackground(uiController.getDefaultAccentColor());
@@ -168,13 +187,23 @@ public class ShopEntryContent extends JPanel {
             c.gridx = 0;
 
             SpinnerNumberModel sm = new SpinnerNumberModel();
-            sm.setMinimum(0);
+            sm.setMinimum(1);
             spinner.setModel(sm);
             spinner.setValue(1);
             spinner.setPreferredSize(new Dimension(40, 30));
+
+            spinner.addChangeListener(e -> {
+                if (!controller.getModel().canAffort(product.getPrice() * (int) spinner.getValue())) {
+                    addToCart.setEnabled(false);
+                } else {
+                    addToCart.setEnabled(true);
+                }
+            });
+
             panel.add(spinner, c);
         }
         return panel;
+
     }
 
     /**

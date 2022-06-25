@@ -37,7 +37,7 @@ public class TopMenuBar extends JPanel {
         add(createRightSide(), BorderLayout.EAST);
 
         setBackground(uiController.getDefaultBackgroundcolor());
-        setPreferredSize(new Dimension(0, min_Height));
+        setPreferredSize(new Dimension(0, min_Height + 10));
     }
 
     public JPanel createLeftSide() {
@@ -69,28 +69,25 @@ public class TopMenuBar extends JPanel {
         b.addActionListener(e -> uiController.switchTheme());
         panel.add(b);
 
-        panel.add(new ImageButton("resources/GUI_images/basket.png", new ActionListener() {
+        // directs you to the cart
+        ImageButton cartButton = new ImageButton("resources/GUI_images/basket.png",
+                e -> uiController.setWindowContent(UIController.USERPROFILE_PAGE, 0), new Dimension(60, min_Height));
+        cartButton.setBackground(uiController.getDefaultBackgroundcolor());
+        panel.add(cartButton);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                uiController.setWindowContent(UIController.USERPROFILE_PAGE, 0);
-            }
+        // Button that sends you to the User menu / login screen
+        ImageButton userMenuButton = new ImageButton("resources/GUI_images/Sample_User_Icon.png",
+                e -> uiController.getController().UserProfileButtonRequest(), new Dimension(60, min_Height));
+        userMenuButton.setBackground(uiController.getDefaultBackgroundcolor());
+        panel.add(userMenuButton);
 
-        }, new Dimension(60, min_Height)));
-
-        panel.add(new ImageButton("resources/GUI_images/Sample_User_Icon.png", new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                uiController.getController().UserProfileButtonRequest();
-            }
-
-        }, new Dimension(60, min_Height)));
-
+        // lets you select the language
         ImageComboBox lanugageSelection = new ImageComboBox(uiController, Language.getLanuguageImageArray(),
-                e -> controller.setLanguage(((ImageComboBox) e.getSource()).getSelectedIndex()));
+                e -> controller.setLanguage(((ImageComboBox) e.getSource()).getSelectedIndex()),
+                new Dimension(60, min_Height));
         lanugageSelection.setSelectedIndex(controller.lc.getCurrentLanguage().getIndex());
-        panel.add(lanugageSelection, new Dimension(60, min_Height));
+        lanugageSelection.setBackground(uiController.getDefaultBackgroundcolor());
+        panel.add(lanugageSelection);
         return panel;
     }
 

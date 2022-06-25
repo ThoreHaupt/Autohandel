@@ -30,8 +30,7 @@ public class Model {
 
     Controller controller;
 
-    Product[] currentOptions;
-    ArrayList<Product> allAvaliableObjects = new ArrayList<>();
+    ArrayList<Product> allAvaliableProducts = new ArrayList<>();
 
     HashMap<String, UserAuthKey> userAuthKeys;
     boolean lastAuthenticationSucess = false;
@@ -64,12 +63,14 @@ public class Model {
         return currentUser;
     }
 
-    public Product[] getCurrentOptions(Filter filter) {
-        calculteCurrentDisplayList(filter);
-        return currentOptions;
-    }
+    public Product[] getCurrentProductOptions(Filter filter) {
+        ArrayList<Product> egliableProducts = new ArrayList<>();
 
-    private void calculteCurrentDisplayList(Filter filter) {
+        for (int i = 0; i < allAvaliableProducts.size(); i++) {
+
+        }
+
+        return egliableProducts.toArray(new Product[egliableProducts.size()]);
     }
 
     public boolean isCurrentUserGuest() {
@@ -349,7 +350,7 @@ public class Model {
                 if (!splitededData[j].equals(""))
                     map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
             }
-            allAvaliableObjects.add(new Product(map));
+            allAvaliableProducts.add(new Product(map));
         }
     }
 
@@ -364,7 +365,24 @@ public class Model {
                 if (!splitededData[j].equals(""))
                     map.put(splitededDataHeaders[j], new Component(splitededDataHeaders[j], splitededData[j]));
             }
-            allAvaliableObjects.add(new Product(map));
+            allAvaliableProducts.add(new Product(map));
         }
+    }
+
+    public boolean canAffort(double price) {
+        double budget = controller.getCurrentBudget();
+        double usedBudget = controller.getCurrentCartValue() + price;
+
+        if (budget == -1) {
+            return true;
+        }
+        if (budget > usedBudget) {
+            return true;
+        }
+        return false;
+    }
+
+    public Product[] getProductOptions(Filter filter) {
+        return null;
     }
 }

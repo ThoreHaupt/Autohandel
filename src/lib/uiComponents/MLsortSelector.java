@@ -1,5 +1,6 @@
 package lib.uiComponents;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import Controller.Controller;
@@ -22,7 +23,7 @@ public class MLsortSelector extends JPanel {
         Controller controller = uiController.getController();
         this.model = controller.getModel();
         options = model.getSortingOptions();
-        setBackground(new Color(255, 255, 0));
+        buildIRSortSelector();
     }
 
     public void buildIRSortSelector() {
@@ -45,7 +46,8 @@ public class MLsortSelector extends JPanel {
         String[] imagesDirectionSelector = { "resources/GUI_images/SortUpwards.png",
                 "resources/GUI_images/SortDownwards.png" }; // up and down
         irButton = new IRButton(imagesDirectionSelector, n);
-        panel.setBackground(new Color(150, 150, 0));
+        irButton.setBorder(BorderFactory.createEmptyBorder());
+        irButton.setBackground(uiController.getDefaultBackgroundcolor());
         panel.add(irButton);
         return panel;
     }
@@ -53,7 +55,6 @@ public class MLsortSelector extends JPanel {
     public JPanel buildSortQuiteriorSelectionArea() {
         JPanel panel = new JPanel();
         comboBox = new MLComboBox(uiController, options);
-        panel.setBackground(new Color(150, 150, 250));
         panel.add(comboBox);
         return panel;
     }

@@ -51,13 +51,8 @@ public class Controller {
     public void addToCart(Order oder) {
     }
 
-    public Product[] getOptions(Filter filter) {
-        //model.getCarOptions(filter);
-        return new Product[] { new Product("a"), new Product("asdada"), new Product("asdawdawd"),
-                new Product("asd"),
-                new Product(""),
-                new Product("Eadsdawdasdawd<afsdufhlysiufhliyushfliysuhfliyushflidhfgluiyhfl") };
-
+    public Product[] getFilteredProducts(Filter filter) {
+        return model.getCurrentProductOptions(filter);
     }
 
     public User getUser() {

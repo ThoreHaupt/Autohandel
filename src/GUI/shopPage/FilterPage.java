@@ -1,6 +1,8 @@
 package GUI.shopPage;
 
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -74,26 +76,39 @@ public class FilterPage extends JPanel {
         if (currentMaxSpending > 0) {
             mltfMaxSpending.setText(SupportingCalculations.round(currentMaxSpending, 2) + "");
         }
-        mltfMaxSpending.addActionListener(e -> {
-            String text = mltfMaxSpending.getText();
-            System.out.println("change to max Budget Document");
-            if (text.equals("")) {
-                currentFilter.setMaxBudget(-1);
-            } else {
-                int newMaxBudgetRequest = Integer.parseInt(text);
-                if (currentFilter.getUser().getCart().getTotalPrice() <= newMaxBudgetRequest) {
-                    currentFilter.setMaxBudget(newMaxBudgetRequest);
-                } else {
-                    int newMaxBudget = (int) currentFilter.getUser().getCart().getTotalPrice() + 1;
-                    currentFilter.setMaxBudget(newMaxBudget);
-                    mltfMaxSpending.setText(newMaxBudget + "");
-                }
+        mltfMaxSpending.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                System.out.println("fokus");
             }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String text = mltfMaxSpending.getText();
+                System.out.println("change to max Budget Document");
+                if (text.equals("")) {
+                    currentFilter.setMaxBudget(-1);
+                    System.out.println("new max Spending file = -1in filter");
+                } else {
+                    int newMaxBudgetRequest = Integer.parseInt(text);
+                    if (currentFilter.getUser().getCart().getTotalPrice() <= newMaxBudgetRequest) {
+                        currentFilter.setMaxBudget(newMaxBudgetRequest);
+                    } else {
+                        int newMaxBudget = (int) currentFilter.getUser().getCart().getTotalPrice();
+                        currentFilter.setMaxBudget(newMaxBudget);
+                        mltfMaxSpending.setText(newMaxBudget + "");
+                    }
+                }
+
+            }
+
         });
         panel.add(mltfMaxSpending, c);
 
         // use maximum Spending to filter out Entries
-        MLCheckBox checkBox = new MLCheckBox(uiController, "Filter non-affortable Offers");
+        MLCheckBox checkBox = new MLCheckBox(uiController,
+                "Filter non-affortable Offers");
         checkBox.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 10));
         checkBox.setSelected(currentFilter.getFilterNonAffortable());
         checkBox.addItemListener(e -> currentFilter.setFilterMaxSpending(((MLCheckBox) e.getSource()).isSelected()));
@@ -111,7 +126,8 @@ public class FilterPage extends JPanel {
         c.gridy = 2;
         c.weightx = 0.9;
         c.gridwidth = 2;
-        RangeSliderPacket rangeSlider = new RangeSliderPacket(uiController);
+        RangeSliderPacket rangeSlider = new RangeSliderPacket(
+                uiController);
         rangeSlider.setIntervall(currentFilter.getSpendingIntervall());
         rangeSlider.addChangeListener(e -> currentFilter.setSpendingRange(rangeSlider.getIntervall()));
         panel.add(rangeSlider, c);
@@ -136,13 +152,15 @@ public class FilterPage extends JPanel {
         checkBoxPanel.setLayout(new GridLayout(1, 2));
 
         // electro Engine
-        MLCheckBox electro = new MLCheckBox(uiController, "Electric");
+        MLCheckBox electro = new MLCheckBox(uiController,
+                "Electric");
         electro.setSelected(currentFilter.getElectro());
         electro.addItemListener(e -> currentFilter.setElectro(((MLCheckBox) e.getSource()).isSelected()));
         checkBoxPanel.add(electro, 0);
 
         // ice Engine
-        MLCheckBox ICE = new MLCheckBox(uiController, "Internal Combustion");
+        MLCheckBox ICE = new MLCheckBox(uiController,
+                "Internal Combustion");
         ICE.setSelected(currentFilter.getICE());
         ICE.addItemListener(e -> currentFilter.setICE(((MLCheckBox) e.getSource()).isSelected()));
         checkBoxPanel.add(ICE, 1);
@@ -155,7 +173,7 @@ public class FilterPage extends JPanel {
         c.weightx = 0.9;
         c.gridwidth = 2;
 
-        JPanel brandFilter = new BrandsSelectorList(uiController, currentFilter);
+        JPanel brandFilter = new TypeSelectorList(uiController, currentFilter, "Brands:");
 
         panel.add(brandFilter, c);
 

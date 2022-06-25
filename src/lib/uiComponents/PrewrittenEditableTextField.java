@@ -148,4 +148,8 @@ public class PrewrittenEditableTextField extends JPanel implements CustomTextCom
         textField.addActionListener(l);
     }
 
+    public void addFocusListener(FocusListener l) {
+        textField.addFocusListener(l);
+    }
+
 }

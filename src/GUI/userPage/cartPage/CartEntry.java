@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 
 import Controller.Controller;
 import GUI.UIController;
@@ -146,7 +147,22 @@ public class CartEntry extends JButton {
         spinner.setModel(sm);
         spinner.setValue(order.getAmount());
         spinner.setPreferredSize(new Dimension(50, 40));
-        spinner.addChangeListener(e -> order.orderAmountChanged(this, (int) spinner.getValue()));
+        spinner.addChangeListener(e -> {
+            order.orderAmountChanged(this, (int) spinner.getValue());
+            if (!controller.getModel().canAffort(product.getPrice() * ((int) spinner.getValue() + 1))) {
+                spinner.setUI(new BasicSpinnerUI() {
+                    protected Component createNextButton() {
+                        return null;
+                    }
+                });
+                spinner.repaint();
+                spinner.revalidate();
+            } else {
+                spinner.setUI(new BasicSpinnerUI());
+                spinner.repaint();
+                spinner.revalidate();
+            }
+        });
         c.weightx = 0.2;
         panel.add(spinner, c);
 

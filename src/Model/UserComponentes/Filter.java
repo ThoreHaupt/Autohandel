@@ -3,12 +3,15 @@ package Model.UserComponentes;
 import java.io.Serializable;
 
 import Model.Model;
+import Model.ModelComponentes.TypeMutation;
+import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.FilterChangeEvent;
 import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 
 public class Filter implements Serializable {
     transient User owner;
     transient Model model;
+    THashMap<String, TypeMutation> typeSettings = new THashMap<>();
 
     SpendingrangeIntervall spendingRange = new SpendingrangeIntervall(5000, 60000);
 
@@ -22,11 +25,8 @@ public class Filter implements Serializable {
 
     String searchParameterString = "";
 
-    UserBrandSettings[] brands;
-
     public Filter(User owner) {
         this.owner = owner;
-        brands = new UserBrandSettings[0];
         this.model = owner.getModel();
     }
 
@@ -34,11 +34,7 @@ public class Filter implements Serializable {
         return owner;
     }
 
-    public UserBrandSettings[] getBrands() {
-        return brands;
-    }
-
-    public void getBrandsFromModel() {
+    public void getTypeMutationsFromModel() {
 
     }
 
@@ -102,6 +98,14 @@ public class Filter implements Serializable {
 
     public void setUser(User user) {
         this.owner = user;
+    }
+
+    public String getTitleByType(String type) {
+        return null;
+    }
+
+    public TypeMutation[] getTypeMutations(String type) {
+        return new TypeMutation[0];
     }
 
 }
