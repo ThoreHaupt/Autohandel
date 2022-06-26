@@ -9,6 +9,9 @@ import java.awt.event.*;
 import java.util.Arrays;
 import java.awt.*;
 
+/**
+ * custom UI Component that lets you pick an image in a combobox
+ */
 public class ImageComboBox extends JComboBox<ImageIcon> {
     private UIController uiController;
 

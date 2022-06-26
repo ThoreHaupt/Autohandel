@@ -9,7 +9,7 @@ import GUI.UIController;
 import LocalizationLogic.LocalizationController;
 
 /**
- * MultiLanguageButton
+ * MultiLanguageButton that automatically switches its language
  */
 public class MLButton extends JButton {
     UIController uiController;

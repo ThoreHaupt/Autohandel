@@ -9,6 +9,9 @@ import com.formdev.flatlaf.FlatDarkLaf;
 
 import java.awt.*;
 
+/**
+ * A window that opens and displays the progress of some calculation
+ */
 public class LoadingProgressbarFrame extends JFrame {
 
     int progress = 0;

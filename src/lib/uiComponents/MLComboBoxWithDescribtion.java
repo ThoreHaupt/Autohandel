@@ -7,6 +7,9 @@ import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
 import java.awt.*;
 
+/**
+ * This is a MLCombobox but it has a describtion on the left side
+ */
 public class MLComboBoxWithDescribtion extends JPanel implements CustomTextComponent {
     MLLabel label;
     MLComboBox comboBox;

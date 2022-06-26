@@ -5,7 +5,9 @@ import javax.swing.JSlider;
 import lib.uiComponents.technicalUIComponents.RangeSliderUI;
 
 //Folgt dem Tutorial ziemlich genau: https://ernienotes.wordpress.com/2010/12/27/creating-a-java-swing-range-slider/
-
+/**
+ * a JSlider With 2 thumbs, and which marks the distance between
+ */
 public class RangeSlider extends JSlider {
 
     /**

@@ -14,6 +14,9 @@ import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
 import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 import lib.uiComponents.technicalUIComponents.RoundedBorder;
 
+/**
+ * The range Slider but with two text Field next to it which can be used to set the Value and display it also
+ */
 public class RangeSliderPacket extends JPanel {
 
     UIController uiController;

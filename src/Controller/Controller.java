@@ -29,7 +29,10 @@ public class Controller {
     private UIController uiController;
     private Model model;
 
-    public static final boolean downloadImages = true;
+    //Shut of the image import from the internet
+    //======================HERE=========================
+    public static final boolean downloadImages = false;
+    //===================================================
 
     private StartupProperties startProperties;
 

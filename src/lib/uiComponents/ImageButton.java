@@ -7,6 +7,9 @@ import lib.Other.ImageTools;
 import java.awt.event.*;
 import java.awt.*;
 
+/**
+ * Coustom UI Component that is a button, but it is just the image and the border
+ */
 public class ImageButton extends JButton {
     String image_path;
     ImageIcon buttonIcon;
