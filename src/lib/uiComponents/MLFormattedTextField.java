@@ -1,8 +1,6 @@
 package lib.uiComponents;
 
-import java.text.Format;
 import java.text.NumberFormat;
-import java.util.function.Predicate;
 
 import javax.swing.*;
 

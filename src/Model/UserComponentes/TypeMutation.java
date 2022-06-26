@@ -2,8 +2,6 @@ package Model.UserComponentes;
 
 import java.io.Serializable;
 
-import javax.swing.Icon;
-
 /**
  * This class stores the setting to a permutation of a product - type, 
  * like for example EV being a permutation of TYPE

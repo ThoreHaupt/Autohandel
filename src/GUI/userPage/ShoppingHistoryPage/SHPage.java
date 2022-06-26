@@ -1,8 +1,6 @@
 package GUI.userPage.ShoppingHistoryPage;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.plaf.DimensionUIResource;
 
 import Controller.Controller;
 

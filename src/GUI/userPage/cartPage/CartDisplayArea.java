@@ -30,7 +30,6 @@ public class CartDisplayArea extends JPanel {
     Order[] orders;
 
     OrderSetting orderSetting;
-    private boolean isNotUpdate = true;
 
     /**
      * buidlds the JPanel that holds the Cart Entries
@@ -48,7 +47,6 @@ public class CartDisplayArea extends JPanel {
             System.out.println(orderSetting.toString());
             updateCart(orders);
         });
-        isNotUpdate = false;
 
         orderSetting = controller.getDefaultOrderSetting();
 

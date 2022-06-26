@@ -122,6 +122,9 @@ public class Cart implements Serializable {
         fireChangeToCartEvent(new ChangeToCartEvent(this));
     }
 
+    /**
+     * deletes all Orders from the cart and then fires the changeincart Event
+     */
     public void empty() {
         contents.empty();
         fireChangeToCartEvent(new ChangeToCartEvent(this));
@@ -135,6 +138,11 @@ public class Cart implements Serializable {
         return contents.size();
     }
 
+    /**
+     * When the User gets serialized, it can not safe the references to the other components because they wont necessarily exist 
+     * the next time the user gets deserialized. Thus he cant save them and they have to be set "manually" after deserialization
+     * @param m
+     */
     public void initAfterSerialization(Model m) {
         this.model = m;
         this.user = model.getCurrentUser();

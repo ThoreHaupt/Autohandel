@@ -18,17 +18,28 @@ import lib.Event.ChangeToCartListener;
 import lib.Event.NewUserLoginListener;
 import lib.Event.PurchaseEventListener;
 import lib.Other.SupportingCalculations;
+import lib.fileHandling.FileLoader;
 import lib.fileHandling.FileSaver;
 import lib.uiComponents.technicalUIComponents.OrderSetting;
 
 public class Controller {
 
+    // this variable name is short, because it is a really long name and gets called in row quite often
     public LocalizationController lc;
     private UIController uiController;
     private Model model;
 
+    public static final boolean downloadImages = true;
+
+    private StartupProperties startProperties;
+
+    private static final String startupPropertyPath = "Data/commons/startupInfo.ser";
+
+    /**
+     * Initializes all important other controllers, which then intialize all other elements
+     */
     public Controller() {
-        this.lc = new LocalizationController();
+        this.lc = new LocalizationController(this);
         model = new Model(this);
         this.uiController = new UIController(this);
     }
@@ -56,6 +67,47 @@ public class Controller {
         return model.getCurrentProductOptions(filter);
     }
 
+    /**
+     * reads startupproperties from Data, which got it from a file storing /
+     * serializable object which is saved
+     * 
+     */
+    private void loadStartUpInfoFile() {
+        File f = new File(startupPropertyPath);
+        StartupProperties s = null;
+        if (f.exists())
+            try {
+                s = (StartupProperties) FileLoader.loadSerializedObject(f);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        else {
+            startProperties = new StartupProperties();
+            return;
+        }
+        startProperties = s;
+    }
+
+    /**
+     * sets the data to be used on next init
+     */
+    public void setStartUpFile() {
+        startProperties.setLanguage(lc.getCurrentLanguage());
+        startProperties.setLightTheme(uiController.isLightTheme());
+        FileSaver.safeSerializableObject(startupPropertyPath, startProperties, true);
+    }
+
+    /**
+     * gets the start up Properties, if they have not been deserialized yet, the method calls the loadStartUpInfoFile()
+     * @return
+     */
+    public StartupProperties getStartUpInfoFile() {
+        if (startProperties == null) {
+            loadStartUpInfoFile();
+        }
+        return startProperties;
+    }
+
     public User getUser() {
         return model.getLoggedUser();
     }
@@ -64,6 +116,9 @@ public class Controller {
         return lc;
     }
 
+    /**
+     * calcualtes the String that represents the current budget left over
+     */
     public String getCurrentFreeBudget() {
         Filter filter = getCurrentUser().getFilter();
 
@@ -73,6 +128,10 @@ public class Controller {
                 : "unlimited";
     }
 
+    /**
+     * returns if the current Free budget is positive( calculates if you overspend)
+     * @return
+     */
     public boolean isCurrentFreeBudgetPositive() {
         Filter filter = getCurrentUser().getFilter();
 
@@ -167,6 +226,8 @@ public class Controller {
         if (!isCurrentUserGuest()) {
             model.getCurrentUser().logOff();
         }
+
+        setStartUpFile();
 
         uiController.closeWindow();
     }

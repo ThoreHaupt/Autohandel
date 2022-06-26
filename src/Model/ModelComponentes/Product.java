@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import javax.swing.ImageIcon;
 
+import Controller.Controller;
+
 import GUI.shopPage.ProductPage;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Other.ImageTools;
@@ -28,7 +30,7 @@ public class Product implements Serializable {
     ArrayList<ImageIcon> imageInstances = new ArrayList<>();
 
     transient ProductPage productPage;
-    boolean loadImagesFromNet = true;
+    boolean loadImagesFromNet = Controller.downloadImages;
 
     public Product(String string) {
         dataMap = new THashMap<>();

@@ -1,9 +1,6 @@
 package GUI.userPage;
 
-import java.awt.Component;
-
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 import GUI.UIController;
 import GUI.userPage.ShoppingHistoryPage.SHPage;
@@ -11,17 +8,28 @@ import GUI.userPage.cartPage.CartPage;
 import Model.UserComponentes.User;
 import lib.uiComponents.MLTabbedPane;
 
+/**
+ * The page that holds all the User Elements. It is tabbed and has 3 options: The Cart, the shopping history and the User settins(which are only
+ * the logout button unfortunately because I didnt have enought time)
+ */
 public class UserPage extends JPanel {
     UIController uiController;
     User user;
     MLTabbedPane tabbedPane;
 
+    /**
+     * constructs the userPage
+     * @param uiController
+     */
     public UserPage(UIController uiController) {
         this.uiController = uiController;
         this.user = uiController.getController().getCurrentUser();
         buildUserPage();
     }
 
+    /**
+     * builds the user Page. Mostly the tabs 
+     */
     public void buildUserPage() {
         JPanel panel = new JPanel();
 
@@ -52,11 +60,6 @@ public class UserPage extends JPanel {
             }
         }
 
-    }
-
-    private JPanel buildUserSettingPage() {
-        JPanel panel = new JPanel();
-        return panel;
     }
 
     public void setTab(int tab) {

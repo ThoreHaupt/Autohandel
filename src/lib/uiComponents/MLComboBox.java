@@ -1,9 +1,6 @@
 package lib.uiComponents;
 
 import javax.swing.*;
-import javax.swing.text.Document;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 
 import Controller.Controller;
 import GUI.UIController;

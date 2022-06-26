@@ -8,7 +8,6 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import Controller.Controller;
 import GUI.UIController;
 import GUI.topMenuBar.CapableComboBoxEditor;
-import Model.Model;
 
 import java.awt.*;
 import java.awt.event.*;

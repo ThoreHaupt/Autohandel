@@ -1,18 +1,24 @@
 package LocalizationLogic;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
 import javax.swing.event.EventListenerList;
 
+import Controller.Controller;
+import Controller.StartupProperties;
 import lib.Event.LanguageChangeListener;
 import lib.Event.languageChangeEvent;
 import lib.fileHandling.FileLoader;
 import lib.fileHandling.FileSaver;
 
+/**
+ * This controller controlls the language functunality. Although it is a localization Controlelr, it does not 
+ * transfers prices into USD  from Euros which is the money used here
+ */
 public class LocalizationController {
+    Controller controller;
     private Language currentLanguage = Language.ENGLISH;
     HashMap<String, String> languageMap;
     String[] languageToString = new String[] { "en", "ger" };
@@ -21,13 +27,30 @@ public class LocalizationController {
     protected EventListenerList listenerList = new EventListenerList();
 
     /**
-     * 
+     *  constructs the localization controller
      */
-    public LocalizationController() {
+    public LocalizationController(Controller c) {
+        this.controller = c;
         languageMap = new HashMap<>();
         loadLanguage(currentLanguage);
+        setStartUpInfoFileData();
     }
 
+    /**
+     * reads startupproperties from controller, which got it from a file storing /
+     * serializable object which is saved
+     * then this will set the language
+     */
+    private void setStartUpInfoFileData() {
+        StartupProperties startupP = controller.getStartUpInfoFile();
+        currentLanguage = startupP.getLanguage();
+    }
+
+    /**
+     * loads the language txt files
+     * @param l
+     * @return
+     */
     private HashMap<String, String> loadLanguage(Language l) {
         languageMap = new HashMap<>();
         String lanuageCode = languageToString[l.getIndex()];
@@ -96,6 +119,11 @@ public class LocalizationController {
 
     }
 
+    /**
+     * Adds a new Key found in the programm to the language map currently selected.
+     * --> I dont have to copy every String from the Programm into the file, but only replace
+     * @param key
+     */
     private void addKeyToLocalizationFile(String key) {
         /* char[] charArr = key.toCharArray();
         ArrayList<Character> charList = new ArrayList<>(); */
@@ -155,6 +183,10 @@ public class LocalizationController {
         fireLanguageChangeEvent(new languageChangeEvent(this));
     }
 
+    /**
+     * returns an array with all the Languages as useable Strings from the Language enum
+     * @return
+     */
     public static String[] getLanguageStringArray() {
         return (String[]) Arrays.asList(Language.values()).stream().map(e -> e.toString())
                 .collect(Collectors.toList()).toArray(new String[Language.values().length]);

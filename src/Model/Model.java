@@ -136,6 +136,12 @@ public class Model {
 
     }
 
+    /**
+     * logs in the user. For this the model first take the Authorization key, which has the name of the Users serialized Data
+     * then it will load the user data and set the User
+     * @param key
+     * @param password
+     */
     public void logInUser(UserAuthKey key, String password) {
         String userDataFileName = key.getUserProfileDataFileName(password);
         String userDataFilePath = User.USERDATA_STORAGE_PATH + userDataFileName + ".ser";
@@ -153,6 +159,7 @@ public class Model {
 
     /**
      * Sets all the needed parameters and fires the events that need to be called when a new User logs in
+     * if the current guest had any items in the cart they will be added to the new users cart (should, maybe there is a bug)
      * @param user
      */
     private void setUser(User user) {
@@ -332,6 +339,11 @@ public class Model {
         setUser(guest);
     }
 
+    /**
+     * the User will generate a new Authkey and then regenerate a new 
+     * @param username
+     * @param key
+     */
     public void replaceUserAuthKey(String username, UserAuthKey key) {
         userAuthKeys.remove(username);
         userAuthKeys.put(username, key);

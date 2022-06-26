@@ -1,7 +1,6 @@
 package GUI.userPage.UserLoginSignUP;
 
 import javax.swing.JPanel;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import Controller.Controller;
 
@@ -22,6 +21,9 @@ import lib.uiComponents.TextFieldWithDescribtion;
 import lib.uiComponents.rigitFreeSpace;
 import lib.uiComponents.technicalUIComponents.CustomTextComponent;
 
+/**
+ * The pages that holds the UI to create a new User
+ */
 public class UserSignUpPage extends JPanel {
 
     UIController uiController;
@@ -38,6 +40,10 @@ public class UserSignUpPage extends JPanel {
     Dimension fieldBlockSizes = new Dimension(400, 30);
     Dimension preferredPanelSize = new Dimension(600, 300);
 
+    /**
+     * constructor for the sign up page
+     * @param uiController
+     */
     public UserSignUpPage(UIController uiController) {
         this.uiController = uiController;
         this.controller = uiController.getController();
@@ -68,6 +74,10 @@ public class UserSignUpPage extends JPanel {
         add(buildSignUpButton(), c);
     }
 
+    /**
+     * builds the sign up Questions
+     * @return
+     */
     private JPanel buildSimpleUserInputQuestions() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -93,6 +103,10 @@ public class UserSignUpPage extends JPanel {
 
     }
 
+    /**
+     * builds the lower questions of the second block
+     * @return
+     */
     private JPanel buildOtherUserInputQuestions() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -137,6 +151,10 @@ public class UserSignUpPage extends JPanel {
         return panel;
     }
 
+    /**
+     * the sign up button itself
+     * @return
+     */
     private JPanel buildSignUpButton() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -157,6 +175,9 @@ public class UserSignUpPage extends JPanel {
         return panel;
     }
 
+    /** 
+     * gets all the settings from the button and puts them into a HashMap and then creates a new user based on this datamap
+     */
     private void initUserProcess() {
 
         THashMap<String, String> dataMap = new THashMap<String, String>();
@@ -181,6 +202,10 @@ public class UserSignUpPage extends JPanel {
 
     }
 
+    /**
+     * creates the Errorlabel on which to display all the messages for invalid inputs
+     * @return
+     */
     private JPanel createErrorLabel() {
         JPanel panel = new JPanel();
         msg = new MLLabel(uiController, "");
@@ -191,6 +216,10 @@ public class UserSignUpPage extends JPanel {
         return panel;
     }
 
+    /**
+     * sets the error message
+     * @param error
+     */
     private void setErrorMessage(String error) {
         msg.setText(error);
         revalidate();

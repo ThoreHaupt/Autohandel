@@ -10,6 +10,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Controller.Controller;
+import Controller.StartupProperties;
 import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
 import GUI.userPage.ThankYouPage;
@@ -19,6 +20,15 @@ import GUI.userPage.UserLoginSignUP.UserSignUpPage;
 import LocalizationLogic.Language;
 import lib.DataStructures.HashMapImplementation.THashMap;
 
+/**
+ * The uiController manges the entire UI and is also responsible for providing 
+ * standart default uiElements.
+ * It also gets passed around almost all uiElements and has references to the Controller, which in turn has references to the model
+ * This is not the cleanest MVC setup, but for this it is pretty practical, cuz it eleminates the need to write 1000 getters and setters in the
+ * controller and UIcontroller. 
+ * In the case that this programm would use a server client model, the usual MVC architecture could easily be modified, in this setup this is only
+ * paritally possible. Mostly there are the needed starting solutions, but there would still be the need for some change
+ */
 public class UIController {
 
     MainWindow window;
@@ -50,11 +60,16 @@ public class UIController {
     private Color defaultFontColor = null;
     private Color defaultUIcolor = new Color(255, 255, 255);
 
+    /**
+     * The constructor for the uiController initializes alle the major elements of the UI.
+     * firstly ist loads the start up information, which was planed to hold information on the preferred theme settings and so on
+     * @param controller
+     */
     public UIController(Controller controller) {
+        this.controller = controller;
+
         loadStartUpInfoFile();
         setTheme();
-
-        this.controller = controller;
 
         window = new MainWindow(this);
         initializePages();
@@ -89,6 +104,9 @@ public class UIController {
      * 
      */
     private void loadStartUpInfoFile() {
+        StartupProperties startupP = controller.getStartUpInfoFile();
+        lightmode = startupP.isLightTheme();
+
     }
 
     private void setTheme() {
@@ -99,6 +117,9 @@ public class UIController {
         }
     }
 
+    /**
+     * Switches the theme. For that it unforetunately has to rebuild the entire UI
+     */
     public void switchTheme() {
         System.out.println("changig Theme ? idk");
         Language currentLanguage = controller.getCurrentLanguage();
@@ -141,6 +162,10 @@ public class UIController {
         return defaultAccentColor;
     }
 
+    /**
+     * Sets a JPanel as the main panel under the TopMenuBar
+     * @param page
+     */
     public void setMainWindowContent(JPanel page) {
         JPanel mainPanel = window.getMainPane();
         mainPanel.removeAll();
@@ -150,12 +175,21 @@ public class UIController {
         mainPanel.revalidate();
     }
 
+    /**
+    * sets the window content as one of the predefined main window spaces
+    * @param mode
+    */
     public void setWindowContent(String mode) {
         System.out.println("setting to: " + mode);
         currentPage = mode;
         setMainWindowContent(pages.get(mode));
     }
 
+    /**
+     * sets the UserPfofilePage as an index-> selects the correct tab
+     * @param userprofilePage
+     * @param i
+     */
     public void setWindowContent(String userprofilePage, int i) {
         setWindowContent(userprofilePage);
         if (userprofilePage == UIController.USERPROFILE_PAGE) {
@@ -230,12 +264,20 @@ public class UIController {
         return defaultFontColor;
     }
 
+    /**
+     * sets the error message if a login fails
+     * @param string
+     */
     public void displayDeniedLoginMessage(String string) {
         if (currentPage.equals(LOGIN_PAGE)) {
             ((UserLoginPage) pages.get(LOGIN_PAGE)).setErrorMessage(string);
         }
     }
 
+    /**
+     * sets the theme as darktheme on true
+     * @param setDarkTheme
+     */
     public void setDarkTheme(boolean setDarkTheme) {
         if (lightmode == setDarkTheme) {
             switchTheme();
@@ -254,6 +296,9 @@ public class UIController {
         return window.getHeight() - topMenuBarHeight;
     }
 
+    /**
+     * rebuilds the UserPanels (on User Login)
+     */
     public void regenerateUserDefinedPanels() {
         pages = new THashMap<>();
         initializePages();
@@ -261,6 +306,10 @@ public class UIController {
 
     public Color getDefaultRedColor() {
         return defaultRedColor;
+    }
+
+    public boolean isLightTheme() {
+        return lightmode;
     }
 
 }

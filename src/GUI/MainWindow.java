@@ -5,13 +5,14 @@ import javax.swing.event.EventListenerList;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import Controller.Controller;
 import lib.Event.WindowSizeChangeEvent;
 import lib.Event.WindowSizeChangeListener;
 
+/**
+ * This is the main window on which everything is painted
+ */
 public class MainWindow extends JFrame {
     UIController uiController;
     Controller controller;
@@ -20,6 +21,12 @@ public class MainWindow extends JFrame {
 
     protected EventListenerList windowChangeListenerList = new EventListenerList();
 
+    /**
+     * constructs the main window
+     * by default the window maximizes. 
+     * 
+     * @param UIcontroller
+     */
     public MainWindow(UIController UIcontroller) {
 
         this.uiController = UIcontroller;
@@ -30,6 +37,10 @@ public class MainWindow extends JFrame {
         setBasics("CarShop");
     }
 
+    /**
+     * initializes all the important things for the main Pane.
+     * 
+     */
     public void initMainPane() {
         ContentPane = this.getContentPane();
         mainPanel = new JPanel();
@@ -38,6 +49,10 @@ public class MainWindow extends JFrame {
         ContentPane.add(mainPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * sets all the events that the main Window has to fire 
+     * Mostly important on resize and on shutdown
+     */
     private void setEvents() {
         // when someonepresses the maximize Button this event fires
         this.addWindowStateListener(new WindowStateListener() {
@@ -63,6 +78,10 @@ public class MainWindow extends JFrame {
         });
     }
 
+    /**
+     * 
+     * @param listener
+     */
     public void addWindowSizeChangeListener(WindowSizeChangeListener listener) {
         windowChangeListenerList.add(WindowSizeChangeListener.class, listener);
     }
@@ -71,6 +90,12 @@ public class MainWindow extends JFrame {
         windowChangeListenerList.remove(WindowSizeChangeListener.class, listener);
     }
 
+    /**
+     * the Listener that listens to when the window size changes
+     * because there are two listeners which listen to either when someone presses the maximize button or change the window
+     * size by dragging the edge, but this should cause the same action most of the time, so this is what fires when that is the case
+     * @param event
+     */
     void fire_onWindowSizeChange(WindowSizeChangeEvent event) {
         Object[] listeners = windowChangeListenerList.getListenerList();
         for (int i = 0; i < listeners.length; i = i + 2) {
@@ -80,6 +105,12 @@ public class MainWindow extends JFrame {
         }
     }
 
+    /**
+     * sets the basics, like the window title and the window Icon in the taskbar.
+     * Also this sets the window visible
+     * and disables the default close process
+     * @param windowTitle
+     */
     private void setBasics(String windowTitle) {
         this.setTitle(windowTitle);
 
@@ -92,10 +123,5 @@ public class MainWindow extends JFrame {
 
     public JPanel getMainPane() {
         return mainPanel;
-    }
-
-    private Image getImage(String path) {
-        ImageIcon icon = new ImageIcon();
-        return icon.getImage();
     }
 }

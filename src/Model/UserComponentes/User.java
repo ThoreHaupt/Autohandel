@@ -32,7 +32,10 @@ public class User implements Serializable {
     private String email = "";
     private String username = "";
     private String password = "";
+
+    @SuppressWarnings("unused")
     private String birthDay = "";
+
     private ArrayList<Order> history;
     private String first_name = "";
     private String last_name = "";

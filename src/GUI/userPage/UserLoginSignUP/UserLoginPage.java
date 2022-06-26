@@ -29,6 +29,10 @@ public class UserLoginPage extends JPanel {
     Dimension fieldSizes = new Dimension(200, 30);
     Dimension LoginPageActiveFieldSize = new Dimension(600, 300);
 
+    /**
+     * creates the page
+     * @param uiController
+     */
     public UserLoginPage(UIController uiController) {
         this.uiController = uiController;
         this.controller = uiController.getController();
@@ -56,6 +60,10 @@ public class UserLoginPage extends JPanel {
         setPreferredSize(LoginPageActiveFieldSize);
     }
 
+    /**
+     * builds the log in Field with the user and passwort question
+     * @return
+     */
     public JPanel buildLoginField() {
         JPanel panel = new JPanel();
 
@@ -119,6 +127,10 @@ public class UserLoginPage extends JPanel {
         return panel;
     }
 
+    /**
+     * Builds the button someone can press if they do not have an account -> create a new Account
+     * @return
+     */
     private JPanel buildSignUpButton() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -135,12 +147,20 @@ public class UserLoginPage extends JPanel {
         return panel;
     }
 
-    public MLLabel currentlyLogedinLabel() {
+    /**
+     * The label that says that you are loged in as a guest
+     * @return
+     */
+    private MLLabel currentlyLogedinLabel() {
         MLLabel label = new MLLabel(uiController, "You are currently logged in as \"Guest\"");
 
         return label;
     }
 
+    /**
+     * creates the label that can display error messages if you put in an invalid request
+     * @return
+     */
     private JPanel createErrorLabel() {
         JPanel panel = new JPanel();
         errorMessage = new MLLabel(uiController, "");
@@ -151,6 +171,10 @@ public class UserLoginPage extends JPanel {
         return panel;
     }
 
+    /**
+     * sets the text of the error message
+     * @param error
+     */
     public void setErrorMessage(String error) {
         errorMessage.setText(error);
         revalidate();

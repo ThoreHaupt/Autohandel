@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.util.Graphics2DProxy;
 
 import java.awt.*;
 

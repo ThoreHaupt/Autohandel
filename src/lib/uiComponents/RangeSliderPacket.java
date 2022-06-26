@@ -10,7 +10,6 @@ import java.awt.event.*;
 import java.util.Hashtable;
 
 import GUI.UIController;
-import lib.technicalComponents.*;
 import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
 import lib.uiComponents.technicalUIComponents.SpendingrangeIntervall;
 import lib.uiComponents.technicalUIComponents.RoundedBorder;
@@ -141,6 +140,7 @@ public class RangeSliderPacket extends JPanel {
 
     }
 
+    @SuppressWarnings("unused")
     private Hashtable<Integer, JLabel> populateLabelTabel(Hashtable<Integer, JLabel> labelTable) {
         int labelDistance = (labelSpacing * majorTickSpacing);
         int reguilarLabelAmount = (maximalSetting - minimalSetting) / labelDistance + 1;

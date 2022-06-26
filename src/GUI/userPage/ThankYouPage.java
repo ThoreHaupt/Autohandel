@@ -8,22 +8,36 @@ import lib.uiComponents.MLLabel;
 
 import java.awt.*;
 
+/**
+ * gets displayed after making a purchase
+ */
 public class ThankYouPage extends JPanel {
 
     UIController uiController;
     String thankYouTextString = "Thank you for your purchase!";
 
+    /**
+     * constructs the Thank you for your Purchase page
+     * @param uiController
+     */
     public ThankYouPage(UIController uiController) {
         this.uiController = uiController;
         buildThankYouPage();
     }
 
+    /**
+     * combines and adds the different components for the thank you page
+     */
     public void buildThankYouPage() {
         setLayout(new BorderLayout());
         add(buildThankYouText(), BorderLayout.NORTH);
         add(buildContinueShoppingPage(), BorderLayout.SOUTH);
     }
 
+    /**
+     * builds the text sections for the thank you page
+     * @return
+     */
     public JPanel buildThankYouText() {
         JPanel panel = new JPanel();
 
@@ -34,6 +48,10 @@ public class ThankYouPage extends JPanel {
         return panel;
     }
 
+    /**
+     * builds the button that directly brings you back to the shop
+     * @return
+     */
     public JPanel buildContinueShoppingPage() {
         JPanel panel = new JPanel();
 
