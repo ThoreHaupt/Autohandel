@@ -10,10 +10,20 @@ import java.util.Scanner;
 
 public class FileLoader {
 
+    /**
+     * returns an Array of all String lines in a file path
+     * @param file
+     * @return
+     */
     public static String[] getallLinesFromFile(String path) {
         return getallLinesFromFile(new File(path));
     }
 
+    /**
+     * returns an Array of all String lines in a file
+     * @param file
+     * @return
+     */
     public static String[] getallLinesFromFile(File file) {
         ArrayList<String> returnlines = new ArrayList<String>();
         String line;
@@ -38,6 +48,9 @@ public class FileLoader {
         return returnlinesArray;
     }
 
+    /**
+     * returns a serialized Object by its filePath
+     */
     public static Object loadSerializedObject(File file) throws ClassNotFoundException {
 
         try {

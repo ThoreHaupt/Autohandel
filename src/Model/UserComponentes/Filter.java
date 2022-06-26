@@ -36,6 +36,9 @@ public class Filter implements Serializable {
 
     }
 
+    /**
+     * this method gets the default type settings from the model
+     */
     public void pullTypeSettings() {
         this.typeSettings = model.getDefaultTypeSettingsClone();
         for (THashMap<String, TypeMutation> componentClass : typeSettings) {
@@ -45,11 +48,18 @@ public class Filter implements Serializable {
         }
     }
 
+    /**
+     * This initializes the look up table for the Type selection in the filter
+     */
     private static void initLookUpTable() {
         typeBrandTitleTable.put(Product.BRAND, "Brand: ");
         typeBrandTitleTable.put(Product.TYPE, "Type: ");
     }
 
+    /**
+     * returns the user of this cart
+     * @return
+     */
     public User getUser() {
         return owner;
     }
@@ -72,6 +82,10 @@ public class Filter implements Serializable {
         fireChangeToFilterEvent(new FilterChangeEvent(this));
     }
 
+    /**
+     * Sets the range of allowed Items to an intervall
+     * @param intervall
+     */
     public void setSpendingRange(SpendingrangeIntervall intervall) {
         if (intervall.getUpper() == -1) {
             upwardPriceLimit = false;
@@ -86,6 +100,10 @@ public class Filter implements Serializable {
         return filterNonAffortable;
     }
 
+    /**
+     * 
+     * @return
+     */
     public SpendingrangeIntervall getSpendingIntervall() {
         return this.spendingRange;
     }
@@ -102,12 +120,17 @@ public class Filter implements Serializable {
         return typeBrandTitleTable.get(type);
     }
 
+    /**
+     * gets the type settings for a type
+     * @param type
+     * @return
+     */
     public THashMap<String, TypeMutation> getTypeMutations(String type) {
         return typeSettings.get(type);
     }
 
     /**
-     * returns true, if the product is allowed in this filter. Otherwise this will be false
+     * returns true, if the product is allowed passes "through" this filter. Otherwise this will be false
      * @param product
      * @return
      */

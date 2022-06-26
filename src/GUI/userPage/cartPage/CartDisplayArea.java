@@ -16,6 +16,9 @@ import lib.uiComponents.technicalUIComponents.OrderSetting;
 import java.awt.*;
 import java.util.Arrays;
 
+/**
+ * All Items in the Cart
+ */
 public class CartDisplayArea extends JPanel {
 
     UIController uiController;
@@ -30,6 +33,7 @@ public class CartDisplayArea extends JPanel {
     private boolean isNotUpdate = true;
 
     /**
+     * buidlds the JPanel that holds the Cart Entries
      * @param uiController
      * @param width
      */
@@ -58,6 +62,10 @@ public class CartDisplayArea extends JPanel {
         //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
     }
 
+    /**
+     * updates the Contents of the cart based on a new Order or a change to the Orders
+     * @param orders
+     */
     private void updateCart(Order[] orders) {
         this.orders = orders;
         Arrays.sort(orders,
@@ -71,6 +79,10 @@ public class CartDisplayArea extends JPanel {
 
     }
 
+    /**
+     * builds the scrollabale window
+     * @return
+     */
     private JPanel buildScrollableOrderDisplay() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -84,6 +96,9 @@ public class CartDisplayArea extends JPanel {
         return panel;
     }
 
+    /**
+     * Sets preferred Size to this object and to super
+     */
     @Override
     public void setPreferredSize(Dimension preferredSize) {
         this.preferredSize = preferredSize;
@@ -91,6 +106,14 @@ public class CartDisplayArea extends JPanel {
         revalidate();
     }
 
+    /**
+     * builds the back panel for the scrollpane, so all Order Entries are put on this 
+     * JPanel
+     * Also the Sort Selector is on this JPanel
+     * @param orders
+     * @param dimension
+     * @return
+     */
     private JPanel buildOrderCollectionPanel(Order[] orders, Dimension dimension) {
         JPanel panel = new JPanel();
         int width = (int) dimension.getWidth();

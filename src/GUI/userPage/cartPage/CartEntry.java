@@ -19,6 +19,9 @@ import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
 
+/**
+ * Each Entry in the Cart display
+ */
 public class CartEntry extends JButton {
 
     UIController uiController;
@@ -59,12 +62,19 @@ public class CartEntry extends JButton {
         }
     }
 
+    /**
+     * builds the Cart Entry/ puts the two sides together
+     */
     public void buildCartEntry() {
         this.setLayout(new BorderLayout());
         this.add(buildPictureTitleSpace(), BorderLayout.WEST);
         this.add(buildPriceOrderEditSpace(), BorderLayout.EAST);
     }
 
+    /**
+     * builds the picture and the title and the desctibtion of this product
+     * @return
+     */
     public JPanel buildPictureTitleSpace() {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300, 70));
@@ -108,6 +118,10 @@ public class CartEntry extends JButton {
         return panel;
     }
 
+    /**
+     * builds the Price something to change the amount of one order and the opportunity to cancel the entire order
+     * @return
+     */
     public JPanel buildPriceOrderEditSpace() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());

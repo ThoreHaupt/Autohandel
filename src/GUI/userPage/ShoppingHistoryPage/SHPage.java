@@ -13,6 +13,9 @@ import Model.UserComponentes.User;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
+/**
+ * Combindes the EntryDisplayArea and the title mostly
+ */
 public class SHPage extends JPanel {
     UIController uiController;
     Controller controller;
@@ -23,6 +26,11 @@ public class SHPage extends JPanel {
     Dimension priceAreaSize = new Dimension();
     int heightDelta;
 
+    /**
+     * creates a new Shopping page
+     * @param uiController
+     * @param heightDelta
+     */
     public SHPage(UIController uiController, int heightDelta) {
         this.uiController = uiController;
         this.controller = uiController.getController();
@@ -35,14 +43,24 @@ public class SHPage extends JPanel {
         controller.addNewUserLoginListener(e -> reloadSH());
     }
 
+    /**
+     * When no user is logged in (/guest) then the user cant see any history, so he sees this
+     */
     private void buildDeactivePage() {
         add(new MLLabel(uiController, "please log in to see your shopping history!"));
     }
 
+    /**
+     * builds a new Shopping Histroy Page with a delataHight of 0 which means that it fills the entire screen
+     * @param uiController
+     */
     public SHPage(UIController uiController) {
         this(uiController, 0);
     }
 
+    /**
+     * rebuilds after update
+     */
     public void rebuildSH() {
         removeAll();
         buildSHPage();
@@ -50,11 +68,17 @@ public class SHPage extends JPanel {
         repaint();
     }
 
+    /**
+     * reloads after the user changes for example
+     */
     public void reloadSH() {
         user = controller.getUser();
         rebuildSH();
     }
 
+    /**
+     * builds the Actual Panel, pulling all the components together from this package basically
+     */
     public void buildSHPage() {
 
         if (user.isGuest()) {
@@ -107,6 +131,10 @@ public class SHPage extends JPanel {
         return new Dimension(displayWidth, displayHeight);
     }
 
+    /**
+     * builds the title
+     * @return
+     */
     private JPanel buildTitleArea() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());

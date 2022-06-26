@@ -7,13 +7,17 @@ import Model.ModelComponentes.Product;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
-import java.awt.event.*;
 
 public class ShopGalleryEntry extends JPanel {
     ProductPage productPage;
     UIController uiController;
     ShopEntryContent contents;
 
+    /**
+     * builds the galary Entry for the ShopPage
+     * @param uiController
+     * @param product
+     */
     public ShopGalleryEntry(UIController uiController, Product product) {
         this.setLayout(new BorderLayout());
         this.uiController = uiController;

@@ -1,10 +1,8 @@
 package GUI;
 
 import java.awt.Color;
-import java.util.HashMap;
 
 import javax.swing.*;
-import javax.swing.plaf.synth.SynthScrollBarUI;
 
 import java.awt.*;
 
@@ -12,7 +10,6 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import Controller.Controller;
-import GUI.configurator.Configurator;
 import GUI.shopPage.ShopPage;
 import GUI.topMenuBar.TopMenuBar;
 import GUI.userPage.ThankYouPage;
@@ -75,7 +72,6 @@ public class UIController {
     private void initializePages() {
         pages.put(MAINSTORE_PAGE, new ShopPage(this));
         //pages.put(CART_PAGE, new CartPage(this));
-        pages.put(CONFIGURATOR_PAGE, new Configurator(this));
 
         pages.put(USERPROFILE_PAGE, new UserPage(this));
         pages.put(SIGNUP_PAGE, new UserSignUpPage(this));

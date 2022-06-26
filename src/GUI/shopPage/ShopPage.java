@@ -25,7 +25,7 @@ public class ShopPage extends JPanel {
     ShopGalleryEntry[] entries;
 
     /**
-     * 
+     * creates a new Shop Page
      */
     public ShopPage(UIController uiController) {
         this.uiController = uiController;
@@ -35,16 +35,27 @@ public class ShopPage extends JPanel {
         model.addFilterChangeListener(e -> setEntriesWithCurrentFilter());
     }
 
+    /**
+     * creates and adds the Side manager, which provides the button to extend the left Filter thingy
+     */
     public void createShopPage() {
         this.sideMenuManager = new PageSideHideMenu(createMainPage(), createSideMenu(), sideMenuSize);
         add(sideMenuManager);
     }
 
+    /**
+     * creates the maon panel on which the main Shop Galary Page is rendered
+     * @return
+     */
     public JPanel createMainPage() {
         mainPanel = new JPanel();
         return mainPanel;
     }
 
+    /**
+     * resets all the Entrys to the Shop by removing everything from the main shop panel and then adding the new one on top
+     * @param EntryPanel
+     */
     public void setShopEntries(JPanel EntryPanel) {
         mainPanel.removeAll();
         mainPanel.add(EntryPanel);
@@ -55,6 +66,7 @@ public class ShopPage extends JPanel {
     /**
      * default case when startup for example
      * Also When Filters are applied inside the UI and not being loaded externally through 
+     * Updates Filter first, then realoads the JPanel
      * {@code setShopEntries(loadEntriesFromModel(someLoadedFilters))}
      */
     public void setEntriesWithCurrentFilter() {
@@ -62,10 +74,21 @@ public class ShopPage extends JPanel {
         setShopEntries(loadEntriesFromModel(filter));
     }
 
+    /**
+     * creates the filter page and returns it. It is in an extra method, so that this is clean
+     * @return
+     */
     public JPanel createSideMenu() {
         return new FilterPage(uiController);
     }
 
+    /**
+     * this loads all the Galary entries from the model and puts them on the JPanel.
+     * This only works once for some reason, but it only puts 20 Entries on the panel and then loads the rest,
+     * when the scroller is near the end
+     * @param filter
+     * @return
+     */
     public JPanel loadEntriesFromModel(Filter filter) {
         JPanel panel = new JPanel();
 
@@ -129,6 +152,11 @@ public class ShopPage extends JPanel {
         return returnJPanel;
     }
 
+    /**
+     * Calculates the right size for the Shop Entries, because  they are on a JScroll Pane and the JScrollPane needs to be told its size, 
+     * otherwise it doesnt work
+     * @return
+     */
     public Dimension calculateOptimalShopMainPageSize() {
         MainWindow window = uiController.getWindow();
         return new Dimension(
@@ -137,16 +165,20 @@ public class ShopPage extends JPanel {
 
     }
 
-    public void setFilter(Filter filter) {
-        if (this.filter.getUser().getUserFirstName().equals("Guest")) {
-
-        }
-    }
-
+    /**
+     * Calculates the correct width of the main panel on the Screen
+     * @return
+     */
     public int getCurrentShopPageWidthWidth() {
         return (int) uiController.getWindow().getWidth() - ((sideMenuManager.isExtended()) ? sideMenuSize + 60 : 60);
     }
 
+    /**
+     * adds more entries on the main panel. However there is a bug which causes it to only work once.
+     * @param scrollPane the scrollpane
+     * @param panel the panel
+     * @param c the constriants
+     */
     public void addMoreEntries(JScrollPane scrollPane, JPanel panel, GridBagConstraints c) {
         System.out.println();
         if (currentMaxIndex == products.length - 1)

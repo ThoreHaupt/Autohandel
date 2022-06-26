@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 
+/**
+ * This is for the Search bar, which is theoratically useable in the top menu Bar. However I did not have time to fix some bugs and to actually
+ * implement the search algorythm, so I commented it out.
+ */
 public class CapableComboBoxEditor implements ComboBoxEditor {
 
     JTextField item;

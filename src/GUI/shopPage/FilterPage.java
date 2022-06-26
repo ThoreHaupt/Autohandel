@@ -18,11 +18,18 @@ import lib.uiComponents.RangeSliderPacket;
 import lib.uiComponents.technicalUIComponents.DocumentNumberFilter;
 import lib.uiComponents.PrewrittenEditableTextField;
 
+/**
+ * The filter page has options to filter which kinds of products you would like to display in the galary
+ */
 public class FilterPage extends JPanel {
     UIController uiController;
     Controller controller;
     Filter currentFilter;
 
+    /**
+     * creates a new Filter Page
+     * @param uiController
+     */
     public FilterPage(UIController uiController) {
         this.uiController = uiController;
         this.controller = uiController.getController();
@@ -31,6 +38,9 @@ public class FilterPage extends JPanel {
         controller.addNewUserLoginListener(e -> updateFilterPage());
     }
 
+    /**
+     * Updates the filter page to use the current selection
+     */
     private void updateFilterPage() {
         removeAll();
         currentFilter = controller.getCurrentUser().getFilter();
@@ -39,6 +49,10 @@ public class FilterPage extends JPanel {
         repaint();
     }
 
+    /**
+     * builds the actual thing
+     * @return
+     */
     private JPanel buildFilterPage() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -47,6 +61,10 @@ public class FilterPage extends JPanel {
         return panel;
     }
 
+    /**
+     * Builds the north part, which consists of The title
+     * @return
+     */
     private JPanel buildNorthFilterPage() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -57,6 +75,10 @@ public class FilterPage extends JPanel {
         return panel;
     }
 
+    /**
+     * builds the center part, which holds the Price Range Slider and the buttons to select all the types avaliable
+     * @return
+     */
     private JPanel buildCenterFilterPage() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());

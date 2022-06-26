@@ -11,6 +11,9 @@ import GUI.UIController;
 import LocalizationLogic.Language;
 import lib.uiComponents.*;
 
+/**
+ * the Top Menu bar has some buttons to navigate through the whole programm
+ */
 public class TopMenuBar extends JPanel {
 
     Controller controller;
@@ -21,7 +24,7 @@ public class TopMenuBar extends JPanel {
     int componentWidth = 0;
 
     /**
-     * 
+     * This is the top menu bar with important navigational buttons.
      */
     public TopMenuBar(UIController uiController, Dimension dim) {
         super(new FlowLayout());
@@ -32,7 +35,7 @@ public class TopMenuBar extends JPanel {
 
         setLayout(new BorderLayout());
 
-        //add(createMiddelSide(), BorderLayout.CENTER);
+        add(createMiddelSide(), BorderLayout.CENTER);
         add(createLeftSide(), BorderLayout.WEST);
         add(createRightSide(), BorderLayout.EAST);
 
@@ -40,6 +43,10 @@ public class TopMenuBar extends JPanel {
         setPreferredSize(new Dimension(0, min_Height + 10));
     }
 
+    /**
+     * Builds the buttons on the left side of the MEnu bar
+     * @return
+     */
     public JPanel createLeftSide() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -56,12 +63,19 @@ public class TopMenuBar extends JPanel {
         return panel;
     }
 
+    /** 
+     * this creates the Panel for the center piece of the menu bar.
+     */
     public JPanel createMiddelSide() {
         JPanel panel = new JPanel();
-        panel.add(new Searchbar(controller, uiController));
+        //panel.add(new Searchbar(controller, uiController));
         return panel;
     }
 
+    /**
+     * this builds the buttons for the right side of the menu bar
+     * @return
+     */
     public JPanel createRightSide() {
         JPanel panel = new JPanel();
 

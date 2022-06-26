@@ -28,6 +28,7 @@ public class Product implements Serializable {
     ArrayList<ImageIcon> imageInstances = new ArrayList<>();
 
     transient ProductPage productPage;
+    boolean loadImagesFromNet = true;
 
     public Product(String string) {
         dataMap = new THashMap<>();
@@ -86,8 +87,11 @@ public class Product implements Serializable {
         if (!dataMap.containsKey(IMAGE))
             path = ImageTools.defaultNoImagePath;
         else {
-            //path = dataMap.get(IMAGE).getValue();
-            path = ImageTools.defaultNoImagePath;
+            if (loadImagesFromNet) {
+                path = dataMap.get(IMAGE).getValue();
+            } else {
+                path = ImageTools.defaultNoImagePath;
+            }
         }
         imageInstances.add(i, ImageTools.getIconFromAnyLocation(path));
     }

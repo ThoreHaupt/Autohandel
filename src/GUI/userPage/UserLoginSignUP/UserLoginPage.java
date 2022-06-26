@@ -16,6 +16,9 @@ import lib.uiComponents.PasswordFieldWithDescribtion;
 import lib.uiComponents.TextFieldWithDescribtion;
 import lib.uiComponents.rigitFreeSpace;
 
+/**
+ * This is a Login Page to log into an account. It gets displayed, when no user is logged in.
+ */
 public class UserLoginPage extends JPanel {
     UIController uiController;
     Controller controller;

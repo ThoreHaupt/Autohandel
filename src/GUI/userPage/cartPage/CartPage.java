@@ -16,6 +16,9 @@ import lib.uiComponents.MLButton;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
+/**
+ * The cart page
+ */
 public class CartPage extends JPanel {
     UIController uiController;
     Controller controller;
@@ -32,6 +35,11 @@ public class CartPage extends JPanel {
     JPanel pricePayArea;
     JPanel adSpace;
 
+    /**
+     * sets all intance Variables and returns a new CartPage
+     * @param uiController
+     * @param heightDelta the amount to make the whole thing smaller so that it fits on the screen nicely
+     */
     public CartPage(UIController uiController, int heightDelta) {
         this.uiController = uiController;
         this.controller = uiController.getController();
@@ -44,10 +52,17 @@ public class CartPage extends JPanel {
         controller.addNewUserLoginListener(e -> reloadCart());
     }
 
+    /**
+     * a Cart Page with a hight Delta of 0.
+     * @param uiController
+     */
     public CartPage(UIController uiController) {
         this(uiController, 0);
     }
 
+    /**
+     * rebuilds the cart, when there was a change in order
+     */
     public void rebuildCart() {
         removeAll();
         buildCartPage();
@@ -55,11 +70,17 @@ public class CartPage extends JPanel {
         repaint();
     }
 
+    /**
+     * reloads the cart / sets the new cart and then rebuilds the cart
+     */
     public void reloadCart() {
         cart = controller.getUser().getCart();
         rebuildCart();
     }
 
+    /**
+     * builds the cart Page / puts all the regions together you know the drill
+     */
     public void buildCartPage() {
         cart = controller.getUser().getCart();
         setLayout(new GridBagLayout());
@@ -126,6 +147,10 @@ public class CartPage extends JPanel {
         return new Dimension(buttonPriceWidth, buttonPriceHeight);
     }
 
+    /**
+     * builds the area that holds the cart title
+     * @return
+     */
     private JPanel buildTitleArea() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -151,6 +176,10 @@ public class CartPage extends JPanel {
         return panel;
     }
 
+    /**
+     * builds the area that has the buttons used to buy, export or clear the cart
+     * @return
+     */
     private JPanel buildPricePaySaveArea() {
         JPanel panel = new JPanel();
 

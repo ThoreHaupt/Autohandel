@@ -2,20 +2,20 @@ package GUI.userPage.ShoppingHistoryPage;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import Controller.Controller;
 import GUI.UIController;
-import Model.UserComponentes.Cart;
 import Model.UserComponentes.Order;
 import Model.UserComponentes.User;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
-import java.util.DuplicateFormatFlagsException;
 
+/**
+ * This displays all the purchases ever made in a list like the Cart
+ */
 public class SHDisplayArea extends JPanel {
 
     UIController uiController;
@@ -25,6 +25,7 @@ public class SHDisplayArea extends JPanel {
     JPanel backPanel;
 
     /**
+     * The Area that displays all the purchases
      * @param uiController
      * @param width
      */
@@ -42,6 +43,10 @@ public class SHDisplayArea extends JPanel {
         //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
     }
 
+    /**
+     * updates the Component
+     * @param orders
+     */
     private void updateSH(Order[] orders) {
         backPanel = buildScrollableOrderDisplay(orders);
         removeAll();
@@ -50,6 +55,9 @@ public class SHDisplayArea extends JPanel {
         repaint();
     }
 
+    /**
+     * builds the scrollable Display
+     */
     private JPanel buildScrollableOrderDisplay(Order[] orders) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -63,6 +71,9 @@ public class SHDisplayArea extends JPanel {
         return panel;
     }
 
+    /**
+     * sets the size
+     */
     @Override
     public void setPreferredSize(Dimension preferredSize) {
         this.preferredSize = preferredSize;
@@ -70,6 +81,12 @@ public class SHDisplayArea extends JPanel {
         revalidate();
     }
 
+    /**
+     * builds the Panel that contrians all the Orders
+     * @param orders
+     * @param dimension
+     * @return
+     */
     private JPanel buildOrderCollectionPanel(Order[] orders, Dimension dimension) {
         JPanel panel = new JPanel();
         int width = (int) dimension.getWidth();

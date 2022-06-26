@@ -26,6 +26,12 @@ public class ShopEntryContent extends JPanel {
     private JLabel priceLabel;
     private JPanel buffer;
 
+    /**
+     * Constructor
+     * @param uiController the UIController
+     * @param product the product
+     * @param isGalary weather or not this Entry is for the galary or for the "detailed" (theoratically) Product Page
+     */
     public ShopEntryContent(UIController uiController, Product product, boolean isGalary) {
         this.product = product;
         this.uiController = uiController;
@@ -45,6 +51,10 @@ public class ShopEntryContent extends JPanel {
 
     }
 
+    /**
+     * builds the Information page with the button, which you get, when you press on the product in the overview
+     * @return
+     */
     private Component buildCarPage() {
         JPanel informationPanel = new JPanel();
         informationPanel.setLayout(new BorderLayout());
@@ -59,6 +69,10 @@ public class ShopEntryContent extends JPanel {
         return informationPanel;
     }
 
+    /**
+     * builds the product Entry for when the Product is displayed inside the Shop page 
+     * @return
+     */
     public JPanel buildShopGalleryEntry() {
         JPanel informationPanel = new JPanel();
         informationPanel.setLayout(new BorderLayout());
@@ -69,6 +83,11 @@ public class ShopEntryContent extends JPanel {
         return informationPanel;
     }
 
+    /**
+     * Builds the Image for this Product
+     * @param dimension
+     * @return
+     */
     private JPanel buildImageArea(Dimension dimension) {
         JPanel imagePanelSection = new JPanel();
         imagePanelSection.setMinimumSize(dimension);
@@ -84,6 +103,11 @@ public class ShopEntryContent extends JPanel {
         return imagePanelSection;
     }
 
+    /**
+     * Builds the title
+     * @param size
+     * @return
+     */
     public JPanel buildTitle(int size) {
         JPanel header = new JPanel();
         header.setLayout(new BorderLayout());
@@ -94,6 +118,11 @@ public class ShopEntryContent extends JPanel {
         return header;
     }
 
+    /**
+     * Builds the middle part, that has the information text and so on
+     * @param b
+     * @return
+     */
     public JPanel buildInformationText(boolean b) {
         JPanel textPanel = new JPanel();
         String textString = b ? product.getShortInformationText() : product.getShortInformationText();
@@ -111,6 +140,11 @@ public class ShopEntryContent extends JPanel {
         return back;
     }
 
+    /**
+     * builds the right side of the shopping page which displays the price and the add to cart button
+     * @param withButton
+     * @return
+     */
     public JPanel buildPriceArea(boolean withButton) {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(200, 100));

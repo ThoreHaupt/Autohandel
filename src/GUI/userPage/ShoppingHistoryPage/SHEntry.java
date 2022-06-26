@@ -1,23 +1,22 @@
 package GUI.userPage.ShoppingHistoryPage;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 import Controller.Controller;
 import GUI.UIController;
 import GUI.shopPage.ProductPage;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Order;
-import lib.uiComponents.ImageButton;
 import lib.uiComponents.rigitFreeSpace;
 
 import java.awt.*;
 
+/**
+ * one entry on the Shopping history page
+ */
 public class SHEntry extends JButton {
 
     UIController uiController;
@@ -28,6 +27,7 @@ public class SHEntry extends JButton {
     ProductPage productPage;
 
     /**
+     * creates a new Entry based on an order
      * @param uiController
      * @param order
      */
@@ -63,12 +63,19 @@ public class SHEntry extends JButton {
         }
     }
 
+    /**
+     * builds the Shopping histroy Entry based on the east and west Components
+     */
     public void buildSHEntry() {
         this.setLayout(new BorderLayout());
         this.add(buildPictureTitleSpace(), BorderLayout.WEST);
         this.add(buildPriceAmountSpace(), BorderLayout.EAST);
     }
 
+    /**
+     * builds the area with the title and the picture and the image of the Prorduct
+     * @return
+     */
     public JPanel buildPictureTitleSpace() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -108,6 +115,10 @@ public class SHEntry extends JButton {
         return panel;
     }
 
+    /**
+     * builds the Area that has the Price and the Amount displayed
+     * @return
+     */
     public JPanel buildPriceAmountSpace() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());

@@ -14,6 +14,13 @@ public class ImageTools {
 
     public final static String defaultNoImagePath = "resources/GUI_images/no_ImageImage.png";
 
+    /**
+     * returns an image Icon with the specified Dimension. However I dont know why, when I used the same input reference to the Image, it changed 
+     * size once a new Image with a different size was created. --> in Product I have a list with 3 images
+     * @param imageIcon
+     * @param n
+     * @return
+     */
     public static ImageIcon resizeImageIcon(ImageIcon imageIcon, Dimension n) {
         Image rawImage = imageIcon.getImage();
         Image scaledImage = rawImage.getScaledInstance(
@@ -24,7 +31,7 @@ public class ImageTools {
     }
 
     /**
-     * gets the ImageIcon for any String, independent of weather it is a download or the file is local.
+     * gets the ImageIcon for any String, independent of wether it is a download or the file is local.
      * @param path the path of the Image
      * @return the Image Icon with the image of the specified path
      */

@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.awt.*;
 
-import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
@@ -16,6 +15,9 @@ import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.uiComponents.MLButton;
 import lib.uiComponents.MLLabel;
 
+/**
+ * This is the Element for the Filter Page that builds and holds and sets the Type Filters
+ */
 public class TypeSelectorList extends JPanel {
     UIController uiController;
     Filter filter;
@@ -30,6 +32,9 @@ public class TypeSelectorList extends JPanel {
     boolean select = false;
     private boolean centralActionFire = false;
 
+    /**
+     *  Buidls a new Type Selector
+    */
     public TypeSelectorList(UIController uiController, Filter filter, String type) {
         this.uiController = uiController;
         this.filter = filter;
@@ -44,6 +49,11 @@ public class TypeSelectorList extends JPanel {
         add(brandPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * buidls the title for the Type Selector.
+     * @param titleString
+     * @return
+     */
     private JPanel buildTypeTitle(String titleString) {
         JPanel panel = new JPanel();
         MLLabel title = new MLLabel(uiController, titleString);
@@ -62,6 +72,11 @@ public class TypeSelectorList extends JPanel {
         return panel;
     }
 
+    /**
+     * builds the actual check Boxes which each represent a type
+     * @param types
+     * @return
+     */
     private JPanel buildTypeSelectionPanel(THashMap<String, TypeMutation> types) {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(types.size() / 2, 2));
@@ -97,6 +112,10 @@ public class TypeSelectorList extends JPanel {
         return panel;
     }
 
+    /**
+     * sets all checkBoxes of this Selection 
+     * @param state
+     */
     private void setAll(boolean state) {
         for (JCheckBox box : boxes) {
             box.setSelected(state);
