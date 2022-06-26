@@ -7,12 +7,12 @@ Github Repo Link: https://github.com/ThoreHaupt/Autohandel.git
 # Bekannte nicht erfüllte Voraussetzungen:
 - Man kann nicht alle Auswahlbereiche gleichzeitig sehen
 
-Noch wichtig:
+# Andere:
 
 Dieses Programm hat eine eigene Datenbank mit ca 200 oder mehr eigenen Autos...
-Diese haben alle Bilder, die aber aus dem Netz heruntergeladen werden müssen.
-Ich habe kein system das dynamisch zu machen, wenn die Einträge angezeigt werden. Hätte ich mir mehr Zeit aber egal.
-Die Konsequenz ist, dass das starten des Programms ca 20-30 Sekungen dauert(je nach Internet). Deswegen kann man das Abschalten, indem man
+Die meisten haben Bilder, die aber aus dem Netz heruntergeladen werden müssen. (wegen Dateigröße)
+Ich habe kein system das dynamisch zu machen, wenn die Einträge angezeigt werden. (Hätte ich mehr Zeit aber egal.)
+Die Konsequenz ist, dass das starten des Programms ca 20-30 Sekungen dauert (je nach Internet). Deswegen kann man das Abschalten, indem man
 im Controller die Variable "downloadImages" auf false setzt.
 
 # Anmerkungen:
@@ -28,7 +28,8 @@ Hier der Link zu dem Open Source LaF: https://www.formdev.com/flatlaf/
 Dieses LaF läuft unter einer Apache 2.0 License. Link: https://github.com/JFormDesigner/FlatLaf/blob/master/LICENSE
 
 Ich hatte mit Phillip gesprochen, der meinte das es ok sei externe ressources benutzen, soweit dies nicht die Compilierbarekeit des Codes nach
-dem Import zerstören
+dem Import zerstören.
+
 Das sollte nicht der Fall sein, da die Jar dem Class Path hinzugefügt ist.
 Jedoch kann man das sonst auch entfernen, indem man sowhol in der Klasse LoadingProgressbar und im UIController die import und setUp() statementes auskommentiert.
 

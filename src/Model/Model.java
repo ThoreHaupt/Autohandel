@@ -7,7 +7,6 @@ import java.util.HashMap;
 import javax.swing.event.EventListenerList;
 
 import Controller.Controller;
-import GUI.shopPage.ProductPage;
 import Model.ModelComponentes.Component;
 import Model.ModelComponentes.Product;
 import Model.UserComponentes.Cart;
@@ -349,6 +348,10 @@ public class Model {
         userAuthKeys.put(username, key);
     }
 
+    /**
+     * generates an Array of Strings describing the values of all orders in cart. For the Export File
+     * @return
+     */
     public String[] getCurrentClassStringArr() {
         Cart cart = currentUser.getCart();
         Order[] orders = cart.getOrders();
@@ -396,6 +399,9 @@ public class Model {
         }
     }
 
+    /**
+     * loads the infos.csv file into the database
+     */
     public void loadGivenDatabase() {
         String[] dataArray = FileLoader.getallLinesFromFile(new File("Data/commons/infos.csv"));
         String[] splitededDataHeaders = { Product.TITLE, Product.PRICE, Product.DESCRIBTION };
@@ -411,6 +417,9 @@ public class Model {
         }
     }
 
+    /**
+     * loads the Database of 200 Electric vehicles mostly
+     */
     public void loadProductsOfCustomData(File f) {
         LoadingProgressbarFrame progressbar = new LoadingProgressbarFrame();
         String[] dataArray = FileLoader.getallLinesFromFile(f);
@@ -436,6 +445,11 @@ public class Model {
         progressbar.close();
     }
 
+    /**
+     * returns wether or not the user can affort the price
+     * @param price
+     * @return
+     */
     public boolean canAffort(double price) {
         double budget = controller.getCurrentBudget();
         double usedBudget = controller.getCurrentCartValue() + price;
@@ -449,6 +463,10 @@ public class Model {
         return false;
     }
 
+    /**
+     * gets a deepcompy the default map of the map that has settings for the differnet types of cars
+     * @return
+     */
     public THashMap<String, THashMap<String, TypeMutation>> getDefaultTypeSettingsClone() {
         THashMap<String, THashMap<String, TypeMutation>> deepClone = new THashMap<>();
 

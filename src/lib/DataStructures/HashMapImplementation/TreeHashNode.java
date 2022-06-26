@@ -1,5 +1,8 @@
 package lib.DataStructures.HashMapImplementation;
 
+/**
+ * A Node for the Tree form of the HashMap
+ */
 public class TreeHashNode<K, V> extends HashNode<K, V> {
 
     TreeHashNode<K, V> parent;
@@ -11,6 +14,9 @@ public class TreeHashNode<K, V> extends HashNode<K, V> {
         super(bucket, hash, key, value);
     }
 
+    /**
+     * recursively searches the binary tree for the Hash / value then returns it
+     */
     public V get(int hash, K key) throws KeyNotFoundException {
         if (hash == this.hash) {
             if (this.key != key) {
@@ -32,6 +38,11 @@ public class TreeHashNode<K, V> extends HashNode<K, V> {
         return null;
     }
 
+    /**
+     * recursively adds nodes to the correct spot in the Array
+     * @param node
+     * @return
+     */
     public boolean add(TreeHashNode<K, V> node) {
         if (node.hash < this.hash) {
             if (left == null) {
@@ -62,6 +73,11 @@ public class TreeHashNode<K, V> extends HashNode<K, V> {
         super.overrideThisNode(node);
     }
 
+    /**
+     * removes a node from the tree
+     * @param hash
+     * @return
+     */
     public boolean remove(int hash) {
         if (hash < this.hash) {
             return left.remove(hash);
@@ -103,9 +119,4 @@ public class TreeHashNode<K, V> extends HashNode<K, V> {
         return false;
 
     }
-
-    public void delete(TreeHashNode<K, V> parent, boolean left) {
-
-    }
-
 }

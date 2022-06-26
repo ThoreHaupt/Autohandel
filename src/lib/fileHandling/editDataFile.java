@@ -15,7 +15,7 @@ public class editDataFile {
     public static void changeData() {
         File f = new File("Data/commons/ElectricCarSpreadSheet.csv");
         String[] dataArray = FileLoader.getallLinesFromFile(f);
-        String[] splitededDataHeaders = dataArray[0].split(";");
+        //String[] splitededDataHeaders = dataArray[0].split(";");
         String[] newArr = dataArray.clone();
 
         for (int i = 5; i < dataArray.length; i++) {

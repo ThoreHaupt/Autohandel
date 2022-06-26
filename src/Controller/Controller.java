@@ -159,6 +159,9 @@ public class Controller {
         System.out.println("new Order: " + amount + " x " + product.getDescribtionTitle());
     }
 
+    /**
+     * When the UserProfileButton gets pressed, this directs the Call to the correct page based on wether or not the current user is guest
+     */
     public void UserProfileButtonRequest() {
         if (isCurrentUserGuest()) {
             uiController.setWindowContent(UIController.LOGIN_PAGE);
@@ -199,6 +202,9 @@ public class Controller {
         uiController.setWindowContent(UIController.MAINSTORE_PAGE);
     }
 
+    /**
+     * this method handels the shutdown process
+     */
     public void intiShutDownSequence() {
 
         if (model.getCurrentUser().getCart().size() > 0) {
@@ -279,6 +285,10 @@ public class Controller {
         uiController.setWindowContent(UIController.THANK_YOU_4_PUCHASE);
     }
 
+    /**
+     * this handels the Export of the cart to the given File f
+     * @param f
+     */
     public void exportCurrentCart(File f) {
         String[] array = model.getCurrentClassStringArr();
         FileSaver.saveFile(f, array);

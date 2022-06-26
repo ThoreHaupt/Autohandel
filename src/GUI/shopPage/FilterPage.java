@@ -4,7 +4,6 @@ import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.*;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Controller.Controller;

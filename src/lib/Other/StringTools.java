@@ -1,11 +1,11 @@
 package lib.Other;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+/**
+ * A collection of different Methods to work with Strings
+ */
 public class StringTools {
     public static boolean isNumber(String s) {
         for (char c : s.toCharArray()) {
@@ -15,6 +15,11 @@ public class StringTools {
         return true;
     }
 
+    /**
+     * generates a random String of Characters in a certain ASCii range
+     * @param length
+     * @return
+     */
     public static String getRandomString(int length) {
         ArrayList<Character> l = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
@@ -29,6 +34,11 @@ public class StringTools {
         return newString;
     }
 
+    /**
+     * returns true if the Array only has empty Strings
+     * @param arr
+     * @return
+     */
     public static boolean checkEmptyArray(String[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (!arr[i].equals("")) {

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Bucket for my HashMap. It can switch between a Linked List and a binary tree to store data
+ */
 public class Bucket<K, V> implements Iterable<HashNode<K, V>>, Serializable {
     THashMap<K, V> map;
     LinkedHashNode<K, V> head = null;

@@ -2,6 +2,9 @@ package lib.DataStructures.HashMapImplementation;
 
 import java.io.Serializable;
 
+/**
+ * parent class for 
+ */
 public class HashNode<K, V> implements Serializable {
     int hash;
     Bucket<K, V> bucket;

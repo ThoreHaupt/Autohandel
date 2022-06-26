@@ -3,6 +3,11 @@ package lib.DataStructures.HashMapImplementation;
 import java.io.Serializable;
 import java.util.Iterator;
 
+/**
+ * I didnt know how to iterate well over a HashMap and I wanted to implement my own anyway, so here it is:
+ * It does archtiectually reaseemble the actual THashMap from the official java Library, but is much slower obviously.
+ * The difference is not as bad as one might think tho.
+ */
 public class THashMap<K, V> implements Iterable<V>, Serializable {
 
     private Bucket<K, V>[] buckets;
@@ -11,14 +16,26 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
     private int size = 0;
     private int starterArraySize;
 
+    /**
+     * Constructs an empty HashMap with the initial BucketArray of the length 2^4 and a load factor of 0.75
+     */
     public THashMap() {
         this((int) Math.pow(2, 4), 0.75f);
     }
 
+    /**
+     * Constructs an empty HashMap with the initial BucketArray of the length 2^4 and a coustum loadFactor
+     * @param loadFactor
+     */
     public THashMap(float loadFactor) {
         this((int) Math.pow(2, 4), loadFactor);
     }
 
+    /**
+     * Constructs an empty HashMap with an custom initial BucketArray.length and a coustum loadFactor
+     * @param starterArraySize
+     * @param loadFactor
+     */
     @SuppressWarnings("unchecked")
     public THashMap(int starterArraySize, float loadFactor) {
         this.buckets = new Bucket[starterArraySize];
@@ -28,6 +45,11 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
 
     }
 
+    /**
+     * puts an Object into the HashMap
+     * @param key
+     * @param value
+     */
     public void put(K key, V value) {
         if (key == null)
             new RuntimeException("can't put a null as key for entry");
@@ -45,6 +67,11 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return addNodeToBucket(bucketArray, bucket, hash, key, value);
     }
 
+    /**
+     * gets an Object from the HashMap
+     * @param key
+     * @return
+     */
     public V get(K key) {
         int hash = calculateHash(key);
         int bucketIndex = calculateBucketIndex(hash, buckets.length);
@@ -57,6 +84,10 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return value;
     }
 
+    /**
+     * removes an Object from the HashMap
+     * @param key
+     */
     public void remove(K key) {
         int hash = calculateHash(key);
         int bucketIndex = calculateBucketIndex(hash, buckets.length);
@@ -81,6 +112,11 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return bucketArray[bucketIndex].add(hash, key, value);
     }
 
+    /**
+     * Checks weather the size of the bucketArray is still big enough for the amount of Items.
+     * if that is not the case this will return false and trigger a rehash
+     * this is determined by the loadFactor
+     */
     private boolean checkForRehash() {
         double freshhold = (double) size / (double) buckets.length;
         if (freshhold > loadFactor) {
@@ -89,6 +125,10 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return false;
     }
 
+    /**
+     * creates a bigger Array and then sorts every KeyValuePair into the new BucketArray
+     * @param exponentChange
+     */
     @SuppressWarnings("unchecked")
     private void rehash(int exponentChange) {
         currentExponentSize += exponentChange;
@@ -116,8 +156,8 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
 
         // return System.identityHashCode(key);
         if (key instanceof String) {
-            int i = 0;
-            // es ist absolut disgusting, dass ees einfach unsichtbare Buchstaben gibt, die einem nicht angezeigt werden.
+            // int i = 0;
+            // es ist absolut disgusting, dass ees einfach unsichtbare Buchstaben gibt, die einem nicht angezeigt werden. Danke StackOverflow für eine Lösung
             String k_string = ((String) key).replaceAll("\\p{C}", "");
             /* String asciiEncodedString = new String(k_string.getBytes(), StandardCharsets.US_ASCII);
             for (char c : asciiEncodedString.toCharArray()) {
@@ -269,10 +309,17 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         return iterator;
     }
 
+    /**
+     * returns the amount of Objects in the HashMap
+     * @return
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Tests if the HashMap is functioning and if all Elements are in the correct Buckets
+     */
     public void testIntegrity() {
         int c = 0;
         for (int i = 0; i < buckets.length; i++) {
@@ -294,10 +341,18 @@ public class THashMap<K, V> implements Iterable<V>, Serializable {
         System.out.println("gemessene Anzahl der Elemente in dieser HashMap: " + c);
     }
 
+    /**
+     * returns true if the Key is in this HashMap
+     * @param key
+     * @return
+     */
     public boolean containsKey(K key) {
         return (get(key) == null) ? false : true;
     }
 
+    /**
+     * removes all Elements from the HashMap
+     */
     @SuppressWarnings("unchecked")
     public void empty() {
         this.buckets = new Bucket[starterArraySize];
