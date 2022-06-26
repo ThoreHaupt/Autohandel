@@ -15,6 +15,8 @@ Ich habe kein system das dynamisch zu machen, wenn die Einträge angezeigt werde
 Die Konsequenz ist, dass das starten des Programms ca 20-30 Sekungen dauert (je nach Internet). Deswegen kann man das Abschalten, indem man
 im Controller die Variable "downloadImages" auf false setzt.
 
+Im Filterbreich muss man darauf achten, wie der Fukus auf einigen Elementen ist, da diese erst updaten, sobald der Fukus von ihnen weg ist(hier namentlich das Feld zur Auswahl des Maximalen Budgets)
+
 # Anmerkungen:
 
 Ich habe ein wenig Code aus dem Internet stibitzt: 
@@ -32,6 +34,8 @@ dem Import zerstören.
 
 Das sollte nicht der Fall sein, da die Jar dem Class Path hinzugefügt ist.
 Jedoch kann man das sonst auch entfernen, indem man sowhol in der Klasse LoadingProgressbar und im UIController die import und setUp() statementes auskommentiert.
+
+
 
 Kontakt:
 thore.haupt@student.kit.edu

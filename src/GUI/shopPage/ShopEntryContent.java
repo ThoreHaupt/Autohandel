@@ -217,6 +217,14 @@ public class ShopEntryContent extends JPanel {
                 }
             });
 
+            controller.getModel().addFilterChangeListener(e -> {
+                if (!controller.getModel().canAffort(product.getPrice() * (int) spinner.getValue())) {
+                    addToCart.setEnabled(false);
+                } else {
+                    addToCart.setEnabled(true);
+                }
+            });
+
             addToCart.setBackground(uiController.getDefaultAccentColor());
             addToCart.setForeground(new Color(255, 255, 255));
             addToCart.setPreferredSize(new Dimension(40, 30));

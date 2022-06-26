@@ -24,6 +24,7 @@ public class TypeSelectorList extends JPanel {
     String type;
     ArrayList<JCheckBox> boxes = new ArrayList<>();
 
+    THashMap<String, TypeMutation> types;
     MLButton changeSelectAll;
 
     int selectedNum = 0;
@@ -45,7 +46,8 @@ public class TypeSelectorList extends JPanel {
         JPanel titlePanel = buildTypeTitle(filter.getTitleByType(type));
         add(titlePanel, BorderLayout.NORTH);
         // BrandPanel:
-        JPanel brandPanel = buildTypeSelectionPanel(filter.getTypeMutations(type));
+        types = filter.getTypeMutations(type);
+        JPanel brandPanel = buildTypeSelectionPanel(types);
         add(brandPanel, BorderLayout.CENTER);
     }
 
@@ -122,6 +124,8 @@ public class TypeSelectorList extends JPanel {
         }
         select = !state;
         changeSelectAll.setText(select ? "select all" : "deselect all");
-        //selectedNum = state ? buttonNum : 0;
+        for (TypeMutation typeMutation : types) {
+            typeMutation.setCurrentStatus(state);
+        }
     }
 }

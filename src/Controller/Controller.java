@@ -97,7 +97,7 @@ public class Controller {
     public void setStartUpFile() {
         startProperties.setLanguage(lc.getCurrentLanguage());
         startProperties.setLightTheme(uiController.isLightTheme());
-        FileSaver.safeSerializableObject(startupPropertyPath, startProperties, true);
+        FileSaver.safeSerializableObject(startupPropertyPath, startProperties, false);
     }
 
     /**
@@ -239,6 +239,8 @@ public class Controller {
         setStartUpFile();
 
         uiController.closeWindow();
+        // der AWT Event Handler fängt sich immer in einer loop und idk warum. Deswegen sysexit
+        System.exit(0);
     }
 
     /**
