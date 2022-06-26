@@ -148,16 +148,20 @@ public class Model {
             e.printStackTrace();
             return;
         }
-        user.initAfterSerialization(this);
         setUser(user);
     }
 
+    /**
+     * Sets all the needed parameters and fires the events that need to be called when a new User logs in
+     * @param user
+     */
     private void setUser(User user) {
         boolean oldWasGuest = currentUser.isGuest();
         currentUser = user;
+        user.initAfterSerialization(this);
         if (currentUser.getLoadGuestCart())
             loadGuestCartIntoCurrentUser();
-        fireNewUserLoginEvent(new NewUserLoginEvent(this, user, oldWasGuest));
+        fireNewUserLoginEvent(new NewUserLoginEvent(currentUser, user, oldWasGuest));
     }
 
     /**
@@ -207,7 +211,6 @@ public class Model {
         }
         User newUser = new User(this, dataMap.get(User.USERNAME), dataMap.get(User.PASSWORD1));
         setUser(newUser);
-
         return null;
     }
 

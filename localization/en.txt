@@ -69,4 +69,5 @@
     "select all":"select all",
     "deselect all":"deselect all",
     "If you are loged in as a guest(you are), you might want to export your cart before quitting. Otherwise its contents may be lost. Do you want to continue?":"If you are loged in as a guest(you are), you might want to export your cart before quitting. Otherwise its contents may be lost. Do you want to continue?",
+    "If you are loged in as a guestyou aren't), you might want to export your cart before quitting. Otherwise its contents may be lost. Do you want to continue?":"If you are loged in as a guestyou aren't), you might want to export your cart before quitting. Otherwise its contents may be lost. Do you want to continue?",
 }

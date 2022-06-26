@@ -1,9 +1,10 @@
 package lib.DataStructures.HashMapImplementation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
+public class Bucket<K, V> implements Iterable<HashNode<K, V>>, Serializable {
     THashMap<K, V> map;
     LinkedHashNode<K, V> head = null;
     TreeHashNode<K, V> root = null;

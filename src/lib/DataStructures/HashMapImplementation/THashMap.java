@@ -1,7 +1,6 @@
 package lib.DataStructures.HashMapImplementation;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 public class THashMap<K, V> implements Iterable<V>, Serializable {

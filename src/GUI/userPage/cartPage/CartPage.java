@@ -3,7 +3,6 @@ package GUI.userPage.cartPage;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.plaf.DimensionUIResource;
 
 import javax.swing.filechooser.FileSystemView;
 import Controller.Controller;
@@ -27,6 +26,11 @@ public class CartPage extends JPanel {
 
     Dimension priceAreaSize = new Dimension();
     int heightDelta;
+
+    JPanel titlePanel;
+    JPanel cartOrderDisplayPanel;
+    JPanel pricePayArea;
+    JPanel adSpace;
 
     public CartPage(UIController uiController, int heightDelta) {
         this.uiController = uiController;
@@ -57,6 +61,7 @@ public class CartPage extends JPanel {
     }
 
     public void buildCartPage() {
+        cart = controller.getUser().getCart();
         setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -65,29 +70,29 @@ public class CartPage extends JPanel {
         c.gridwidth = 2;
         c.weighty = 0.1;
         c.anchor = GridBagConstraints.CENTER;
-
-        JPanel titlePanel = buildTitleArea();
-
+        if (titlePanel == null)
+            titlePanel = buildTitleArea();
         add(titlePanel, c);
 
         c.gridy++;
         c.weightx = displayHorizontalPercentage;
         c.weighty = displayVerticalPercentage;
         c.gridwidth = 1;
-        JPanel CartOrdrDisplayPanel = new CartDisplayArea(uiController, cart, calculateDisplayDimension());
-        add(CartOrdrDisplayPanel, c);
+        cartOrderDisplayPanel = new CartDisplayArea(uiController, cart, calculateDisplayDimension());
+        add(cartOrderDisplayPanel, c);
 
         c.gridx++;
         c.weightx = 0.3;
         c.anchor = GridBagConstraints.PAGE_START;
-        JPanel pricePayArea = buildPricePaySaveArea();
+        if (pricePayArea == null)
+            pricePayArea = buildPricePaySaveArea();
         add(pricePayArea, c);
 
         // Add page with utilities to add to Cart
         // taks 0.3 in vertical space
         c.anchor = GridBagConstraints.CENTER;
-        JPanel adSpace = new JPanel();
-        adSpace.setBackground(new Color(0, 0, 255));
+        adSpace = new JPanel();
+        //adSpace.setBackground(new Color(0, 0, 255));
         c.gridy++;
         c.gridx = 0;
         c.weightx = 1.0;
@@ -230,6 +235,8 @@ public class CartPage extends JPanel {
         panel.add(emptyCart, c);
 
         uiController.getController().addChangeToCartListener(e -> {
+            /* Cart cart = (Cart) e.getSource(); */
+            System.out.println("Orders: " + cart.getOrders().length);
             if (cart.getOrders().length > 0) {
                 order.setEnabled(true);
                 exportCart.setEnabled(true);
@@ -246,6 +253,10 @@ public class CartPage extends JPanel {
         return panel;
     }
 
+    /**
+     * Opens a JFileChooser and then returns the selected File.
+     * @return
+     */
     public File getExportFile() {
         JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 

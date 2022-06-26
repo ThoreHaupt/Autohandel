@@ -1,6 +1,8 @@
 package lib.DataStructures.HashMapImplementation;
 
-public class KeyValuePair<K, V> {
+import java.io.Serializable;
+
+public class KeyValuePair<K, V> implements Serializable {
     private K key;
     private V value;
 

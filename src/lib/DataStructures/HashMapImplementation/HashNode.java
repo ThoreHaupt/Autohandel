@@ -1,6 +1,8 @@
 package lib.DataStructures.HashMapImplementation;
 
-public class HashNode<K, V> {
+import java.io.Serializable;
+
+public class HashNode<K, V> implements Serializable {
     int hash;
     Bucket<K, V> bucket;
     K key;

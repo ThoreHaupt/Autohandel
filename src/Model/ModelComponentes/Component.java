@@ -1,10 +1,14 @@
 package Model.ModelComponentes;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import lib.Other.StringTools;
 
-public class Component implements Comparable<Component> {
+/**
+ * All Product information is stored inside the Components, to provide meta data for each bit of information.
+ */
+public class Component implements Comparable<Component>, Serializable {
     private String type;
     private String value;
     private boolean isNumeric;
@@ -21,6 +25,9 @@ public class Component implements Comparable<Component> {
             this.num_value = StringTools.getNumbersFromString(value);
     }
 
+    /**
+     * Compares this bit of information to another component
+     */
     @Override
     public int compareTo(Component o) {
         if (!this.type.equals(o.getType()))

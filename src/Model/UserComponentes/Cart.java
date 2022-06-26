@@ -3,13 +3,10 @@ package Model.UserComponentes;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.swing.event.EventListenerList;
-
 import Model.Model;
 import Model.ModelComponentes.Product;
 import lib.DataStructures.HashMapImplementation.THashMap;
 import lib.Event.ChangeToCartEvent;
-import lib.Event.ChangeToCartListener;
 import lib.Other.SupportingCalculations;
 
 public class Cart implements Serializable {
@@ -100,6 +97,18 @@ public class Cart implements Serializable {
 
     public int size() {
         return contents.size();
+    }
+
+    public void initAfterSerialization(Model m) {
+        this.model = m;
+        this.user = model.getCurrentUser();
+        for (Order order : contents) {
+            order.setCart(this);
+        }
+    }
+
+    public Model getModel() {
+        return this.model;
     }
 
 }

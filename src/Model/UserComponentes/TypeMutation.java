@@ -26,6 +26,10 @@ public class TypeMutation implements Serializable {
         return name;
     }
 
+    /**
+     * 
+     * @param selected
+     */
     public void setCurrentStatus(boolean selected) {
         boolean old = this.selected;
         this.selected = selected;

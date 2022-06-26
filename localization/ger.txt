@@ -55,4 +55,5 @@
     "No Entry found. Either there aren't any entries in Database, or your filters and search parameters did not mathc to any suitable entry.":"No Entry found. Either there aren't any entries in Database, or your filters and search parameters did not mathc to any suitable entry.",
     "Type: ":"Typ: ",
     "Brand: ":"Hersteller: ",
+    "deselect All":"deselect All",
 }

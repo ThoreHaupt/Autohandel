@@ -24,6 +24,10 @@ public class Order implements Serializable {
         this.ID = (int) (Math.random() * 899999 + 100000);
     }
 
+    /**
+     * calculates and returns the order value
+     * @return
+     */
     public double getOrderValue() {
         return product.getPrice() * amount;
     }
@@ -40,6 +44,11 @@ public class Order implements Serializable {
         return amount;
     }
 
+    /**
+     * Then the order amount changes, the cart needs to be told that it now has a different value and so on
+     * @param entry
+     * @param newAmount
+     */
     public void orderAmountChanged(CartEntry entry, int newAmount) {
         amount = newAmount;
         cart.notifyChange();
@@ -74,4 +83,7 @@ public class Order implements Serializable {
         return comperator;
     }
 
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }

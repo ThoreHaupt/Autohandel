@@ -181,11 +181,12 @@ public class User implements Serializable {
     }
 
     public void initAfterSerialization(Model m) {
+        System.out.println("did init after Serialization");
         this.model = m;
+        filter.setDefaultTypeSettings(m.getDefaultTypeSettingsClone());
         filter.setModel(m);
         filter.setUser(this);
-        filter.setDefaultTypeSettings(m.getDefaultTypeSettingsClone());
-        cart.setUser(this);
+        cart.initAfterSerialization(m);
     }
 
     public void purchaseCart() {
