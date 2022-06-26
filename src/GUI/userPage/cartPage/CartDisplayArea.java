@@ -2,7 +2,6 @@ package GUI.userPage.cartPage;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import Controller.Controller;
@@ -12,8 +11,10 @@ import Model.UserComponentes.Order;
 import lib.uiComponents.MLLabel;
 import lib.uiComponents.MLsortSelector;
 import lib.uiComponents.rigitFreeSpace;
+import lib.uiComponents.technicalUIComponents.OrderSetting;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class CartDisplayArea extends JPanel {
 
@@ -23,6 +24,10 @@ public class CartDisplayArea extends JPanel {
     JScrollPane scrollPane;
     MLsortSelector sortSelector;
     JPanel backPanel;
+    Order[] orders;
+
+    OrderSetting orderSetting;
+    private boolean isNotUpdate = true;
 
     /**
      * @param uiController
@@ -32,24 +37,41 @@ public class CartDisplayArea extends JPanel {
         this.uiController = uiController;
         this.preferredSize = preferredSize;
         this.controller = uiController.getController();
-        // setPreferredSize(preferredSize);
-        // @temp:
-        // setBackground(new Color(255, 0, 0));
-        updateCart(cart.getOrders());
+
+        sortSelector = new MLsortSelector(uiController);
+        sortSelector.addActionListener(e -> {
+            orderSetting = sortSelector.getCurrentOrderSetting();
+            System.out.println(orderSetting.toString());
+            updateCart(orders);
+        });
+        isNotUpdate = false;
+
+        orderSetting = controller.getDefaultOrderSetting();
+
+        // init first Cart
+        orders = cart.getOrders();
+        updateCart(orders);
+
+        // add Action Listeners
         controller.addChangeToCartListener(e -> updateCart(cart.getOrders()));
         controller.addPurchaseEventListener(e -> updateCart(cart.getOrders()));
         //uiController.getWindow().addWindowSizeChangeListener(e -> updateCart(orders));
     }
 
     private void updateCart(Order[] orders) {
-        backPanel = buildScrollableOrderDisplay(orders);
+        this.orders = orders;
+        Arrays.sort(orders,
+                Order.getComperator(orderSetting.getType(), orderSetting.isUpwards()));
+
+        backPanel = buildScrollableOrderDisplay();
         removeAll();
         add(backPanel);
         revalidate();
         repaint();
+
     }
 
-    private JPanel buildScrollableOrderDisplay(Order[] orders) {
+    private JPanel buildScrollableOrderDisplay() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -95,7 +117,6 @@ public class CartDisplayArea extends JPanel {
                     width, 1)), c);
             c.gridy++;
             c.anchor = GridBagConstraints.WEST;
-            sortSelector = new MLsortSelector(uiController);
 
             panel.add(sortSelector, c);
             c.anchor = GridBagConstraints.CENTER;
@@ -106,7 +127,6 @@ public class CartDisplayArea extends JPanel {
             c.gridy++;
         }
         for (int i = 0; i < orders.length; i++) {
-            System.out.println("adding Shit to the Display ig");
             JButton entry = new CartEntry(uiController, orders[i], width);
             panel.add(new rigitFreeSpace(uiController.getDefaultBackgroundcolor(), new Dimension(
                     width, 1)), c);

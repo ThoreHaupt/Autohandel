@@ -73,11 +73,11 @@ public class TypeSelectorList extends JPanel {
             box.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 13));
             TypeMutation currentType = pair.value();
             box.setSelected(pair.value().isSelected());
-            box.addChangeListener(e -> {
+            box.addActionListener(e -> {
                 if (!centralActionFire)
                     currentType.setCurrentStatus(((JCheckBox) e.getSource()).isSelected());
             });
-            box.addChangeListener(e -> {
+            box.addActionListener(e -> {
                 if (box.isSelected()) {
                     selectedNum++;
                 } else {

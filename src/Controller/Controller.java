@@ -19,6 +19,7 @@ import lib.Event.NewUserLoginListener;
 import lib.Event.PurchaseEventListener;
 import lib.Other.SupportingCalculations;
 import lib.fileHandling.FileSaver;
+import lib.uiComponents.technicalUIComponents.OrderSetting;
 
 public class Controller {
 
@@ -233,6 +234,10 @@ public class Controller {
     public void logOffCurrentUser() {
         model.logOffCurrentUser();
         uiController.setWindowContent(UIController.MAINSTORE_PAGE);
+    }
+
+    public OrderSetting getDefaultOrderSetting() {
+        return new OrderSetting(Product.TITLE, true);
     }
 
 }

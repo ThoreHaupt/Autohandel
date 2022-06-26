@@ -30,10 +30,10 @@ public class SpendingrangeIntervall implements Serializable {
     }
 
     public boolean isInRange(double i) {
-        if (lower == -1) {
+        if (lower == -1 && i <= upper) {
             return true;
         }
-        if (upper == -1) {
+        if (upper == -1 && i >= lower) {
             return true;
         }
         if (lower <= i && i <= upper) {

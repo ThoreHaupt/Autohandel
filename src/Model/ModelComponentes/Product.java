@@ -1,5 +1,6 @@
 package Model.ModelComponentes;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import javax.swing.ImageIcon;
 
@@ -23,7 +24,8 @@ public class Product {
 
     THashMap<String, Component> dataMap;
     ProductDescribtion describtion;
-    ImageIcon image;
+
+    ArrayList<ImageIcon> imageInstances = new ArrayList<>();
 
     ProductPage productPage;
 
@@ -33,7 +35,9 @@ public class Product {
 
     public Product(THashMap<String, Component> dataMap) {
         this.dataMap = dataMap;
-        loadImage();
+        loadImage(0);
+        loadImage(1);
+        loadImage(2);
         if (!dataMap.containsKey(PRICE)) {
             System.out.println("Error, tried to add product without price");
         }
@@ -51,11 +55,15 @@ public class Product {
         }
     }
 
-    public ImageIcon getImage() {
-        return this.image;
+    public ImageIcon getImage(int i) {
+        if (imageInstances.size() < i) {
+            loadImage(i);
+            return imageInstances.get(i);
+        }
+        return imageInstances.get(i);
     }
 
-    public void loadImage() {
+    public void loadImage(int i) {
         String path;
         if (!dataMap.containsKey(IMAGE))
             path = ImageTools.defaultNoImagePath;
@@ -63,7 +71,7 @@ public class Product {
             //path = dataMap.get(IMAGE).getValue();
             path = ImageTools.defaultNoImagePath;
         }
-        this.image = ImageTools.getIconFromAnyLocation(path);
+        imageInstances.add(i, ImageTools.getIconFromAnyLocation(path));
     }
 
     public String getTitleString() {
@@ -84,8 +92,19 @@ public class Product {
         if (titleComponent != null) {
             return titleComponent.getValue();
         } else {
-            return "Product.";
+            generateDescribtion();
+            return getShortInformationText();
         }
+    }
+
+    private void generateDescribtion() {
+        String newDescribtion = "This is the " + getDescribtionTitle() + ", made by " + getBrand() + ". ";
+
+        if (dataMap.get(RANGE) != null) {
+            newDescribtion += "It has an official range of up to: " + dataMap.get(RANGE).getNum_value() + " km.";
+        }
+
+        dataMap.put(DESCRIBTION, new Component(DESCRIBTION, newDescribtion));
     }
 
     public String getPriceString() {
@@ -119,12 +138,21 @@ public class Product {
 
             @Override
             public int compare(Product o1, Product o2) {
+                Component co1 = o1.getDataMap().get(type);
+                Component co2 = o2.getDataMap().get(type);
 
-                return 0;
+                if (co1 == null && co2 == null) {
+                    return 0;
+                }
+                if (co1 == null && co2 != null) {
+                    return -1 * (sortUpwards ? 1 : -1);
+                }
+                if (co1 != null && co2 == null) {
+                    return 1 * (sortUpwards ? 1 : -1);
+                }
+                return co1.compareTo(co2) * (sortUpwards ? 1 : -1);
             }
-
         };
-
         return comperator;
     }
 

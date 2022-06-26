@@ -18,7 +18,7 @@ public class Filter implements Serializable {
         initLookUpTable();
     }
 
-    SpendingrangeIntervall spendingRange = new SpendingrangeIntervall(5000, 60000);
+    SpendingrangeIntervall spendingRange = new SpendingrangeIntervall(0, 60000);
 
     int maximumBudget = -1;
 
@@ -113,11 +113,11 @@ public class Filter implements Serializable {
      */
     public boolean isEgliable(Product product) {
         double price = product.getPrice();
-        if (maximumBudget != -1) {
-            if (filterNonAffortable) {
-                if (price > maximumBudget)
-                    return false;
-            }
+        if (filterNonAffortable && !model.canAffort(price)) {
+            return false;
+        }
+        if (!spendingRange.isInRange(product.getPrice())) {
+            return false;
         }
         String type = product.getType();
         if (type == null) {

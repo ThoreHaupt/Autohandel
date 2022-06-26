@@ -15,6 +15,8 @@ public class ShopPage extends JPanel {
 
     UIController uiController;
     Filter filter;
+    Product[] products;
+    int currentMaxIndex = 0;
 
     PageSideHideMenu sideMenuManager;
     int sideMenuSize = 400;
@@ -28,8 +30,8 @@ public class ShopPage extends JPanel {
     public ShopPage(UIController uiController) {
         this.uiController = uiController;
         this.filter = uiController.getController().getUser().getFilter();
-        createShopPage();
         Model model = uiController.getController().getModel();
+        createShopPage();
         model.addFilterChangeListener(e -> setEntriesWithCurrentFilter());
     }
 
@@ -56,7 +58,6 @@ public class ShopPage extends JPanel {
      * {@code setShopEntries(loadEntriesFromModel(someLoadedFilters))}
      */
     public void setEntriesWithCurrentFilter() {
-
         this.filter = uiController.getController().getUser().getFilter();
         setShopEntries(loadEntriesFromModel(filter));
     }
@@ -68,14 +69,17 @@ public class ShopPage extends JPanel {
     public JPanel loadEntriesFromModel(Filter filter) {
         JPanel panel = new JPanel();
 
-        Product[] products = uiController.getController().getFilteredProducts(filter);
+        products = uiController.getController().getFilteredProducts(filter);
         entries = new ShopGalleryEntry[products.length];
+        currentMaxIndex = 0;
+
         panel.setBorder(BorderFactory.createEmptyBorder());
 
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
+        c.gridy = 0;
         c.weightx = 0.9;
 
         if (entries.length == 0) {
@@ -83,16 +87,16 @@ public class ShopPage extends JPanel {
                     "No Entry found. Either there aren't any entries in Database, or your filters and search parameters did not mathc to any suitable entry."));
             panel.add(l);
             panel.setFont(uiController.getDefaultFont().deriveFont(Font.PLAIN, 20));
+        } else {
+
         }
 
-        for (int i = 0; i < entries.length; i++) {
-            entries[i] = new ShopGalleryEntry(uiController, products[i]);
-            panel.add(entries[i], c);
+        for (; currentMaxIndex < Math.min(entries.length, 20); currentMaxIndex++) {
+            entries[currentMaxIndex] = new ShopGalleryEntry(uiController, products[currentMaxIndex]);
+            panel.add(entries[currentMaxIndex], c);
             c.gridy++;
             // System.out.println(entries[i].getMaximumSize());
         }
-
-        panel.add(Box.createVerticalGlue());
 
         // the scrollpane only works, if it has a set Size. Thus here is some logic,
         // that gets the perfekt size ig
@@ -100,12 +104,13 @@ public class ShopPage extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(panel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(
-                new Dimension(
-                        (int) window.getWidth() - 60,
-                        window.getHeight() - uiController.getTopMenubarHeight()));
+        scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
         //making scrolling faster:
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        scrollPane.addMouseWheelListener(e -> {
+            addMoreEntries(scrollPane, panel, c);
+        });
 
         sideMenuManager.addSideHideExtentionStateChangeListener(e -> {
             scrollPane.setPreferredSize(calculateOptimalShopMainPageSize());
@@ -128,7 +133,7 @@ public class ShopPage extends JPanel {
         MainWindow window = uiController.getWindow();
         return new Dimension(
                 (int) window.getWidth() - ((sideMenuManager.isExtended()) ? sideMenuSize : 0) - 60,
-                window.getHeight() - uiController.getTopMenubarHeight());
+                window.getHeight() - uiController.getTopMenubarHeight() - 60);
 
     }
 
@@ -142,4 +147,25 @@ public class ShopPage extends JPanel {
         return (int) uiController.getWindow().getWidth() - ((sideMenuManager.isExtended()) ? sideMenuSize + 60 : 60);
     }
 
+    public void addMoreEntries(JScrollPane scrollPane, JPanel panel, GridBagConstraints c) {
+        System.out.println();
+        if (currentMaxIndex == products.length - 1)
+            return;
+        double current = scrollPane.getVerticalScrollBar().getValue();
+        int max = scrollPane.getVerticalScrollBar().getMaximum();
+        while (current / max > 0.8) {
+            if (currentMaxIndex == products.length - 1)
+                break;
+            entries[currentMaxIndex] = new ShopGalleryEntry(uiController, products[currentMaxIndex]);
+            panel.add(entries[currentMaxIndex], c);
+            currentMaxIndex++;
+            c.gridy++;
+            panel.revalidate();
+            scrollPane.revalidate();
+            current = scrollPane.getVerticalScrollBar().getValue();
+            max = scrollPane.getVerticalScrollBar().getMaximum();
+        }
+        panel.revalidate();
+        scrollPane.revalidate();
+    }
 }

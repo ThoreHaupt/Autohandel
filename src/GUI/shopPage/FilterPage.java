@@ -127,8 +127,7 @@ public class FilterPage extends JPanel {
         c.gridy = 2;
         c.weightx = 0.9;
         c.gridwidth = 2;
-        RangeSliderPacket rangeSlider = new RangeSliderPacket(
-                uiController);
+        RangeSliderPacket rangeSlider = new RangeSliderPacket(uiController);
         rangeSlider.setIntervall(currentFilter.getSpendingIntervall());
         rangeSlider.addChangeListener(e -> currentFilter.setSpendingRange(rangeSlider.getIntervall()));
         panel.add(rangeSlider, c);

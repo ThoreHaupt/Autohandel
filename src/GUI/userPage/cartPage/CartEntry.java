@@ -80,10 +80,10 @@ public class CartEntry extends JButton {
         // Image  ========================
         int imageWidth = 60;
         int imageHeight = (int) size.getHeight();
-        ImageIcon imageIcon = product.getImage();
+        ImageIcon imageIcon = product.getImage(1);
         //scale image
         Image rawImage = imageIcon.getImage();
-        Image scaledImage = rawImage.getScaledInstance(imageWidth, imageHeight, Image.SCALE_FAST);
+        Image scaledImage = rawImage.getScaledInstance(imageWidth, imageHeight, Image.SCALE_DEFAULT);
         // put image into Icon and then into Label
         imageIcon.setImage(scaledImage);
         JLabel image = new JLabel(imageIcon);

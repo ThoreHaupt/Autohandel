@@ -29,6 +29,9 @@ public class RangeSliderPacket extends JPanel {
     int majorTickSpacing = 5000;
     int labelSpacing = 4; // amount of big values between labels
 
+    int lowerValue = minimalSetting;
+    int upperValue = maximalSetting;
+
     int labelSize;
     MLLabel titleLabel;
     String titleLabelString = "Price Range:";
@@ -100,15 +103,14 @@ public class RangeSliderPacket extends JPanel {
         // add Listner for RangeSlider
 
         rangeSlider.addChangeListener(e -> {
-            lowerLabelSliderValue.setValue(rangeSlider.getValue());
-            upperLabelSliderValue.setValue(rangeSlider.getUpperValue());
+            setValue(rangeSlider.getValue());
+            setUpperValue(rangeSlider.getUpperValue());
         });
 
         // addButtons and their ActionListeners
 
         lowerLabelSliderValue.addActionListener(e -> {
-            rangeSlider.setValue(lowerLabelSliderValue.getValue());
-            rangeSlider.revalidate();
+            setValue(lowerLabelSliderValue.getValue());
         });
 
         //LeftLabel
@@ -121,8 +123,7 @@ public class RangeSliderPacket extends JPanel {
         // right Label
         c.gridx = 2;
         upperLabelSliderValue.addActionListener(e -> {
-            rangeSlider.setUpperValue(upperLabelSliderValue.getValue());
-            rangeSlider.revalidate();
+            setUpperValue(upperLabelSliderValue.getValue());
         });
         panel.add(upperLabelSliderValue, c);
 
@@ -210,12 +211,34 @@ public class RangeSliderPacket extends JPanel {
     }
 
     public SpendingrangeIntervall getIntervall() {
-        return new SpendingrangeIntervall(rangeSlider.getValue(), rangeSlider.getUpperValue());
+        return new SpendingrangeIntervall(lowerValue, upperValue);
     }
 
     public void setIntervall(SpendingrangeIntervall spendingIntervall) {
-        rangeSlider.setValue(spendingIntervall.getLower());
-        rangeSlider.setUpperValue((spendingIntervall.getUpper() == maximalSetting) ? -1 : spendingIntervall.getUpper());
+        setValue(spendingIntervall.getLower());
+        setUpperValue(spendingIntervall.getUpper());
+    }
+
+    public void setValue(int value) {
+        lowerLabelSliderValue.setValue(value);
+        rangeSlider.setValue(value);
+        if (value <= minimalSetting) {
+            this.lowerValue = -1;
+        } else {
+            this.lowerValue = value;
+        }
+        rangeSlider.revalidate();
+    }
+
+    public void setUpperValue(int value) {
+        upperLabelSliderValue.setValue(value);
+        rangeSlider.setUpperValue(value);
+        if (value >= maximalSetting) {
+            this.upperValue = -1;
+        } else {
+            this.upperValue = value;
+        }
+        rangeSlider.revalidate();
     }
 
 }

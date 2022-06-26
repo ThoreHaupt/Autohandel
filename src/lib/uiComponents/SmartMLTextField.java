@@ -151,6 +151,7 @@ public class SmartMLTextField extends JTextField {
         value = newVal;
         setCorrectRange();
         handlePainting();
+
     }
 
     public void setCorrectRange() {

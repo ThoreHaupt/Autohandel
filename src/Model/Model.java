@@ -295,7 +295,7 @@ public class Model {
     }
 
     public String[] getSortingOptions() {
-        return new String[] { "no Order", "price" };
+        return new String[] { Product.TITLE, Product.PRICE };
     }
 
     public void addPurchaseEventListener(PurchaseEventListener l) {

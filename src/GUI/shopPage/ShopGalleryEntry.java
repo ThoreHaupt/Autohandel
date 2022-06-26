@@ -29,6 +29,7 @@ public class ShopGalleryEntry extends JPanel {
         this.add(new rigitFreeSpace(null, new Dimension(1, 1)), BorderLayout.EAST);
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.NORTH);
         this.add(new rigitFreeSpace(null, new Dimension(2, 2)), BorderLayout.SOUTH);
+
         if (product.getProductPage() == null) {
             productPage = new ProductPage(uiController, product);
             product.setPrdoductPage(productPage);

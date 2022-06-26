@@ -83,6 +83,7 @@ public class UIController {
 
         pages.put(THANK_YOU_4_PUCHASE, new ThankYouPage(this));
 
+        // beause shop page needs references
         ((ShopPage) pages.get(MAINSTORE_PAGE)).setEntriesWithCurrentFilter();
     }
 

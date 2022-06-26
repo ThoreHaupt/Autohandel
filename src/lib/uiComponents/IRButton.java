@@ -42,15 +42,15 @@ public class IRButton extends ImageButton {
         setIconByIndex(currentImageIndex);
     }
 
+    /**
+     * Sets the image form the given Array by index
+     * @param i
+     */
     public void setIconByIndex(int i) {
         setImageIcon(images[i]);
     }
 
     public int getSelectedIndex() {
         return currentImageIndex;
-    }
-
-    public int getCurrentIndex() {
-        return 0;
     }
 }

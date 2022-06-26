@@ -6,8 +6,10 @@ import javax.swing.JPanel;
 import Controller.Controller;
 import GUI.UIController;
 import Model.Model;
+import lib.uiComponents.technicalUIComponents.OrderSetting;
 
 import java.awt.*;
+import java.awt.event.*;
 
 public class MLsortSelector extends JPanel {
     UIController uiController;
@@ -64,6 +66,15 @@ public class MLsortSelector extends JPanel {
     }
 
     public int getSelectedSortingDirection() {
-        return irButton.getCurrentIndex();
+        return irButton.getSelectedIndex();
+    }
+
+    public void addActionListener(ActionListener l) {
+        irButton.addActionListener(l);
+        comboBox.addActionListener(l);
+    }
+
+    public OrderSetting getCurrentOrderSetting() {
+        return new OrderSetting(options[comboBox.getSelectedIndex()], irButton.getSelectedIndex() == 0 ? true : false);
     }
 }

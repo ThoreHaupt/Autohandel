@@ -73,11 +73,11 @@ public class ShopEntryContent extends JPanel {
         JPanel imagePanelSection = new JPanel();
         imagePanelSection.setMinimumSize(dimension);
         usedWidth += dimension.getWidth();
-        ImageIcon imageIcon = product.getImage();
+        ImageIcon imageIcon = product.getImage(0);
 
         Image rawImage = imageIcon.getImage();
         Image scaledImage = rawImage.getScaledInstance((int) dimension.getWidth(), (int) dimension.getHeight(),
-                Image.SCALE_FAST);
+                Image.SCALE_DEFAULT);
         imageIcon.setImage(scaledImage);
         JLabel image = new JLabel(imageIcon);
         imagePanelSection.add(image);

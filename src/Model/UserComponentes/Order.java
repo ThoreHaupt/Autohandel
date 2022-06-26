@@ -1,6 +1,7 @@
 package Model.UserComponentes;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import GUI.userPage.cartPage.CartEntry;
 import Model.ModelComponentes.Product;
@@ -53,4 +54,24 @@ public class Order implements Serializable {
         String s = product.getTitleString() + ": " + amount + " x";
         return s;
     }
+
+    /**
+     * Compares two products, by providing the type and the direction of Sorting.
+     * @param type
+     * @return
+     */
+    public static Comparator<Order> getComperator(String type, boolean sortUpwards) {
+        Comparator<Order> comperator = new Comparator<Order>() {
+
+            @Override
+            public int compare(Order o1, Order o2) {
+                Product po1 = o1.getProduct();
+                Product po2 = o2.getProduct();
+
+                return Product.getComperator(type, sortUpwards).compare(po1, po2);
+            }
+        };
+        return comperator;
+    }
+
 }
